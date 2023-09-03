@@ -56,7 +56,8 @@ class User(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
     profile_photo = models.ImageField(upload_to='photo/',max_length=255,null=True,blank=True)
     created     = models.DateTimeField(auto_now_add=True)
-    is_active       = models.BooleanField(default=False, help_text = 'Enable or disable user account')
+    is_active       = models.BooleanField(default=True, help_text = 'Enable or disable user account')
+    deletion_date = models.DateTimeField(null=True, blank=True)
     is_staff = models.BooleanField(
         default=False,
         help_text=("Designates whether the user can log into this admin site."),

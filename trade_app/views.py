@@ -16,6 +16,9 @@ from .models import *
 # from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import *
 import json
+from .email import send_email_to_user
+from datetime import datetime, time,timezone
+from django.views import View
 
 # Create your views here.
 
@@ -82,14 +85,19 @@ class RegisterUser(APIView):
                         return Response({"detail": "Resource not found."},
                                         status=status.HTTP_404_NOT_FOUND)
 
-            user_instance.delete()
-            return Response({"message": "Resource deleted successfully."},
+            print("user_instance",user_instance.email)
+            send_email_to_user(request,user_instance.email)
+            user_instance.is_active = False
+            user_instance.deletion_date = datetime.now()
+            user_instance.save()
+            # user_instance.delete()
+            return Response({"message": "User deleted Successfully."},
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
             return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+    
 
 
 
@@ -106,6 +114,7 @@ class RegisterUser(APIView):
                 if serializer_obj.is_valid():
                     ''' here serializer validate our request data create and store into db'''
                     serializer_obj.save()
+                    send_email_to_user(request,serializer_obj.data['email'])
                     hash_pass = make_password(request.data['password'])
                     user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass)
                    
@@ -120,6 +129,35 @@ class RegisterUser(APIView):
     except Exception as e:
          print(e)
          Response( {"Message":"Internal Server Error"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserReactivate(APIView):
+
+    def post(self,request,*args,**kwargs):
+       
+        # Check if the account was deleted within the last 30 days
+        try:
+            email = request.data['email']
+            user_profile = User.objects.get(email=email)
+            
+            if user_profile.deletion_date:
+                
+                days_since_deletion = (datetime.now(timezone.utc) - user_profile.deletion_date).days
+                
+                if days_since_deletion <= 30:
+                    user_profile.is_active = True
+                    user_profile.deletion_date = None
+                    user_profile.save()
+                    return Response({'message': 'Account reactivated successfully'})
+                else:
+                    return Response({'error': 'Account cannot be reactivated'})
+
+               
+        except Exception as e:
+            return Response({'message': 'Internal Server Error'})
+
+        
+        return Response({'error': 'Account cannot be reactivated'})
 
 
 

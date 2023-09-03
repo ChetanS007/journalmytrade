@@ -6,6 +6,9 @@ urlpatterns = [
 
     path('api/register/',RegisterUser.as_view(),name='register'),
     path('api/register/<int:pk>/',RegisterUser.as_view(),name='register'),
+    path('api/reactivate-account/', UserReactivate.as_view(), name='reactivate-account'),
+
+
     path('api/login/',UserLoginView.as_view(),name='login'),
     path('api/logout/', UserLogoutView.as_view(), name='logout'),
     
@@ -21,5 +24,7 @@ urlpatterns = [
 
     path('api/label/',TradeLabelView.as_view(),name='label'),
     path('api/label/<int:pk>/',TradeLabelView.as_view(),name='label')
+
+
    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
