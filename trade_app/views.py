@@ -16,6 +16,10 @@ from .models import *
 # from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import *
 import json
+from .email import send_email_to_user
+from datetime import datetime, time,timezone
+from django.views import View
+from Trade_Audit_Daily.utils import *
 
 # Create your views here.
 
@@ -82,14 +86,19 @@ class RegisterUser(APIView):
                         return Response({"detail": "Resource not found."},
                                         status=status.HTTP_404_NOT_FOUND)
 
-            user_instance.delete()
-            return Response({"message": "Resource deleted successfully."},
+            print("user_instance",user_instance.email)
+            send_email_to_user(request,user_instance.email)
+            user_instance.is_active = False
+            user_instance.deletion_date = datetime.now()
+            user_instance.save()
+            # user_instance.delete()
+            return Response({"message": "User deleted Successfully."},
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
             return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+    
 
 
 
@@ -106,6 +115,7 @@ class RegisterUser(APIView):
                 if serializer_obj.is_valid():
                     ''' here serializer validate our request data create and store into db'''
                     serializer_obj.save()
+                    send_email_to_user(request,serializer_obj.data['email'])
                     hash_pass = make_password(request.data['password'])
                     user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass)
                    
@@ -120,6 +130,35 @@ class RegisterUser(APIView):
     except Exception as e:
          print(e)
          Response( {"Message":"Internal Server Error"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserReactivate(APIView):
+
+    def post(self,request,*args,**kwargs):
+       
+        # Check if the account was deleted within the last 30 days
+        try:
+            email = request.data['email']
+            user_profile = User.objects.get(email=email)
+            
+            if user_profile.deletion_date:
+                
+                days_since_deletion = (datetime.now(timezone.utc) - user_profile.deletion_date).days
+                
+                if days_since_deletion <= 30:
+                    user_profile.is_active = True
+                    user_profile.deletion_date = None
+                    user_profile.save()
+                    return Response({'message': 'Account reactivated successfully'})
+                else:
+                    return Response({'error': 'Account cannot be reactivated'})
+
+               
+        except Exception as e:
+            return Response({'message': 'Internal Server Error'})
+
+        
+        return Response({'error': 'Account cannot be reactivated'})
 
 
 
@@ -425,7 +464,11 @@ class TradeView(APIView):
 
                 serializer = TradeSerializer(all_trade,many=True)
 
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                global_trade =calculate_global_trade(request,*args,**kwargs)
+                
+                response_trade = [serializer.data,global_trade]
+                
+                return Response(response_trade, status=status.HTTP_200_OK)
         except Exception as e:
 
             return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
@@ -479,6 +522,19 @@ class TradeView(APIView):
             if serializer.is_valid():
                 
                 serializer.save()
+
+                gross_net_percentage_data = {'entry_price':serializer.data['entry_price'],
+                                             'exit_price':serializer.data['exit_price'],
+                                             'brokrage_tax':serializer.data['brokrage_tax'],
+                                             'tradeside':serializer.data['teadeside'],
+                                             'qty':serializer.data['qty']}
+
+                calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
+
+                trade_id = int(serializer.data['id'])
+                AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
+                                                                     net_profit_loss=calculated_trade['net_profit_and_loss'],
+                                                                     return_percentage=calculated_trade['return_percentage'])
 
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
