@@ -137,8 +137,9 @@ class AddTrade(models.Model):
     profit_n_loss = models.IntegerField()
     chart_img = models.ImageField(upload_to='photo',max_length=255,null=True,blank=True)
     trade_notes = models.TextField()
-    net_profit_loss = models.IntegerField()
-    return_percentage = models.IntegerField()
+    gross_profit_loss = models.IntegerField(blank=True, null=True)
+    net_profit_loss = models.IntegerField(blank=True, null=True)
+    return_percentage = models.IntegerField(blank=True, null=True)
     date     = models.DateTimeField()
 
     def __str__(self):

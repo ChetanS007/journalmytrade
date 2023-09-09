@@ -19,6 +19,7 @@ import json
 from .email import send_email_to_user
 from datetime import datetime, time,timezone
 from django.views import View
+from Trade_Audit_Daily.utils import *
 
 # Create your views here.
 
@@ -463,7 +464,11 @@ class TradeView(APIView):
 
                 serializer = TradeSerializer(all_trade,many=True)
 
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                global_trade =calculate_global_trade(request,*args,**kwargs)
+                
+                response_trade = [serializer.data,global_trade]
+                
+                return Response(response_trade, status=status.HTTP_200_OK)
         except Exception as e:
 
             return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
@@ -517,6 +522,19 @@ class TradeView(APIView):
             if serializer.is_valid():
                 
                 serializer.save()
+
+                gross_net_percentage_data = {'entry_price':serializer.data['entry_price'],
+                                             'exit_price':serializer.data['exit_price'],
+                                             'brokrage_tax':serializer.data['brokrage_tax'],
+                                             'tradeside':serializer.data['teadeside'],
+                                             'qty':serializer.data['qty']}
+
+                calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
+
+                trade_id = int(serializer.data['id'])
+                AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
+                                                                     net_profit_loss=calculated_trade['net_profit_and_loss'],
+                                                                     return_percentage=calculated_trade['return_percentage'])
 
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
