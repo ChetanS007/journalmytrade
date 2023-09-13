@@ -5,10 +5,9 @@ from curses.ascii import US
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth import authenticate,logout
+from django.contrib.auth import authenticate,logout,login
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import permissions
-# from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from django.contrib.auth.hashers import make_password
 from .models import *
@@ -20,7 +19,7 @@ from .email import send_email_to_user
 from datetime import datetime, time,timezone
 from django.views import View
 from Trade_Audit_Daily.utils import *
-
+from rest_framework_simplejwt.tokens import RefreshToken
 # Create your views here.
 
 
@@ -188,7 +187,16 @@ class UserLoginView(APIView):
                     
                     else:
                         
-                        return Response( {"Message":"Login Successfully", },status=status.HTTP_200_OK)
+                        login(request, user)
+                        refresh = RefreshToken.for_user(user)
+                        access_token = str(refresh.access_token)
+                        refresh_token = str(refresh)
+
+
+
+
+                        return Response( {"Message":"Login Successfully", 'access_token': access_token,
+                                          'refresh_token': refresh_token,},status=status.HTTP_200_OK)
 
                 return Response( {"Message": serializer.errors } ,status=status.HTTP_400_BAD_REQUEST)
 
@@ -218,6 +226,8 @@ class UserLogoutView(APIView):
 
     
 class AccountsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
     try:
@@ -317,6 +327,9 @@ class AccountsView(APIView):
 
 
 class TransactionView(APIView):
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     try:
         def get_object(self, pk):
@@ -436,6 +449,8 @@ class TransactionView(APIView):
 
 class TradeView(APIView):
 
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
 
@@ -545,7 +560,15 @@ class TradeView(APIView):
 
 
 
+class BulkTradeView(APIView):
+    pass
+
+
+
+
 class TradeLabelView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self, pk):
 

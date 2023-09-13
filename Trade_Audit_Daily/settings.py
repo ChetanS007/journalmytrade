@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -146,3 +147,18 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=60),  # Adjust the token expiration time as needed
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1),  # Optional: Token can be refreshed within this timeframe
+    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=2),  # Optional: Token will expire after this timeframe
+    'SLIDING_TOKEN_REFRESH_RESET': True,
+    'SLIDING_TOKEN_USER_ID_CLAIM': 'user_id',
+}
