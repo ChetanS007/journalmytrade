@@ -64,6 +64,8 @@ class User(AbstractBaseUser):
     )
     is_admin        = models.BooleanField(default=False)
 
+    confirm_password = models.CharField(max_length=255)
+
     objects         = UserManager()
 
     USERNAME_FIELD = 'email'

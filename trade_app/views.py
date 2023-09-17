@@ -116,7 +116,8 @@ class RegisterUser(APIView):
                     serializer_obj.save()
                     send_email_to_user(request,serializer_obj.data['email'])
                     hash_pass = make_password(request.data['password'])
-                    user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass)
+                    hash_confirm_pass = make_password(request.data['confirm_password'])
+                    user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass,confirm_password=hash_confirm_pass)
                    
                     
                     return Response({"Message":"User Register Successfully" ,"user":serializer_obj.data,},status=status.HTTP_200_OK)

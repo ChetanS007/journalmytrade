@@ -3,17 +3,21 @@ from .models import *
 # from rest_framework_simplejwt.tokens import RefreshToken,TokenError
 
 class RegisterSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True, required=True)
 
     # profile_photo = serializers.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ['email','password','first_name','last_name','phone','country','currency','financial_year','profile_photo']
+        fields = ['email','password','confirm_password','first_name','last_name','phone','country','currency','financial_year','profile_photo']
 
     def validate_profile_photo(self, value):
+
         return value  
-
-
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Passwords do not match.")
+        return data
 class LoginSerializer(serializers.ModelSerializer):
 
 
