@@ -1,0 +1,26 @@
+.refund-and-cancellation-outer {
+    padding: 10%;
+    text-align: justify;
+    letter-spacing: normal;
+}
+.main-heading {
+    color:#0d0a3f;
+    margin: 0 0 5%;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-align: left;
+}
+.main-para {
+    margin: 5% 0;
+    color:#0d0a3f;
+    letter-spacing: normal;
+}
+.postulate-heading {
+    color:#0d0a3f;
+    font-weight: 700;
+    margin: 3% 0;
+}
+.refund-and-cancellation-postulate {
+    color:grey;
+    letter-spacing: normal;
+}

@@ -1,0 +1,36 @@
+.Privacy-policy {
+    padding: 10%;
+    text-align: justify;
+}
+.p-and-p-heading {
+    color:#0d0a3f;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: justify;
+}
+.section-heading, .t-and-c-heading {
+    color: #0d0a3f;
+}
+
+.section-heading {
+    font-weight: 700;
+    letter-spacing: normal;
+    padding: 25px 0;
+
+}
+.list-item {
+    color: grey;
+    letter-spacing: normal;
+}
+
+.Privacy-policy p{
+    color: grey;
+    letter-spacing: normal;
+}
