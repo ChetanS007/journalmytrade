@@ -12,6 +12,8 @@ import Signup from './pages/signup';
 import Blog from './pages/blog';
 import Faq from './pages/faq';
 import SignIn from './pages/signIn';
+import Financialchart from './pages/Financialchart';
+import Notestaking from './pages/notestaking';
 
 import Heatmap from './pages/heatmap';
 import { Route, Routes } from 'react-router-dom';
@@ -33,8 +35,8 @@ function App() {
           <Route path="/Terms" element={<Terms></Terms>}></Route>
           <Route path="/Refund" element={<Refund></Refund>}></Route>
           <Route path="/Privacy" element={<Privacy></Privacy>}></Route>
-        
-          <Route path="/Heatmap" element={<Heatmap></Heatmap>}></Route>
+          <Route path="/Notestaking" element={<Notestaking></Notestaking>}></Route>
+          <Route path="/Financialchart" element={<Financialchart></Financialchart>}></Route>
           </Routes>
 
  <Footer></Footer>

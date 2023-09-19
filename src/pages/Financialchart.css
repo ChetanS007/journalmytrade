@@ -1,0 +1,15 @@
+.ChartCanvas
+{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width:100%;
+}
+.react-financial-charts div{
+    width:0px !important;
+   
+}
+.react-financial-charts
+{
+    margin:50px 0;
+}
