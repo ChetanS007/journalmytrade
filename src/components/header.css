@@ -319,10 +319,11 @@ textarea {
 
 .navHeadercontainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+.navborder {
   border-bottom: 1px solid black;
-  padding: 0 60px;
 }
 .navButtonContanier {
   display: flex;

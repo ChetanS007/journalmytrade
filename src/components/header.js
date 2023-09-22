@@ -55,7 +55,7 @@ function Header() {
 
   return (
     <>
-      <div class="navHeadercontainer">
+      <div class="container navHeadercontainer">
         <a exact="true" href="/" class="active navbar-brand">
           <img src={navlogo} width="150" height="100" alt="Journalmytrade" />
         </a>
@@ -79,6 +79,7 @@ function Header() {
           </button>
         </div>
       </div>
+      <div className="navborder"></div>
       {isSignUpModalOpen && <SignUp onClose={closeSignUpModal} />}
       {isSignInModalOpen && <SignIn onClose={closeSignInModal} />}
     </>
