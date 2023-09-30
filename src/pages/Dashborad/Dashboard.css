@@ -1,0 +1,115 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.dashBanner-logo {
+  width: 100%;
+  height: 100%;
+}
+.sidebar {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+.dash-logo {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.menu-item {
+  margin: 10px 0;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: left;
+  font-size: 15px;
+}
+.menu-item :active {
+  background-color: #0d0a3f;
+  color: #fff;
+}
+
+.menu-item:hover {
+  background-color: #0d0a3f;
+  color: #fff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 10px;
+  background-color: #ecf0f1;
+  overflow: scroll;
+}
+
+.trade-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.profit-loss {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.profit-loss > p {
+  margin-bottom: 0;
+}
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+  margin: 0px 2px;
+}
+
+.Trade-detail-card-main {
+  margin: 4px 2px;
+  padding: 10px 8px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.Trade-detail-card-header-div {
+  border-bottom: 2px solid #ecf0f1;
+  padding: 20px 0;
+}
+.Trade-detail-card-header {
+  font-size: 20px;
+  font-weight: 600;
+}
+.Trade-detail-card-subheader {
+  font-size: 18px;
+}
+.recharts-legend-item-text {
+  font-size: 12px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.topwinners-list-component {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #ecf0f1;
+  color: #0d0a3f;
+  font-weight: 10px;
+  margin: 4px 2px;
+}
+.traide-linechart {
+  margin: 20px 0;
+}
