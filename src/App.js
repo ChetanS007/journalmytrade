@@ -17,32 +17,16 @@ import Heatmap from "./pages/heatmap";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashborad/Dashboard";
 import { useState } from "react";
+import { AuthProvider } from "./context/AuthContext";
+import Navigation from "./Navigation";
 
 function App() {
-  const [isloggedin, setisloggedin] = useState(true);
+  const [isloggedin, setisloggedin] = useState(false);
   return (
     <div className="App">
-      {isloggedin ? (
-        <Routes>
-          <Route path="/Dashboard" element={<Dashboard></Dashboard>}></Route>
-        </Routes>
-      ) : (
-        <>
-          <Header></Header>
-          <Routes>
-            <Route path="/" element={<Home></Home>}></Route>
-            <Route path="/Blog" element={<Blog></Blog>}></Route>
-            <Route path="/faq" element={<Faq></Faq>}></Route>
-            <Route path="/Pricing" element={<Pricing></Pricing>}></Route>
-            <Route path="/contact" element={<ContactUs></ContactUs>}></Route>
-            <Route path="/Terms" element={<Terms></Terms>}></Route>
-            <Route path="/Refund" element={<Refund></Refund>}></Route>
-            <Route path="/Privacy" element={<Privacy></Privacy>}></Route>
-            <Route path="/Heatmap" element={<Heatmap></Heatmap>}></Route>
-          </Routes>
-          <Footer></Footer>
-        </>
-      )}
+      <AuthProvider>
+        <Navigation></Navigation>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./home.css";
 import homeImg1 from "./imagesPage/homeImg1.png";
 import homeImg2 from "./imagesPage/homeImg2.png";

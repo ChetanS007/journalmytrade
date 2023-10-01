@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./header.css";
 import navlogo from "./images/homeImg1.png";
 import { Link } from "react-router-dom";
 import SignIn from "../pages/signIn";
 import SignUp from "../pages/signup";
+import { AuthContext } from "../context/AuthContext";
 
 function Header() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const openSignUpModal = () => {
     setIsSignUpModalOpen(true);
@@ -71,12 +73,18 @@ function Header() {
           ))}
         </div>
         <div class="navButtonContanier">
-          <button class="sign-up" onClick={openSignUpModal}>
-            Sign Up
-          </button>
-          <button class="sign-up login" onClick={openSignInModal}>
-            Sign In
-          </button>
+          {isLoggedIn ? (
+            <Link to="/dashboard">Dashboard</Link>
+          ) : (
+            <>
+              <button class="sign-up" onClick={openSignUpModal}>
+                Sign Up
+              </button>
+              <button class="sign-up login" onClick={openSignInModal}>
+                Sign In
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="navborder"></div>

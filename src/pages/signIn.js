@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./signIn.css";
 import SignInlogo from "./imagesPage/footerLogo.png";
 import SignInWithGoogle from "./imagesPage/Sign in with Google.png";
-
+import { apiUrl } from "../config";
+import { loginApiCall } from "../apis/apicalls";
+import { validateEmail } from "../utils";
+import { AuthContext } from "../context/AuthContext";
 function SignIn({ onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle sign-in logic here
+    console.log(email, password);
+    if (validateEmail(email)) {
+      const res = await loginApiCall(email, password);
+      console.log(res);
+      if (res.Message === "Login Successfully") {
+        onClose();
+        login(res.refresh_token, res.access_token);
+      } else {
+        alert(res.Message);
+      }
+    }
   };
 
   return (
@@ -49,7 +63,7 @@ function SignIn({ onClose }) {
               <input type="checkbox" id="rememberMe" />
               <label htmlFor="rememberMe">Remember me</label>
             </div>
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" onClick={handleSubmit}>
               Submit
             </button>
             <div className="noaccount">Don't have an account signup?</div>
