@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { logoutapi } from "../apis/apicalls";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,12 +32,16 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("accessToken", accessToken);
   };
 
-  const logout = () => {
-    setIsLoggedIn(false);
-    setRefreshToken(null);
-    setAccessToken(null);
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("accessToken");
+  const logout = async () => {
+    const res = await logoutapi(localStorage.getItem("refreshToken"));
+    console.log(res);
+    if (res.Message === "Logout Successfull") {
+      setIsLoggedIn(false);
+      setRefreshToken(null);
+      setAccessToken(null);
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
+    }
   };
 
   // Pass the state and functions to the context provider's value prop

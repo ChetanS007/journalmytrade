@@ -57,3 +57,26 @@ export const registerApi = async (details) => {
     return { Message: "Unable to register" };
   }
 };
+
+export const logoutapi = async (refreshToken) => {
+  let data = JSON.stringify({
+    refresh_token: refreshToken,
+  });
+
+  let config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: `${apiUrl}api/logout/`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+  try {
+    const response = await axios.request(config);
+    return { Message: response.data[0].split(":")[1] };
+  } catch (error) {
+    console.log(error);
+    return { Message: "Unable to logout" };
+  }
+};

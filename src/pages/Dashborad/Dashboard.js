@@ -3,7 +3,10 @@ import "./Dashboard.css"; // Assuming a CSS file for styling
 import { Link } from "react-router-dom";
 import homeImg1 from "./../imagesPage/homeImg1.png";
 import { RiListSettingsLine } from "react-icons/ri";
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
+import { FiLogOut, FiSettings } from "react-icons/fi";
+import { MdOutlineSubscriptions } from "react-icons/md";
+import { GoQuestion } from "react-icons/go";
 import { IconContext } from "react-icons";
 import {
   PieChart,
@@ -18,6 +21,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Heatmap from "../heatmap";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 const pieData = [
   { name: "Winners", value: 50 },
   { name: "Losers", value: 25 },
@@ -108,6 +113,9 @@ function getLast7MonthsStartAndEndDates() {
 // Call the function to get the last 7 months' start and end dates
 const last7MonthsDates = getLast7MonthsStartAndEndDates();
 function Dashboard() {
+  const [showlogutmodal, setshowlogutmodal] = React.useState(false);
+  const { logout } = useContext(AuthContext);
+
   function MenuItem({ label }) {
     return (
       <Link className="menu-item active" to={"/dashboard"}>
@@ -130,12 +138,44 @@ function Dashboard() {
       </div>
     );
   }
+  const LogoutHandler = () => {
+    logout();
+  };
   function MainHeader() {
     return (
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
           <RiListSettingsLine />
-          <IoPersonCircleOutline />
+          <div onClick={() => setshowlogutmodal(!showlogutmodal)}>
+            <IoPersonCircleOutline />
+            {showlogutmodal && (
+              <IconContext.Provider value={{ color: "#0d0a3f", size: 20 }}>
+                <div className="popup-main">
+                  <p className="popup-head">Name</p>
+                  <div className="popup-item">
+                    <span className="popup-itemname">Setting</span>
+                    <FiSettings />
+                  </div>
+                  <div className="popup-item">
+                    <span className="popup-itemname">Subscription</span>
+                    <MdOutlineSubscriptions />
+                  </div>
+                  <div className="popup-item">
+                    <span className="popup-itemname">Support</span>
+                    <GoQuestion />
+                  </div>
+                  <div className="popup-item">
+                    <span className="popup-itemname">Learning</span>
+                    <IoBookOutline />
+                  </div>
+                  <div className="popup-item" onClick={LogoutHandler}>
+                    <span className="popup-itemname">logout</span>
+                    <FiLogOut />
+                  </div>
+                </div>
+              </IconContext.Provider>
+            )}
+          </div>
         </IconContext.Provider>
       </div>
     );
