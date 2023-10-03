@@ -71,6 +71,42 @@ const LineChartData = [
     price: 1890,
   },
 ];
+function getLast7MonthsStartAndEndDates() {
+  const currentDate = new Date();
+  const dates = [];
+
+  for (let i = 0; i < 7; i++) {
+    let endOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
+    if (i === 0) {
+      endOfMonth = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+    }
+    const startOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+
+    dates.push({
+      startDate: new Date(startOfMonth),
+      endDate: new Date(endOfMonth),
+    });
+
+    currentDate.setMonth(currentDate.getMonth() - 1);
+  }
+
+  return dates.reverse();
+}
+
+// Call the function to get the last 7 months' start and end dates
+const last7MonthsDates = getLast7MonthsStartAndEndDates();
 function Dashboard() {
   function MenuItem({ label }) {
     return (
@@ -110,18 +146,21 @@ function Dashboard() {
         <MainHeader />
         <TradeSummary />
         <LineGraph />
+        <HeatMapComponent />
       </div>
     );
   }
   function TradeDetailCard({ headline, subHeading, children }) {
     return (
       <div className="Trade-detail-card-main">
-        <div className="Trade-detail-card-header-div">
-          <div className="Trade-detail-card-header">{headline}</div>
-          {subHeading && (
-            <div className="Trade-detail-card-subheader">{subHeading}</div>
-          )}
-        </div>
+        {headline && (
+          <div className="Trade-detail-card-header-div">
+            <div className="Trade-detail-card-header">{headline}</div>
+            {subHeading && (
+              <div className="Trade-detail-card-subheader">{subHeading}</div>
+            )}
+          </div>
+        )}
         {children}
       </div>
     );
@@ -209,6 +248,27 @@ function Dashboard() {
                   <Line type="monotone" dataKey="price" stroke="red" />
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+          </TradeDetailCard>
+        </div>
+      </div>
+    );
+  }
+
+  function HeatMapComponent() {
+    return (
+      <div className="trade-summary">
+        <div className="card-container">
+          <TradeDetailCard>
+            <div style={{ display: "flex" }}>
+              {last7MonthsDates.map((month, index) => (
+                <div style={{ flex: 1 }}>
+                  <Heatmap
+                    startDate={month.startDate}
+                    endDate={month.endDate}
+                  />
+                </div>
+              ))}
             </div>
           </TradeDetailCard>
         </div>
