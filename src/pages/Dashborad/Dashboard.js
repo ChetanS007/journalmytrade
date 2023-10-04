@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import "./Dashboard.css"; // Assuming a CSS file for styling
 import { Link } from "react-router-dom";
 import homeImg1 from "./../imagesPage/homeImg1.png";
@@ -23,6 +23,7 @@ import {
 import Heatmap from "../heatmap";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import CustomTable from "../../components/CustomTable";
 const pieData = [
   { name: "Winners", value: 50 },
   { name: "Losers", value: 25 },
@@ -187,6 +188,7 @@ function Dashboard() {
         <TradeSummary />
         <LineGraph />
         <HeatMapComponent />
+        <TableCard />
       </div>
     );
   }
@@ -310,6 +312,46 @@ function Dashboard() {
                 </div>
               ))}
             </div>
+          </TradeDetailCard>
+        </div>
+      </div>
+    );
+  }
+
+  function TableCard() {
+    const rows = [
+      {
+        Date: "22-Sep-2023",
+        TradeType: "Intraday",
+        Segment: "Cash",
+        Symbolname: "Reliance",
+        Tradeside: "Buy",
+        Qty: "100",
+        EntryPrice: "523",
+        ExitPrice: "567",
+        Net: "12,00,000/-",
+        Return: "15%",
+        Account: "Zerodha",
+      },
+      {
+        Date: "23-Sep-2023",
+        TradeType: "Intraday",
+        Segment: "Cash",
+        Symbolname: "Reliance",
+        Tradeside: "Buy",
+        Qty: "100",
+        EntryPrice: "567",
+        ExitPrice: "523",
+        Net: "12,00,000/-",
+        Return: "15%",
+        Account: "Zerodha",
+      },
+    ];
+    return (
+      <div className="trade-summary">
+        <div className="card-container">
+          <TradeDetailCard>
+            <CustomTable rows={rows} showColumnName={false} />
           </TradeDetailCard>
         </div>
       </div>
