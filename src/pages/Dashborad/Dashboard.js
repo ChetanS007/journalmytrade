@@ -1,7 +1,6 @@
 import React from "react";
 import "./Dashboard.css"; // Assuming a CSS file for styling
 import { Link } from "react-router-dom";
-import homeImg1 from "./../imagesPage/homeImg1.png";
 import { RiListSettingsLine } from "react-icons/ri";
 import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
 import { FiLogOut, FiSettings } from "react-icons/fi";
@@ -117,28 +116,6 @@ function Dashboard() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout } = useContext(AuthContext);
 
-  function MenuItem({ label }) {
-    return (
-      <Link className="menu-item active" to={"/dashboard"}>
-        {label}
-      </Link>
-    );
-  }
-  function Sidebar() {
-    return (
-      <div className="sidebar">
-        <div className="dash-logo">
-          <img src={homeImg1} alt="Journal My Trade" class="dashBanner-logo" />
-        </div>
-        <MenuItem label="Dashboard" />
-        <MenuItem label="Journal" />
-        <MenuItem label="Charts" />
-        <MenuItem label="Notes" />
-        <MenuItem label="Accounts" />
-        <MenuItem label="Risk Management" />
-      </div>
-    );
-  }
   const LogoutHandler = () => {
     logout();
   };
@@ -357,12 +334,7 @@ function Dashboard() {
       </div>
     );
   }
-  return (
-    <div className="dashboard-container">
-      <Sidebar />
-      <MainContent />
-    </div>
-  );
+  return <MainContent />;
 }
 
 export default Dashboard;

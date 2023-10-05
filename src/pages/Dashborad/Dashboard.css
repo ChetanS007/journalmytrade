@@ -33,13 +33,23 @@
   font-size: 15px;
 }
 .menu-item :active {
+}
+.menu-item-active {
   background-color: #0d0a3f;
   color: #fff;
+  margin: 10px 0;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: left;
+  font-size: 15px;
+  border-radius: 5px;
 }
 
 .menu-item:hover {
   background-color: #0d0a3f;
   color: #fff;
+  border-radius: 5px;
 }
 
 .main-content {
