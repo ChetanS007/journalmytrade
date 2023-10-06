@@ -1,0 +1,14 @@
+.journal-trade-summary-head {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0d0a3f;
+}
+.journal-trade-summary-main {
+  display: flex;
+  justify-content: space-evenly;
+}
+.add-tradebutton {
+  font-size: 15px;
+  background-color: #0d0a3f;
+  padding: 5px 10px;
+}
