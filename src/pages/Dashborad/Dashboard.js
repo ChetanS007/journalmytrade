@@ -1,6 +1,5 @@
 import React from "react";
-import "./Dashboard.css"; // Assuming a CSS file for styling
-import { Link } from "react-router-dom";
+import "./Dashboard.css";
 import { RiListSettingsLine } from "react-icons/ri";
 import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
 import { FiLogOut, FiSettings } from "react-icons/fi";
@@ -23,6 +22,7 @@ import Heatmap from "../heatmap";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CustomTable from "../../components/CustomTable";
+import TradeDetailCard from "../../components/TradeDetailCard";
 const pieData = [
   { name: "Winners", value: 50 },
   { name: "Losers", value: 25 },
@@ -166,21 +166,6 @@ function Dashboard() {
         <LineGraph />
         <HeatMapComponent />
         <TableCard />
-      </div>
-    );
-  }
-  function TradeDetailCard({ headline, subHeading, children }) {
-    return (
-      <div className="Trade-detail-card-main">
-        {headline && (
-          <div className="Trade-detail-card-header-div">
-            <div className="Trade-detail-card-header">{headline}</div>
-            {subHeading && (
-              <div className="Trade-detail-card-subheader">{subHeading}</div>
-            )}
-          </div>
-        )}
-        {children}
       </div>
     );
   }
