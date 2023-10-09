@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { logoutapi } from "../apis/apicalls";
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [refreshToken, setRefreshToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
 

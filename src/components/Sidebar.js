@@ -23,7 +23,7 @@ export default function Sidebar() {
       </div>
       <MenuItem label="Dashboard" to={"/Dashboard"} />
       <MenuItem label="Journal" to={"/Journal"} />
-      <MenuItem label="Charts" to="/Charts" />
+      <MenuItem label="Charts" to="/Chart" />
       <MenuItem label="Notes" to="/Notes" />
       <MenuItem label="Accounts" to="/Accounts" />
       <MenuItem label="Risk Management" to="/Accounts" />

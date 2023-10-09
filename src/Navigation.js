@@ -19,6 +19,7 @@ import Heatmap from "./pages/heatmap";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashborad/Dashboard";
 import Journal from "./pages/Journal/Journal";
+import Chart from "./pages/Chart/Chart";
 
 export default function Navigation() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -29,8 +30,9 @@ export default function Navigation() {
         <div className="dashboard-container">
           <Sidebar />
           <Routes>
-            <Route path="/Dashboard" element={<Dashboard></Dashboard>}></Route>
+            <Route path="/Dashboard" element={<Dashboard />}></Route>
             <Route path="/Journal" element={<Journal />}></Route>
+            <Route path="/Chart" element={<Chart />}></Route>
 
             <Route path="*" element={<Navigate to="/Dashboard" replace />} />
           </Routes>
