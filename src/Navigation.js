@@ -9,17 +9,14 @@ import ContactUs from "./pages/contactUs";
 import Pricing from "./pages/pricing";
 import Footer from "./components/footer";
 import Sidebar from "./components/Sidebar";
-
-import Signup from "./pages/signup";
 import Blog from "./pages/blog";
 import Faq from "./pages/faq";
-import SignIn from "./pages/signIn";
-
 import Heatmap from "./pages/heatmap";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashborad/Dashboard";
 import Journal from "./pages/Journal/Journal";
 import Chart from "./pages/Chart/Chart";
+import Notes from "./pages/Notes/Notes";
 
 export default function Navigation() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -33,7 +30,7 @@ export default function Navigation() {
             <Route path="/Dashboard" element={<Dashboard />}></Route>
             <Route path="/Journal" element={<Journal />}></Route>
             <Route path="/Chart" element={<Chart />}></Route>
-
+            <Route path="/Notes" element={<Notes />}></Route>
             <Route path="*" element={<Navigate to="/Dashboard" replace />} />
           </Routes>
         </div>

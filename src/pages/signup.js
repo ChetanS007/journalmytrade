@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SignUplogo from "./imagesPage/Sign up with Google.png";
 import SignInlogo from "./imagesPage/footerLogo.png";
 import "./signup.css";
 import { Link } from "react-router-dom";

@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import "./signIn.css";
 import SignInlogo from "./imagesPage/footerLogo.png";
 import SignInWithGoogle from "./imagesPage/Sign in with Google.png";
-import { apiUrl } from "../config";
 import { loginApiCall } from "../apis/apicalls";
 import { validateEmail } from "../utils";
 import { AuthContext } from "../context/AuthContext";
