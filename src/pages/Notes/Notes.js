@@ -8,7 +8,7 @@ import { GrNotes } from "react-icons/gr";
 import { IconContext } from "react-icons";
 import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
-
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import "./Notes.css";
 
 const TraderNotes = [
@@ -112,6 +112,15 @@ export default function Notes() {
         <div className="card-container">
           <TradeDetailCard>
             <div className="notes-side-main notes-main-card">
+              <div className="account-header">
+                <IconContext.Provider value={{ color: "#fffff", size: 20 }}>
+                  <div></div>
+                  <button className="create-button">
+                    <div className="create-button-text">Create Notes</div>
+                    <AiOutlinePlusCircle />
+                  </button>
+                </IconContext.Provider>
+              </div>
               <div className="notes-card-cont">
                 <h4 className="notes-card-head">Heading</h4>
                 <p className="notes-card-p">
