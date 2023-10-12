@@ -26,7 +26,7 @@ export default function Sidebar() {
       <MenuItem label="Charts" to="/Chart" />
       <MenuItem label="Notes" to="/Notes" />
       <MenuItem label="Accounts" to="/Accounts" />
-      <MenuItem label="Risk Management" to="/Accounts" />
+      <MenuItem label="Risk Management" to="/risk" />
     </div>
   );
 }
