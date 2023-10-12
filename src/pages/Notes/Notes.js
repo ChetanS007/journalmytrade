@@ -71,7 +71,7 @@ export default function Notes() {
       <div className="trade-summary notes-side">
         <div className="card-container">
           <TradeDetailCard>
-            <div style={{ width: "60%", alignSelf: "center" }}>
+            <div style={{ width: "80%", alignSelf: "center" }}>
               <IconContext.Provider value={{ color: "#0d0a3f", size: 18 }}>
                 <div className="notes-side-main">
                   <div className="notes-side-content">
