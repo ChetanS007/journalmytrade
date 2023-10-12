@@ -17,14 +17,16 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .account-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 0 10px;
-  border-radius: 5px;
+  border: 2px solid #0d0a3f;
+  padding: 20px;
+  border-radius: 23px;
+  width: 30%;
+  min-width: 300px;
+  color: #0d0a3f;
 }
 
 .arrow {
@@ -35,15 +37,46 @@
   margin-left: 5px;
 }
 
-button {
-  padding: 5px 10px;
+.create-button {
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #0d0a3f;
   color: #fff;
+  display: flex;
+  align-items: center;
 }
-
-button:hover {
-  background-color: #0056b3;
+.create-button-text {
+  margin-right: 10px;
+}
+.account-header-text {
+  color: #0d0a3f;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.account-name {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+.account-diver {
+  height: 1px;
+  background-color: #888888;
+  margin: 20px 0;
+}
+.account-details {
+  margin: 10px;
+  display: flex;
+}
+.account-detail-type {
+  flex: 1;
+  text-align: start;
+}
+.account-detail-value {
+  flex: 1;
+  text-align: start;
+  margin-left: 10px;
 }
