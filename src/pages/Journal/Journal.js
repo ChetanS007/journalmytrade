@@ -13,6 +13,7 @@ import { IconContext } from "react-icons";
 import { AuthContext } from "../../context/AuthContext";
 import CustomTable from "../../components/CustomTable";
 import TradeDetailCard from "../../components/TradeDetailCard";
+import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
 export default function Journal() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout } = React.useContext(AuthContext);
@@ -330,6 +331,7 @@ export default function Journal() {
       <MainHeader />
       <TradeSummary />
       <TableCard />
+      <AddTradeModal />
     </div>
   );
 }

@@ -1,0 +1,52 @@
+.trade-entry-form {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-cont {
+  width: fit-content;
+  position: absolute;
+  inset: unset;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 20px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.overlay {
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header {
+  display: flex;
+  background-color: #0d0a3f;
+  color: #ffff;
+  padding: 10px 20px;
+  align-items: center;
+}
+.modalheaderText {
+  margin-bottom: 0px;
+}
+.modal-logo {
+  width: 50px;
+  height: auto;
+  /* border-radius: 20%; */
+}
+.radio-group {
+  width: 150px;
+  display: flex;
+  justify-content: space-around;
+}
