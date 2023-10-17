@@ -4,6 +4,7 @@ import "./AddTradeModal.css";
 import imgJ from "./../images/whitelogo.png";
 import InputLabel from "@mui/material/InputLabel";
 import CustomDropDown from "../CustomDropDown";
+import Switch from "@mui/material/Switch";
 
 const AddTradeModal = () => {
   const Header = () => {
@@ -120,8 +121,11 @@ const AddTradeModal = () => {
           />
         </div>
 
-        <div className="form-row">
-          <div style={{ flex: 1 }}></div>
+        <div className="form-row" style={{ alignItems: "normal" }}>
+          <div className="left-div">
+            <textarea className="left-input" placeholder="Trade Notes" />
+            <div style={{ textAlign: "end" }}>Max 500 word</div>
+          </div>
           <div style={{ flex: 1 }}>
             <div className="form-row">
               <CustomDropDown
@@ -192,9 +196,26 @@ const AddTradeModal = () => {
           </div>
         </div>
 
-        <div className="form-row">
-          <button>Save</button>
-          <button>Cancel</button>
+        <div className="form-row" style={{ justifyContent: "space-between" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div className="dropdwon-label">Bulk Trade Upload</div>
+            <Switch
+              color="default"
+              onChange={(event) => {
+                console.log(event.target.checked);
+              }}
+            />
+          </div>
+          <div>
+            <button className="saveButtonOption">Save</button>
+            <button className="cancelButtonOption">Cancel</button>
+            {/* close the modal on click */}
+          </div>
         </div>
       </div>
     </Modal>
