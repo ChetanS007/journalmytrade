@@ -17,9 +17,13 @@ import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
 export default function Journal() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout } = React.useContext(AuthContext);
-
+  const [tradeModal, settradeModal] = React.useState(false);
   const LogoutHandler = () => {
     logout();
+  };
+  const addtrade = () => {
+    console.log("first");
+    settradeModal(true);
   };
   function MainHeader() {
     return (
@@ -27,8 +31,8 @@ export default function Journal() {
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
           <div>
             <RiListSettingsLine />
-            <button className="add-tradebutton">
-              Add Trade{" "}
+            <button className="add-tradebutton" onClick={addtrade}>
+              Add Trade
               <IconContext.Provider value={{ color: "#fff", size: 20 }}>
                 <FiPlus />
               </IconContext.Provider>
@@ -331,7 +335,12 @@ export default function Journal() {
       <MainHeader />
       <TradeSummary />
       <TableCard />
-      <AddTradeModal />
+      <AddTradeModal
+        isopen={tradeModal}
+        oncancel={() => {
+          settradeModal(false);
+        }}
+      />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import CustomDropDown from "../CustomDropDown";
 import Switch from "@mui/material/Switch";
 
-const AddTradeModal = () => {
+const AddTradeModal = ({ isopen, oncancel }) => {
   const Header = () => {
     return (
       <header className="modal-header">
@@ -17,7 +17,11 @@ const AddTradeModal = () => {
     );
   };
   return (
-    <Modal isOpen={true} className={"modal-cont"} overlayClassName={"overlay"}>
+    <Modal
+      isOpen={isopen}
+      className={"modal-cont"}
+      overlayClassName={"overlay"}
+    >
       <Header />
       <div className="trade-entry-form">
         <div className="form-row">
@@ -213,7 +217,9 @@ const AddTradeModal = () => {
           </div>
           <div>
             <button className="saveButtonOption">Save</button>
-            <button className="cancelButtonOption">Cancel</button>
+            <button className="cancelButtonOption" onClick={oncancel}>
+              Cancel
+            </button>
             {/* close the modal on click */}
           </div>
         </div>
