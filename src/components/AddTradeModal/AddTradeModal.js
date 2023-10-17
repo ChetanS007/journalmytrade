@@ -178,6 +178,17 @@ const AddTradeModal = () => {
                 style={{ width: "220px" }}
               />
             </div>
+            <input
+              type="file"
+              name="fileToUpload"
+              id="fileToUpload"
+              accept="image/*"
+              className="dropdownInputfiled"
+              style={{ width: "95%" }}
+              onChange={(e) => {
+                console.log(e.target.files[0]);
+              }}
+            />
           </div>
         </div>
 
