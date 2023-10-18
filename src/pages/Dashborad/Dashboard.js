@@ -175,27 +175,28 @@ function Dashboard() {
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard headline={"Total Trades"} subHeading={"150"}>
-            <PieChart width={300} height={300}>
-              <Legend
-                payload={pieData.map((item, index) => ({
-                  id: item.name,
-                  type: "circle",
-                  value: `${item.name} (${item.value})`,
-                  color: COLORS[index % COLORS.length],
-                }))}
-              />
-
-              <Pie
-                data={pieData}
-                innerRadius={50}
-                outerRadius={80}
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                ))}
-              </Pie>
-            </PieChart>
+            <div style={{ display: "flex", alignSelf: "center" }}>
+              <PieChart width={300} height={300}>
+                <Legend
+                  payload={pieData.map((item, index) => ({
+                    id: item.name,
+                    type: "circle",
+                    value: `${item.name} (${item.value})`,
+                    color: COLORS[index % COLORS.length],
+                  }))}
+                />
+                <Pie
+                  data={pieData}
+                  innerRadius={50}
+                  outerRadius={80}
+                  dataKey="value"
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </div>
           </TradeDetailCard>
         </div>
         <div className="card-container">
