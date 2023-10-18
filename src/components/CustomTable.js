@@ -12,8 +12,9 @@ import React from "react";
 import "./CustomTable.css";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import MuiTableHead from "@material-ui/core/TableHead";
-import { BsGraphUpArrow, BsGraphDownArrow } from "react-icons/bs";
+import { BsGraphUpArrow, BsGraphDownArrow, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
+import moment from "moment/moment";
 
 export default function CustomTable({ rows, showColumnName }) {
   const columns = [
@@ -29,8 +30,8 @@ export default function CustomTable({ rows, showColumnName }) {
     "Net P & L",
     "Return%",
     "Account",
+    "",
   ];
-
   return (
     <StyledEngineProvider injectFirst>
       <Table sx>
@@ -47,76 +48,89 @@ export default function CustomTable({ rows, showColumnName }) {
             </TableRow>
           </TableHead>
         )}
-        <TableBody>
-          {rows.map((item) => {
-            let profit = +item.EntryPrice - +item.ExitPrice;
-            profit = profit < 0;
-            return (
-              <TableRow>
-                <Checkbox
-                  sx={{ color: "#0d0a3f" }}
-                  onChange={(items) => {
-                    console.log(item);
-                  }}
-                />
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.Date}
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.TradeType}
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.Segment}
-                </TableCell>
-                <TableCell
-                  sx={{ color: "#0d0a3f", fontSize: "13px", fontWeight: "600" }}
-                >
-                  {item.Symbolname}
-                </TableCell>
-                <TableCell
-                  sx={{ color: "#0d0a3f", fontSize: "13px", display: "flex" }}
-                >
-                  {item.Tradeside}
-                  <div style={{ marginLeft: "2px" }}>
-                    {item.Tradeside === "Buy" ? (
-                      <IconContext.Provider
-                        value={{ color: "green", size: 15 }}
-                      >
-                        <BsGraphUpArrow />
-                      </IconContext.Provider>
-                    ) : (
-                      <IconContext.Provider value={{ color: "red", size: 15 }}>
-                        <BsGraphDownArrow />
-                      </IconContext.Provider>
-                    )}
-                  </div>
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.Qty}
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.EntryPrice}
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.ExitPrice}
-                </TableCell>
-                <TableCell
-                  sx={{ color: profit ? "green" : "red", fontSize: "13px" }}
-                >
-                  {item.Net}
-                </TableCell>
-                <TableCell
-                  sx={{ color: profit ? "green" : "red", fontSize: "13px" }}
-                >
-                  {item.Return}
-                </TableCell>
-                <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                  {item.Account}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
+        {Array.isArray(rows) && rows.length > 0 && (
+          <TableBody>
+            {rows.map((item) => {
+              let profit = +item.entry_price - +item.exit_price;
+              profit = profit < 0;
+              return (
+                <TableRow>
+                  <Checkbox
+                    sx={{ color: "#0d0a3f" }}
+                    onChange={(items) => {
+                      console.log(item);
+                    }}
+                  />
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {moment(item.date).format("DD-MMM-YYYY")}
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.trade_type}
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.segment}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#0d0a3f",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {item.symbol}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: "#0d0a3f", fontSize: "13px", display: "flex" }}
+                  >
+                    {item.teadeside === "1" ? "Buy" : "Sell"}
+                    <div style={{ marginLeft: "2px" }}>
+                      {item.teadeside === "1" ? (
+                        <IconContext.Provider
+                          value={{ color: "green", size: 15 }}
+                        >
+                          <BsGraphUpArrow />
+                        </IconContext.Provider>
+                      ) : (
+                        <IconContext.Provider
+                          value={{ color: "red", size: 15 }}
+                        >
+                          <BsGraphDownArrow />
+                        </IconContext.Provider>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.qty}
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.entry_price}
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.exit_price}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: profit ? "green" : "red", fontSize: "13px" }}
+                  >
+                    {item.net_profit_loss}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: profit ? "green" : "red", fontSize: "13px" }}
+                  >
+                    {item.return_percentage}%
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    {item.account}
+                  </TableCell>
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                    <IconContext.Provider value={{ color: "0d0a3f", size: 15 }}>
+                      <BsInfoCircle />
+                    </IconContext.Provider>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        )}
       </Table>
     </StyledEngineProvider>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Journal.css";
 import { RiListSettingsLine } from "react-icons/ri";
 import {
@@ -16,15 +16,15 @@ import TradeDetailCard from "../../components/TradeDetailCard";
 import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
 export default function Journal() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout } = React.useContext(AuthContext);
+  const { logout, alltrades, genraltrades } = React.useContext(AuthContext);
   const [tradeModal, settradeModal] = React.useState(false);
   const LogoutHandler = () => {
     logout();
   };
   const addtrade = () => {
-    console.log("first");
     settradeModal(true);
   };
+
   function MainHeader() {
     return (
       <div className="dashboard-header">
@@ -77,221 +77,11 @@ export default function Journal() {
     );
   }
   function TableCard() {
-    const rows = [
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-    ];
     return (
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard>
-            <CustomTable rows={rows} showColumnName={true} />
+            <CustomTable rows={alltrades} showColumnName={true} />
           </TradeDetailCard>
         </div>
       </div>
@@ -306,23 +96,27 @@ export default function Journal() {
             <div className="journal-trade-summary-main">
               <div>
                 <p className="journal-trade-summary-head">Total Trades</p>
-                <p>7</p>
+                {genraltrades?.total_trade && <p>{genraltrades.total_trade}</p>}
               </div>
               <div>
                 <p className="journal-trade-summary-head">Win Trades</p>
-                <p>7</p>
-              </div>{" "}
+                {genraltrades?.win && <p>{genraltrades.win}</p>}
+              </div>
               <div>
                 <p className="journal-trade-summary-head">Loss Trades</p>
-                <p>7</p>
+                {genraltrades?.loss && <p>{genraltrades.loss}</p>}
               </div>
               <div>
                 <p className="journal-trade-summary-head">Tax & Consumption</p>
-                <p>Rs. 700/-</p>
+                {genraltrades?.brokrage_tax && (
+                  <p>Rs.{genraltrades.brokrage_tax}/-</p>
+                )}
               </div>
               <div>
                 <p className="journal-trade-summary-head">Net Profit & Loss</p>
-                <p>Rs. 700/-</p>
+                {genraltrades?.net_profit_loss && (
+                  <p>Rs.{genraltrades.net_profit_loss}/-</p>
+                )}
               </div>
             </div>
           </TradeDetailCard>

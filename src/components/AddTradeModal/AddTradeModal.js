@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import "./AddTradeModal.css";
 import imgJ from "./../images/whitelogo.png";
-import InputLabel from "@mui/material/InputLabel";
 import CustomDropDown from "../CustomDropDown";
 import Switch from "@mui/material/Switch";
 

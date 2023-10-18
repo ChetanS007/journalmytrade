@@ -80,3 +80,20 @@ export const logoutapi = async (refreshToken) => {
     return { Message: "Unable to logout" };
   }
 };
+
+export const getTrade = async (accesstoken) => {
+  try {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/trade/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

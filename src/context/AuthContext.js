@@ -1,21 +1,32 @@
 import React, { createContext, useState, useEffect } from "react";
-import { logoutapi } from "../apis/apicalls";
+import { getTrade, logoutapi } from "../apis/apicalls";
+import Cookies from "js-cookie"; // Import the js-cookie library
+
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [refreshToken, setRefreshToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
-
+  const [alltrades, setalltrades] = useState([]);
+  const [genraltrades, setgenraltrades] = useState({});
+  const getDetails = async () => {
+    const tradeinfo = await getTrade(Cookies.get("accessToken"));
+    if (tradeinfo.status == 200) {
+      setalltrades(tradeinfo.data[0]);
+      setgenraltrades(tradeinfo.data[1]);
+    }
+  };
   useEffect(() => {
-    // Check local storage for tokens
-    const storedRefreshToken = localStorage.getItem("refreshToken");
-    const storedAccessToken = localStorage.getItem("accessToken");
+    // Check cookies for tokens
+    const storedRefreshToken = Cookies.get("refreshToken");
+    const storedAccessToken = Cookies.get("accessToken");
 
     // If tokens exist in local storage, set them in the state
     if (storedRefreshToken && storedAccessToken) {
       setIsLoggedIn(true);
       setRefreshToken(storedRefreshToken);
       setAccessToken(storedAccessToken);
+      getDetails();
     }
 
     // You can also add logic here to validate the tokens if needed.
@@ -27,9 +38,10 @@ const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
     setRefreshToken(refreshToken);
     setAccessToken(accessToken);
-    // Store tokens in local storage
-    localStorage.setItem("refreshToken", refreshToken);
-    localStorage.setItem("accessToken", accessToken);
+    // Store tokens in cookies with a 1-day expiration
+    Cookies.set("refreshToken", refreshToken, { expires: 1 }); // 1 day expiration
+    Cookies.set("accessToken", accessToken, { expires: 1 }); // 1 day expiration
+    getDetails();
   };
 
   const logout = async () => {
@@ -39,8 +51,9 @@ const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
       setRefreshToken(null);
       setAccessToken(null);
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
+      // Remove tokens from cookies
+      Cookies.remove("refreshToken");
+      Cookies.remove("accessToken");
     }
   };
 
@@ -49,6 +62,8 @@ const AuthProvider = ({ children }) => {
     isLoggedIn,
     refreshToken,
     accessToken,
+    genraltrades,
+    alltrades,
     login,
     logout,
   };
