@@ -120,7 +120,9 @@ export default function CustomTable({ rows, showColumnName }) {
                     {item.account}
                   </TableCell>
                   <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                    <IconContext.Provider value={{ color: "0d0a3f", size: 15 }}>
+                    <IconContext.Provider
+                      value={{ color: "#0d0a3f", size: 15 }}
+                    >
                       <BsInfoCircle />
                     </IconContext.Provider>
                   </TableCell>

@@ -97,3 +97,21 @@ export const getTrade = async (accesstoken) => {
     console.log(error);
   }
 };
+
+export const getAccounts = async (accesstoken) => {
+  try {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/account/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const response = await axios.request(config);
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

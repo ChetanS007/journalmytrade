@@ -9,10 +9,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
+import { BsInfoCircle } from "react-icons/bs";
 
 export default function Accounts() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout } = React.useContext(AuthContext);
+  const { logout, AccountsDetail } = React.useContext(AuthContext);
 
   const LogoutHandler = () => {
     logout();
@@ -56,32 +57,8 @@ export default function Accounts() {
       </div>
     );
   }
+  console.log(AccountsDetail);
   const AccountCard = () => {
-    const accountData = [
-      {
-        name: "Zerodha",
-        balance: "₹30,300/-",
-        totalTrades: 20,
-        wins: 16,
-        losses: 4,
-      },
-      {
-        name: "Zerodha",
-        balance: "₹30,300/-",
-        totalTrades: 20,
-        wins: 16,
-        losses: 4,
-      },
-      {
-        name: "Zerodha",
-        balance: "₹30,300/-",
-        totalTrades: 20,
-        wins: 16,
-        losses: 4,
-      },
-      // ... Add more accounts in a similar format if needed
-    ];
-
     return (
       <div className="trade-summary" style={{ height: "100%" }}>
         <div className="card-container">
@@ -97,10 +74,15 @@ export default function Accounts() {
                 </IconContext.Provider>
               </div>
               <div className="account-cards">
-                {accountData.map((account) => (
-                  <div className="account-card" key={account.name}>
+                {AccountsDetail.map((account) => (
+                  <div className="account-card" key={account.account_name}>
                     <div className="account-name">
-                      {account.name} <span className="arrow">▲</span>
+                      {account.account_name}{" "}
+                      <IconContext.Provider
+                        value={{ color: "#0d0a3f", size: 15 }}
+                      >
+                        <BsInfoCircle />
+                      </IconContext.Provider>
                     </div>
                     <div className="account-diver"></div>
                     <div className="account-details ">
@@ -115,7 +97,7 @@ export default function Accounts() {
                         Total of Trades:
                       </div>
                       <div className="account-detail-value">
-                        {account.totalTrades}
+                        {account.total_trade}
                       </div>
                     </div>
                     <div className="account-details">
@@ -124,7 +106,7 @@ export default function Accounts() {
                         className="account-detail-value"
                         style={{ color: "green" }}
                       >
-                        {account.wins}
+                        {account.win}
                       </div>
                     </div>
                     <div className="account-details">
@@ -133,7 +115,7 @@ export default function Accounts() {
                         className="account-detail-value"
                         style={{ color: "red" }}
                       >
-                        {account.losses}
+                        {account.loss}
                       </div>
                     </div>
                   </div>
