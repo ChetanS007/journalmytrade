@@ -79,11 +79,9 @@ export default function CustomTable({ rows, showColumnName }) {
                   >
                     {item.symbol}
                   </TableCell>
-                  <TableCell
-                    sx={{ color: "#0d0a3f", fontSize: "13px", display: "flex" }}
-                  >
-                    {item.teadeside === "1" ? "Buy" : "Sell"}
+                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
                     <div style={{ marginLeft: "2px" }}>
+                      {item.teadeside === "1" ? "Buy" : "Sell"}
                       {item.teadeside === "1" ? (
                         <IconContext.Provider
                           value={{ color: "green", size: 15 }}

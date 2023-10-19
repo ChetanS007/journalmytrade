@@ -114,8 +114,18 @@ function getLast7MonthsStartAndEndDates() {
 const last7MonthsDates = getLast7MonthsStartAndEndDates();
 function Dashboard() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout } = useContext(AuthContext);
-
+  const { logout, genraltrades, alltrades } = useContext(AuthContext);
+  const pieData = [
+    { name: "Winners", value: genraltrades?.win ? genraltrades?.win : 0 },
+    { name: "Losers", value: genraltrades?.loss ? genraltrades?.loss : 0 },
+    {
+      name: "Open",
+      value:
+        genraltrades?.total_trade - genraltrades?.win - genraltrades?.loss
+          ? genraltrades?.total_trade - genraltrades?.win - genraltrades?.loss
+          : 0,
+    },
+  ];
   const LogoutHandler = () => {
     logout();
   };
@@ -202,12 +212,16 @@ function Dashboard() {
         <div className="card-container">
           <TradeDetailCard headline={"Profit & Loss"}>
             <div className="profit-loss">
-              <p>₹ 22,76,498/-</p>
+              {genraltrades?.net_profit_loss && (
+                <p>Rs.{genraltrades.net_profit_loss}/-</p>
+              )}
             </div>
           </TradeDetailCard>
-          <TradeDetailCard headline={"Profit & Loss"}>
+          <TradeDetailCard headline={"Brokerage & Tax"}>
             <div className="profit-loss">
-              <p>₹ 22,76,498/-</p>
+              {genraltrades?.brokrage_tax && (
+                <p>Rs.{genraltrades.brokrage_tax}/-</p>
+              )}
             </div>
           </TradeDetailCard>
         </div>
@@ -282,39 +296,11 @@ function Dashboard() {
   }
 
   function TableCard() {
-    const rows = [
-      {
-        Date: "22-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "523",
-        ExitPrice: "567",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-      {
-        Date: "23-Sep-2023",
-        TradeType: "Intraday",
-        Segment: "Cash",
-        Symbolname: "Reliance",
-        Tradeside: "Buy",
-        Qty: "100",
-        EntryPrice: "567",
-        ExitPrice: "523",
-        Net: "12,00,000/-",
-        Return: "15%",
-        Account: "Zerodha",
-      },
-    ];
     return (
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard>
-            <CustomTable rows={rows} showColumnName={false} />
+            <CustomTable rows={alltrades.slice(0, 2)} showColumnName={false} />
           </TradeDetailCard>
         </div>
       </div>
