@@ -13,12 +13,12 @@ const AuthProvider = ({ children }) => {
 
   const getDetails = async () => {
     const tradeinfo = await getTrade(Cookies.get("accessToken"));
-    if (tradeinfo.status == 200) {
+    if (tradeinfo?.status == 200) {
       setalltrades(tradeinfo.data[0]);
       setgenraltrades(tradeinfo.data[1]);
     }
     const accounts = await getAccounts(Cookies.get("accessToken"));
-    if (accounts.status == 200) {
+    if (accounts?.status == 200) {
       setAccounts(accounts.data);
     }
   };
@@ -52,7 +52,6 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     const res = await logoutapi(localStorage.getItem("refreshToken"));
-    console.log(res);
     if (res.Message === "Logout Successfull") {
       setIsLoggedIn(false);
       setRefreshToken(null);

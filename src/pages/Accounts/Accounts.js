@@ -57,7 +57,6 @@ export default function Accounts() {
       </div>
     );
   }
-  console.log(AccountsDetail);
   const AccountCard = () => {
     return (
       <div className="trade-summary" style={{ height: "100%" }}>

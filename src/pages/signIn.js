@@ -12,7 +12,6 @@ function SignIn({ onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
     if (validateEmail(email)) {
       const res = await loginApiCall(email, password);
       console.log(res);

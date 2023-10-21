@@ -29,9 +29,10 @@ export default function CustomDropDown({
           }}
           placeholder={placeholder}
           controlClassName="dropdownInputfiled"
+          value={data[0]}
         />
       )}
-      {(type === "normal" || type === "date") && (
+      {(type === "normal" || type === "date" || type === "number") && (
         <input
           onChange={(e) => selectedValue(e.target.value)}
           placeholder={placeholder}

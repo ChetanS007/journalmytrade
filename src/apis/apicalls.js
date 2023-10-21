@@ -1,5 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../config";
+import fs from "fs";
 const FormData = require("form-data");
 
 export const loginApiCall = async (email, password) => {
@@ -50,7 +51,6 @@ export const registerApi = async (details) => {
   };
   try {
     const response = await axios.request(config);
-    console.log(JSON.stringify(response.data));
     return response.data;
   } catch (error) {
     console.log(error);
@@ -109,7 +109,45 @@ export const getAccounts = async (accesstoken) => {
       },
     };
     const response = await axios.request(config);
-    console.log(response.data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const AddTrade = async (accesstoken, tradedata) => {
+  try {
+    let data = new FormData();
+    data.append("account", tradedata.account);
+    data.append("symbol", tradedata.symbol);
+    data.append("segment", tradedata.segment);
+    data.append("qty ", tradedata.qty);
+    data.append("trade_type", tradedata.trade_type);
+    data.append("teadeside", tradedata.teadeside);
+    data.append("entry_price", tradedata.entry_price);
+    data.append("entry_date", tradedata.entry_date);
+    data.append("exit_price", tradedata.exit_price);
+    data.append("exit_date", tradedata.exit_date);
+    data.append("stop_loss", tradedata.stop_loss);
+    data.append("take_profit", tradedata.take_profit);
+    data.append("brokrage_tax", tradedata.brokrage_tax);
+    data.append("profit_n_loss", tradedata.profit_n_loss);
+    {
+      tradedata.chart_img && data.append("chart_img", tradedata.chart_img);
+    }
+    data.append("trade_notes", tradedata.trade_type);
+    data.append("date", tradedata.date);
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/trade/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+        "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+      },
+      data: data,
+    };
+    const response = await axios.request(config);
     return response;
   } catch (error) {
     console.log(error);
