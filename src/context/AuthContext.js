@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import {
   DeleteAccount,
+  UpdateeAccountApi,
   getAccounts,
   getTrade,
   logoutapi,
@@ -37,6 +38,18 @@ const AuthProvider = ({ children }) => {
         setAccounts(accounts.data);
       } else {
         window.location.reload();
+      }
+    }
+  };
+  const updateAccountHandler = async (account, acoountname) => {
+    const resp = await UpdateeAccountApi(
+      { ...account, account_name: acoountname },
+      Cookies.get("accessToken")
+    );
+    if (resp?.status === 200) {
+      const accounts = await getAccounts(Cookies.get("accessToken"));
+      if (accounts?.status == 200) {
+        setAccounts(accounts.data);
       }
     }
   };
@@ -91,6 +104,7 @@ const AuthProvider = ({ children }) => {
     login,
     logout,
     deletAccounthandler,
+    updateAccountHandler,
   };
 
   return (

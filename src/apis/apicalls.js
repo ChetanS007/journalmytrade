@@ -132,6 +132,26 @@ export const DeleteAccount = async (accesstoken, id) => {
   }
 };
 
+export const UpdateeAccountApi = async (details, accesstoken) => {
+  try {
+    const data = JSON.stringify(details);
+    let config = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/account/${details.id}/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+      data: data,
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const AddTrade = async (accesstoken, tradedata) => {
   try {
     let data = new FormData();

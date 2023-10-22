@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Accounts.css";
 import { RiListSettingsLine } from "react-icons/ri";
 import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
@@ -12,14 +12,25 @@ import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import { BsInfoCircle } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
+import { UpdateeAccountApi } from "../../apis/apicalls";
 export default function Accounts() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout, AccountsDetail, deletAccounthandler } =
+  const [editaccountnameArray, seteditaccountnameArray] = useState([]);
+  const [acoountname, setaccountname] = useState("");
+  const { logout, AccountsDetail, deletAccounthandler, updateAccountHandler } =
     React.useContext(AuthContext);
   const LogoutHandler = () => {
     logout();
   };
-
+  const updateAccountNAme = async (account) => {
+    await updateAccountHandler(account, acoountname);
+    let temp = [];
+    editaccountnameArray.forEach((item) => {
+      item.isActive = false;
+      temp.push(item);
+    });
+    seteditaccountnameArray(temp);
+  };
   React.useEffect(() => {
     let array_temp = [];
     AccountsDetail.forEach((element) => {
@@ -28,6 +39,7 @@ export default function Accounts() {
       temp.isActive = false;
       array_temp.push(temp);
     });
+    seteditaccountnameArray(array_temp);
   }, []);
 
   function MainHeader() {
@@ -85,17 +97,39 @@ export default function Accounts() {
                 </IconContext.Provider>
               </div>
               <div className="account-cards">
-                {AccountsDetail.map((account) => (
+                {AccountsDetail.map((account, index) => (
                   <div className="account-card" key={account.account_name}>
                     <div className="account-name">
-                      {account.account_name}{" "}
-                      <IconContext.Provider
-                        value={{ color: "#0d0a3f", size: 15 }}
-                      >
-                        <a id={`clickable${account.id}`}>
-                          <BsInfoCircle />
-                        </a>
-                      </IconContext.Provider>
+                      {!editaccountnameArray[index]?.isActive ? (
+                        account.account_name
+                      ) : (
+                        <input
+                          value={acoountname}
+                          className="account-edit-input"
+                          onChange={(e) => {
+                            setaccountname(e.target.value);
+                          }}
+                        />
+                      )}
+
+                      {!editaccountnameArray[index]?.isActive ? (
+                        <IconContext.Provider
+                          value={{ color: "#0d0a3f", size: 15 }}
+                        >
+                          <a id={`clickable${account.id}`}>
+                            <BsInfoCircle />
+                          </a>
+                        </IconContext.Provider>
+                      ) : (
+                        <button
+                          className="create-button editbutton"
+                          onClick={() => {
+                            updateAccountNAme(account);
+                          }}
+                        >
+                          Update
+                        </button>
+                      )}
                       <Tooltip
                         anchorSelect={`#clickable${account.id}`}
                         className="tooltip-main"
@@ -107,7 +141,21 @@ export default function Accounts() {
                         clickable
                       >
                         <div>
-                          <div className="popup-item">
+                          <div
+                            className="popup-item"
+                            onClick={() => {
+                              let temp = [];
+                              editaccountnameArray.forEach((item) => {
+                                if (item.id === account.id) {
+                                  item.isActive = true;
+                                } else {
+                                  item.isActive = false;
+                                }
+                                temp.push(item);
+                              });
+                              seteditaccountnameArray(temp);
+                            }}
+                          >
                             <span className="popup-itemname">
                               Edit Account Name
                             </span>
