@@ -115,6 +115,23 @@ export const getAccounts = async (accesstoken) => {
   }
 };
 
+export const DeleteAccount = async (accesstoken, id) => {
+  try {
+    let config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/account/${id}/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const AddTrade = async (accesstoken, tradedata) => {
   try {
     let data = new FormData();

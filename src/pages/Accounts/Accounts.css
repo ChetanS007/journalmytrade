@@ -27,6 +27,7 @@
   width: 30%;
   min-width: 300px;
   color: #0d0a3f;
+  margin: 10px 0;
 }
 
 .arrow {
@@ -79,4 +80,8 @@
   flex: 1;
   text-align: start;
   margin-left: 10px;
+}
+.tooltip-main {
+  background-color: #fff;
+  color: black;
 }

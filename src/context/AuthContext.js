@@ -1,5 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAccounts, getTrade, logoutapi } from "../apis/apicalls";
+import {
+  DeleteAccount,
+  getAccounts,
+  getTrade,
+  logoutapi,
+} from "../apis/apicalls";
 import Cookies from "js-cookie"; // Import the js-cookie library
 
 const AuthContext = createContext();
@@ -20,6 +25,19 @@ const AuthProvider = ({ children }) => {
     const accounts = await getAccounts(Cookies.get("accessToken"));
     if (accounts?.status == 200) {
       setAccounts(accounts.data);
+    }
+  };
+
+  const deletAccounthandler = async (id) => {
+    const responnse = await DeleteAccount(Cookies.get("accessToken"), id);
+    console.log(responnse);
+    if (responnse.status === 204) {
+      const accounts = await getAccounts(Cookies.get("accessToken"));
+      if (accounts?.status == 200) {
+        setAccounts(accounts.data);
+      } else {
+        window.location.reload();
+      }
     }
   };
   useEffect(() => {
@@ -72,6 +90,7 @@ const AuthProvider = ({ children }) => {
     AccountsDetail,
     login,
     logout,
+    deletAccounthandler,
   };
 
   return (

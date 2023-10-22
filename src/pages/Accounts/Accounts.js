@@ -4,20 +4,32 @@ import { RiListSettingsLine } from "react-icons/ri";
 import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
 import { FiLogOut, FiSettings } from "react-icons/fi";
 import { MdOutlineSubscriptions } from "react-icons/md";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { GoQuestion } from "react-icons/go";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle, AiTwotoneEdit } from "react-icons/ai";
 import { IconContext } from "react-icons";
 import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import { BsInfoCircle } from "react-icons/bs";
-
+import { Tooltip } from "react-tooltip";
 export default function Accounts() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout, AccountsDetail } = React.useContext(AuthContext);
-
+  const { logout, AccountsDetail, deletAccounthandler } =
+    React.useContext(AuthContext);
   const LogoutHandler = () => {
     logout();
   };
+
+  React.useEffect(() => {
+    let array_temp = [];
+    AccountsDetail.forEach((element) => {
+      let temp = {};
+      temp.id = element.id;
+      temp.isActive = false;
+      array_temp.push(temp);
+    });
+  }, []);
+
   function MainHeader() {
     return (
       <div className="dashboard-header">
@@ -80,8 +92,48 @@ export default function Accounts() {
                       <IconContext.Provider
                         value={{ color: "#0d0a3f", size: 15 }}
                       >
-                        <BsInfoCircle />
+                        <a id={`clickable${account.id}`}>
+                          <BsInfoCircle />
+                        </a>
                       </IconContext.Provider>
+                      <Tooltip
+                        anchorSelect={`#clickable${account.id}`}
+                        className="tooltip-main"
+                        style={{
+                          backgroundColor: "#fff",
+                          color: "black",
+                          width: "250px",
+                        }}
+                        clickable
+                      >
+                        <div>
+                          <div className="popup-item">
+                            <span className="popup-itemname">
+                              Edit Account Name
+                            </span>
+                            <IconContext.Provider
+                              value={{ color: "#0d0a3f", size: 15 }}
+                            >
+                              <AiTwotoneEdit />
+                            </IconContext.Provider>
+                          </div>
+                          <div
+                            className="popup-item"
+                            onClick={() => {
+                              deletAccounthandler(account.id);
+                            }}
+                          >
+                            <span className="popup-itemname">
+                              Delete Account
+                            </span>
+                            <IconContext.Provider
+                              value={{ color: "red", size: 15 }}
+                            >
+                              <RiDeleteBinLine />
+                            </IconContext.Provider>
+                          </div>
+                        </div>
+                      </Tooltip>
                     </div>
                     <div className="account-diver"></div>
                     <div className="account-details ">
