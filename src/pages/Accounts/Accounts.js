@@ -16,14 +16,13 @@ import { UpdateeAccountApi } from "../../apis/apicalls";
 export default function Accounts() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const [editaccountnameArray, seteditaccountnameArray] = useState([]);
-  const [acoountname, setaccountname] = useState("");
   const { logout, AccountsDetail, deletAccounthandler, updateAccountHandler } =
     React.useContext(AuthContext);
   const LogoutHandler = () => {
     logout();
   };
-  const updateAccountNAme = async (account) => {
-    await updateAccountHandler(account, acoountname);
+  const updateAccountNAme = async (account, newName) => {
+    await updateAccountHandler(account, newName);
     let temp = [];
     editaccountnameArray.forEach((item) => {
       item.isActive = false;
@@ -98,37 +97,27 @@ export default function Accounts() {
               </div>
               <div className="account-cards">
                 {AccountsDetail.map((account, index) => (
-                  <div className="account-card" key={account.account_name}>
+                  <div className="account-card">
                     <div className="account-name">
                       {!editaccountnameArray[index]?.isActive ? (
-                        account.account_name
-                      ) : (
-                        <input
-                          value={acoountname}
-                          className="account-edit-input"
-                          onChange={(e) => {
-                            setaccountname(e.target.value);
-                          }}
-                        />
-                      )}
+                        <>
+                          {account.account_name}
 
-                      {!editaccountnameArray[index]?.isActive ? (
-                        <IconContext.Provider
-                          value={{ color: "#0d0a3f", size: 15 }}
-                        >
-                          <a id={`clickable${account.id}`}>
-                            <BsInfoCircle />
-                          </a>
-                        </IconContext.Provider>
+                          <IconContext.Provider
+                            value={{ color: "#0d0a3f", size: 15 }}
+                          >
+                            <a id={`clickable${account.id}`}>
+                              <BsInfoCircle />
+                            </a>
+                          </IconContext.Provider>
+                        </>
                       ) : (
-                        <button
-                          className="create-button editbutton"
-                          onClick={() => {
-                            updateAccountNAme(account);
-                          }}
-                        >
-                          Update
-                        </button>
+                        <EditName
+                          defaultvalue={account.account_name}
+                          onClickHanler={(newName) =>
+                            updateAccountNAme(account, newName)
+                          }
+                        />
                       )}
                       <Tooltip
                         anchorSelect={`#clickable${account.id}`}
@@ -234,3 +223,26 @@ export default function Accounts() {
     </div>
   );
 }
+const EditName = ({ defaultvalue, onClickHanler }) => {
+  const [acoountname, setaccountname] = useState(defaultvalue);
+
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <input
+        value={acoountname}
+        className="account-edit-input"
+        onChange={(e) => {
+          setaccountname(e.target.value);
+        }}
+      />
+      <button
+        className="create-button editbutton"
+        onClick={() => {
+          onClickHanler(acoountname);
+        }}
+      >
+        Update
+      </button>
+    </div>
+  );
+};
