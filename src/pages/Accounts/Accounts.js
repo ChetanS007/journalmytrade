@@ -39,7 +39,7 @@ export default function Accounts() {
       array_temp.push(temp);
     });
     seteditaccountnameArray(array_temp);
-  }, []);
+  }, [AccountsDetail]);
 
   function MainHeader() {
     return (
