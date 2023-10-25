@@ -18,6 +18,7 @@ import Journal from "./pages/Journal/Journal";
 import Chart from "./pages/Chart/Chart";
 import Notes from "./pages/Notes/Notes";
 import Accounts from "./pages/Accounts/Accounts";
+import Profile from "./pages/Profile/Profile";
 
 export default function Navigation() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -33,7 +34,7 @@ export default function Navigation() {
             <Route path="/Chart" element={<Chart />}></Route>
             <Route path="/Notes" element={<Notes />}></Route>
             <Route path="/Accounts" element={<Accounts />}></Route>
-
+            <Route path="/Profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/Dashboard" replace />} />
           </Routes>
         </div>

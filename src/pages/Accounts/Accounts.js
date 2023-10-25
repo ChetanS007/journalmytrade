@@ -13,6 +13,7 @@ import TradeDetailCard from "../../components/TradeDetailCard";
 import { BsInfoCircle } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
 import { UpdateeAccountApi } from "../../apis/apicalls";
+import { Link } from "react-router-dom";
 export default function Accounts() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const [editaccountnameArray, seteditaccountnameArray] = useState([]);
@@ -53,7 +54,9 @@ export default function Accounts() {
                 <div className="popup-main">
                   <p className="popup-head">Name</p>
                   <div className="popup-item">
-                    <span className="popup-itemname">Setting</span>
+                    <Link className="popup-itemname" to={"/Profile"}>
+                      Setting
+                    </Link>{" "}
                     <FiSettings />
                   </div>
                   <div className="popup-item">

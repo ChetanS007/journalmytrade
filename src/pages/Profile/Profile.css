@@ -1,0 +1,74 @@
+h1,
+h2 {
+  font-weight: bold;
+}
+
+.profile-image .avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.Profile-container {
+  background-color: #fff;
+  height: 100%;
+}
+.profile-heading {
+  margin-bottom: 0;
+  text-align: left;
+  margin-left: 5rem;
+  color: #0d0a3f;
+}
+.profile-header {
+  padding: 10px 30px;
+}
+.prfile-info-container {
+  margin: 20px 15rem;
+}
+.profile-change {
+  text-align: left;
+  color: #4977ee;
+  margin-top: 20px;
+}
+
+.profile-name {
+  color: #0d0a3f;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+}
+.profile-image {
+  display: flex;
+}
+.profile-detail {
+  margin: 20px 0;
+}
+.dropDown-profile {
+  border: 0;
+}
+.proile-dropDown {
+  border: 0;
+  box-shadow: none;
+}
+.profile-button {
+  text-align-last: end;
+}
+.profile-delete-account-disclaimer {
+  border: 2px solid red;
+  padding: 10px;
+  border-radius: 5px;
+}

@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/AuthContext";
 import CustomTable from "../../components/CustomTable";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
+import { Link } from "react-router-dom";
 export default function Journal() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout, alltrades, genraltrades } = React.useContext(AuthContext);
@@ -49,7 +50,9 @@ export default function Journal() {
                 <div className="popup-main">
                   <p className="popup-head">Name</p>
                   <div className="popup-item">
-                    <span className="popup-itemname">Setting</span>
+                    <Link className="popup-itemname" to={"/Profile"}>
+                      Setting
+                    </Link>{" "}
                     <FiSettings />
                   </div>
                   <div className="popup-item">

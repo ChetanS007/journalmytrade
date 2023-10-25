@@ -23,6 +23,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CustomTable from "../../components/CustomTable";
 import TradeDetailCard from "../../components/TradeDetailCard";
+import { Link } from "react-router-dom";
 const pieData = [
   { name: "Winners", value: 50 },
   { name: "Losers", value: 25 },
@@ -141,7 +142,9 @@ function Dashboard() {
                 <div className="popup-main">
                   <p className="popup-head">Name</p>
                   <div className="popup-item">
-                    <span className="popup-itemname">Setting</span>
+                    <Link className="popup-itemname" to={"/Profile"}>
+                      Setting
+                    </Link>
                     <FiSettings />
                   </div>
                   <div className="popup-item">

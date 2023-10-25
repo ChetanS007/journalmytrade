@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import "./Notes.css";
+import { Link } from "react-router-dom";
 
 const TraderNotes = [
   { Label: "label 1", isActive: false },
@@ -33,7 +34,9 @@ export default function Notes() {
                 <div className="popup-main">
                   <p className="popup-head">Name</p>
                   <div className="popup-item">
-                    <span className="popup-itemname">Setting</span>
+                    <Link className="popup-itemname" to={"/Profile"}>
+                      Setting
+                    </Link>
                     <FiSettings />
                   </div>
                   <div className="popup-item">
