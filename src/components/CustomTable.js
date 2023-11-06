@@ -16,7 +16,11 @@ import { BsGraphUpArrow, BsGraphDownArrow, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import moment from "moment/moment";
 
-export default function CustomTable({ rows, showColumnName }) {
+export default function CustomTable({
+  rows,
+  showColumnName,
+  tradeDetailClick,
+}) {
   const columns = [
     "",
     "Date",
@@ -123,7 +127,7 @@ export default function CustomTable({ rows, showColumnName }) {
                     <IconContext.Provider
                       value={{ color: "#0d0a3f", size: 15 }}
                     >
-                      <BsInfoCircle />
+                      <BsInfoCircle onClick={() => tradeDetailClick(item)} />
                     </IconContext.Provider>
                   </TableCell>
                 </TableRow>

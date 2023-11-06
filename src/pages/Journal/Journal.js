@@ -15,10 +15,12 @@ import CustomTable from "../../components/CustomTable";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
 import { Link } from "react-router-dom";
+import TradeDetail from "../TradeDetail/TradeDetail";
 export default function Journal() {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout, alltrades, genraltrades } = React.useContext(AuthContext);
   const [tradeModal, settradeModal] = React.useState(false);
+  const [TradeDetails, setTradeDetails] = useState(null);
   const LogoutHandler = () => {
     logout();
   };
@@ -84,7 +86,13 @@ export default function Journal() {
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard>
-            <CustomTable rows={alltrades} showColumnName={true} />
+            <CustomTable
+              rows={alltrades}
+              showColumnName={true}
+              tradeDetailClick={(item) => {
+                setTradeDetails(item);
+              }}
+            />
           </TradeDetailCard>
         </div>
       </div>
@@ -129,15 +137,26 @@ export default function Journal() {
   }
   return (
     <div className="main-content">
-      <MainHeader />
-      <TradeSummary />
-      <TableCard />
-      <AddTradeModal
-        isopen={tradeModal}
-        oncancel={() => {
-          settradeModal(false);
-        }}
-      />
+      {TradeDetails ? (
+        <TradeDetail
+          onBackPress={() => {
+            setTradeDetails(null);
+          }}
+        />
+      ) : (
+        <>
+          {" "}
+          <MainHeader />
+          <TradeSummary />
+          <TableCard />
+          <AddTradeModal
+            isopen={tradeModal}
+            oncancel={() => {
+              settradeModal(false);
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
