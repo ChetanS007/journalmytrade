@@ -10,3 +10,6 @@
 .react-calendar-heatmap {
   height: 200px;
 }
+.react-calendar-heatmap .color-empty {
+  fill: rgb(187, 183, 183);
+}
