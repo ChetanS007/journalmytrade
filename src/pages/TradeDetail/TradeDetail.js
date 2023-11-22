@@ -172,11 +172,9 @@ const TradeDetail = ({ onBackPress }) => {
                 </div>
               </div>
               <div className="right-details">
-                <div style={{ height: "400px" }}>
+                <div style={{ height: "500px" }}>
                   <h3 className="tradeDetail-tag-name">Stock Chart</h3>
-                  <div>
-                    <Chart />
-                  </div>
+                  <StockChart />
                 </div>
                 <div className="trade-notes">
                   <h3 className="tradeDetail-tag-name">Trade Notes</h3>

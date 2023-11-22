@@ -64,7 +64,7 @@ export default function StockChart() {
           rel="noopener nofollow"
           target="_blank"
         >
-          <span className="blue-text">Track all markets on TradingView</span>
+          {/* <span className="blue-text">Track all markets on TradingView</span> */}
         </a>
       </div>
     </div>
