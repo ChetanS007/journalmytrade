@@ -105,8 +105,8 @@ function SignUp({ onClose }) {
               />
             </div>
           </div>
-          <div className="form-row name-style">
-            <div className="col-md-4">
+          <div className="form-row style-mx">
+            {/* <div className="col-md-4">
               <select
                 name="countryCode"
                 id=""
@@ -764,15 +764,14 @@ function SignUp({ onClose }) {
                   </option>
                 </optgroup>
               </select>
-            </div>
-            <div className="col-md-8">
-              <input
-                type="tel"
-                className="form-input mobile-no"
-                placeholder="Mobile No."
-                onChange={(e) => setMobileNo(e.target.value)}
-              />
-            </div>
+            </div> */}
+
+            <input
+              type="tel"
+              className="form-input mobile-no"
+              placeholder="Mobile No."
+              onChange={(e) => setMobileNo(e.target.value)}
+            />
           </div>
           <div className="form-row style-mx">
             <input
@@ -798,7 +797,7 @@ function SignUp({ onClose }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <div className="form-row style-mx" style={{ display: "flex" }}>
+          {/* <div className="form-row style-mx" style={{ display: "flex" }}>
             <div className="col-md-5">
               <span className="checkbox-label font-style">Select currency</span>
             </div>
@@ -818,7 +817,7 @@ function SignUp({ onClose }) {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
           <div className="form-row style-mx">
             <span className="checkbox-label font-style">
               Select finacial year type:
