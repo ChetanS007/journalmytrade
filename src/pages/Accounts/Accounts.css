@@ -15,7 +15,7 @@
 
 .account-cards {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: center; */
   width: 100%;
   flex-wrap: wrap;
 }
@@ -28,6 +28,7 @@
   min-width: 300px;
   color: #0d0a3f;
   margin: 10px 0;
+  margin-right: 100px;
 }
 
 .arrow {
