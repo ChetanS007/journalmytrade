@@ -25,6 +25,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class RegisterUser(APIView):
 
+    serializer_class = RegisterSerializer 
+
     def get_object(self, pk):
 
             try:
@@ -46,16 +48,16 @@ class RegisterUser(APIView):
 
                     serializer = RegisterSerializer(user_instance)
 
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
                 all_user = User.objects.all()
 
                 serializer = RegisterSerializer(all_user,many=True)
 
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
 
-            return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Error":"Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
     def put(self, request,pk,*args,**kwargs):
@@ -70,11 +72,11 @@ class RegisterUser(APIView):
 
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
-                 return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                 return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request,pk,*args,**kwargs):
 
@@ -95,41 +97,31 @@ class RegisterUser(APIView):
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
-            return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     
+    def post(self,request,*args,**kwargs,):
 
-
-
-    
-    try:
-
-       
-        serializer_class = RegisterSerializer 
-        def post(self,request,*args,**kwargs,):
-
-            try:
-                serializer_obj = RegisterSerializer(data=request.data)
+        try:
+            serializer_obj = RegisterSerializer(data=request.data)
+            
+            if serializer_obj.is_valid():
+                ''' here serializer validate our request data create and store into db'''
+                serializer_obj.save()
+                send_email_to_user(request,serializer_obj.data['email'])
+                hash_pass = make_password(request.data['password'])
+                hash_confirm_pass = make_password(request.data['confirm_password'])
+                user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass,confirm_password=hash_confirm_pass)
                 
-                if serializer_obj.is_valid():
-                    ''' here serializer validate our request data create and store into db'''
-                    serializer_obj.save()
-                    send_email_to_user(request,serializer_obj.data['email'])
-                    hash_pass = make_password(request.data['password'])
-                    hash_confirm_pass = make_password(request.data['confirm_password'])
-                    user = User.objects.all().filter(email=request.data['email']).update(username=request.data['email'],password=hash_pass,confirm_password=hash_confirm_pass)
-                   
-                    
-                    return Response({"Message":"User Register Successfully" ,"user":serializer_obj.data,},status=status.HTTP_200_OK)
+                
+                return Response({"Message":"User Register Successfully" ,"user":serializer_obj.data,},status=status.HTTP_200_OK)
 
-                return Response( {"Message":serializer_obj.errors} ,status=status.HTTP_400_BAD_REQUEST)
-            except Exception as e:
-                print(e)
-                return Response( {"Message":"Bad Request"} ,status=status.HTTP_400_BAD_REQUEST)
+            return Response( {"Error":serializer_obj.errors} ,status=status.HTTP_400_BAD_REQUEST)
+        
 
-    except Exception as e:
-         print(e)
-         Response( {"Message":"Internal Server Error"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            print(e)
+            Response( {"Error":"Internal Server Error"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class UserReactivate(APIView):
@@ -163,9 +155,7 @@ class UserReactivate(APIView):
 
 
 class UserLoginView(APIView):
-
-    try :
-               
+     
         serializer_class = LoginSerializer
         def post(self,request,*args,**kwargs):
             
@@ -193,9 +183,6 @@ class UserLoginView(APIView):
                         access_token = str(refresh.access_token)
                         refresh_token = str(refresh)
 
-
-
-
                         return Response( {"Message":"Login Successfully", 'access_token': access_token,
                                           'refresh_token': refresh_token,},status=status.HTTP_200_OK)
 
@@ -205,13 +192,7 @@ class UserLoginView(APIView):
                  print(e)
                  Response( {"Message:Something Went Wrong"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    except Exception as e:
-        print(e)
-        Response( {"Message:Something Went Wrong"} ,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-
+ 
 
 class UserLogoutView(APIView):
 
@@ -227,100 +208,90 @@ class UserLogoutView(APIView):
 
     
 class AccountsView(APIView):
+    
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
 
-    try:
+    def get_object(self, pk):
+        try:
+            return BrokerageAccount.objects.get(pk=pk)
+        except BrokerageAccount.DoesNotExist:
+            return None
 
-        def get_object(self, pk):
-            try:
-                return BrokerageAccount.objects.get(pk=pk)
-            except BrokerageAccount.DoesNotExist:
-                return None
+    def get(self, request,pk=None,*args,**kwargs):
 
-        def get(self, request,pk=None,*args,**kwargs):
+        try:
+            if pk is not None:
 
-            try:
-                if pk is not None:
-
-                    account_instance = self.get_object(pk)
-                    
-                    if account_instance is None:
-                        return Response({"detail": "Resource not found."},
-                                        status=status.HTTP_404_NOT_FOUND)
-
-                    serializer = AccountSerializer(account_instance)
-
-                    return Response(serializer.data, status=status.HTTP_200_OK)
-
-                all_account = BrokerageAccount.objects.all()
-
-                serializer = AccountSerializer(all_account,many=True)
-
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            except Exception as e:
-
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        
-        def put(self, request,pk,*args,**kwargs):
-
-            account_instance = self.get_object(pk)
-
-            if account_instance is None:
-                        return Response({"detail": "Resource not found."},
-                                        status=status.HTTP_404_NOT_FOUND)
-
-            serializer = AccountSerializer(account_instance,data=request.data)
-
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
-        
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        def delete(self, request,pk,*args,**kwargs):
-
-            account_instance = self.get_object(pk)
-
-            if account_instance is None:
-                        return Response({"detail": "Resource not found."},
-                                        status=status.HTTP_404_NOT_FOUND)
-
-            account_instance.delete()
-            return Response({"message": "Resource deleted successfully."},
-                        status=status.HTTP_204_NO_CONTENT)
-
-
-    except Exception as e:
-
-             Response ({"Msg":"Something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-
-
-    try:
-        def post(self, request,*args,**kwargs):
-
-            serializer_class = AccountSerializer
-
-            serializer_obj = serializer_class(data=request.data)
-
-            try:
-                if serializer_obj.is_valid():
+                account_instance = self.get_object(pk)
                 
-                    serializer_obj.save()
+                if account_instance is None:
+                    return Response({"detail": "Resource not found."},
+                                    status=status.HTTP_404_NOT_FOUND)
 
-                    return Response({"Msg":"Account Created Successfull"},status=status.HTTP_201_CREATED)
+                serializer = AccountSerializer(account_instance)
 
-                return Response({"Msg":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
-            except Exception as e:
+                return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
-                Response ({"Msg":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
+            all_account = BrokerageAccount.objects.all()
 
-    except Exception as e:
+            serializer = AccountSerializer(all_account,many=True)
 
-        Response ({"Msg":"Something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+
+            return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    def put(self, request,pk,*args,**kwargs):
+
+        account_instance = self.get_object(pk)
+
+        if account_instance is None:
+                    return Response({"detail": "Resource not found."},
+                                    status=status.HTTP_404_NOT_FOUND)
+
+        serializer = AccountSerializer(account_instance,data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
+    
+        return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request,pk,*args,**kwargs):
+
+        account_instance = self.get_object(pk)
+
+        if account_instance is None:
+                    return Response({"detail": "Resource not found."},
+                                    status=status.HTTP_404_NOT_FOUND)
+
+        account_instance.delete()
+        return Response({"Message": "Resource deleted successfully."},
+                    status=status.HTTP_204_NO_CONTENT)
+
+
+    def post(self, request,*args,**kwargs):
+
+        serializer_class = AccountSerializer
+
+        serializer_obj = serializer_class(data=request.data)
+
+        try:
+            if serializer_obj.is_valid():
+            
+                serializer_obj.save()
+
+                return Response({"Message":"Account Created Successfull"},status=status.HTTP_201_CREATED)
+
+            return Response({"Message":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+
+            Response ({"Error":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
+
+   
 
 
 
@@ -332,119 +303,106 @@ class TransactionView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    try:
-        def get_object(self, pk):
-
-            try:
-                return Transaction.objects.get(pk=pk)
-            except Transaction.DoesNotExist:
-                return None
-
-
-        def get(self, request,pk=None,*args,**kwargs):
-
-            try:
-                    if pk is not None:
-
-                        transaction_instance = self.get_object(pk)
-                        
-                        if transaction_instance is None:
-                            return Response({"detail": "Resource not found."},
-                                            status=status.HTTP_404_NOT_FOUND)
-
-                        serializer = TransactionSerializer(transaction_instance)
-
-                        return Response(serializer.data, status=status.HTTP_200_OK)
-
-                    all_transaction = Transaction.objects.all()
-
-                    serializer = TransactionSerializer(all_transaction,many=True)
-
-                    return Response(serializer.data, status=status.HTTP_200_OK)
-            except Exception as e:
-
-                return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)      
-
-
-        def put(self, request,pk,*args,**kwargs):
-
-                transaction_instance = self.get_object(pk)
-
-                if transaction_instance is None:
-                            return Response({"detail": "Resource not found."},
-                                            status=status.HTTP_404_NOT_FOUND)
-
-                serializer = TransactionSerializer(transaction_instance,data=request.data)
-
-                if serializer.is_valid():
-                    serializer.save()
-                    return Response(serializer.data, status=status.HTTP_200_OK)
-            
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-        def delete(self, request,pk,*args,**kwargs):
-
-                transaction_instance = self.get_object(pk)
-
-                if transaction_instance is None:
-                            return Response({"detail": "Resource not found."},
-                                            status=status.HTTP_404_NOT_FOUND)
-
-                transaction_instance.delete()
-                return Response({"message": "Resource deleted successfully."},
-                            status=status.HTTP_204_NO_CONTENT)
-    except Exception as e:
-        Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
-    try:
-        def post(self, request,*args,**kwargs):
-
-            serializer_class = TransactionSerializer
-
-            serializer = serializer_class(data=request.data)
-
-            try:
-                if serializer.is_valid():
-
-                    serializer.save()
-
-                    try:
-                        account = serializer.data['account']
-                        amount =  serializer.data['amount']
-                        Br_account=BrokerageAccount.objects.get(id=account)
-
-                        if serializer.data['transaction_type'] == 'Deposit':
-                            
-                                Br_account.balance=Br_account.balance+amount
-                                Br_account.save()
-
-                        else:
-                                Br_account.balance=Br_account.balance-amount
-                                Br_account.save()
-
-                    except Br_account.DoesNotExist:
-
-                        return  Response({"Message":"Account Not Found"},status=status.HTTP_404_NOT_FOUND)
-
-
-                    return  Response({"Message":"Transaction Done Successfully","data":serializer.data},status=status.HTTP_200_OK)
-                
-                return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-            except Exception as e:
-                return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
     
-    except Exception as e:
-        Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    def get_object(self, pk):
 
-   
+        try:
+            return Transaction.objects.get(pk=pk)
+        except Transaction.DoesNotExist:
+            return None
 
-       
+
+    def get(self, request,pk=None,*args,**kwargs):
+
+        try:
+                if pk is not None:
+
+                    transaction_instance = self.get_object(pk)
+                    
+                    if transaction_instance is None:
+                        return Response({"detail": "Resource not found."},
+                                        status=status.HTTP_404_NOT_FOUND)
+
+                    serializer = TransactionSerializer(transaction_instance)
+
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+
+                all_transaction = Transaction.objects.all()
+
+                serializer = TransactionSerializer(all_transaction,many=True)
+
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+
+            return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)      
 
 
+    def put(self, request,pk,*args,**kwargs):
 
+            transaction_instance = self.get_object(pk)
+
+            if transaction_instance is None:
+                        return Response({"detail": "Resource not found."},
+                                        status=status.HTTP_404_NOT_FOUND)
+
+            serializer = TransactionSerializer(transaction_instance,data=request.data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self, request,pk,*args,**kwargs):
+
+            transaction_instance = self.get_object(pk)
+
+            if transaction_instance is None:
+                        return Response({"detail": "Resource not found."},
+                                        status=status.HTTP_404_NOT_FOUND)
+
+            transaction_instance.delete()
+            return Response({"message": "Resource deleted successfully."},
+                        status=status.HTTP_204_NO_CONTENT)
+
+
+    def post(self, request,*args,**kwargs):
+
+        serializer_class = TransactionSerializer
+
+        serializer = serializer_class(data=request.data)
+
+        try:
+            if serializer.is_valid():
+
+                serializer.save()
+
+                try:
+                    account = serializer.data['account']
+                    amount =  serializer.data['amount']
+                    Br_account=BrokerageAccount.objects.get(id=account)
+
+                    if serializer.data['transaction_type'] == 'Deposit':
+                        
+                            Br_account.balance=Br_account.balance+amount
+                            Br_account.save()
+
+                    else:
+                            Br_account.balance=Br_account.balance-amount
+                            Br_account.save()
+
+                except Br_account.DoesNotExist:
+
+                    return  Response({"Message":"Account Not Found"},status=status.HTTP_404_NOT_FOUND)
+
+
+                return  Response({"Message":"Transaction Done Successfully","data":serializer.data},status=status.HTTP_200_OK)
+            
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    
     
 
 
@@ -474,7 +432,7 @@ class TradeView(APIView):
 
                     serializer = TradeSerializer(trade_instance)
 
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
                 all_trade = AddTrade.objects.all()
 
@@ -484,7 +442,7 @@ class TradeView(APIView):
                 
                 response_trade = [serializer.data,global_trade]
                 
-                return Response(response_trade, status=status.HTTP_200_OK)
+                return Response({"Message":response_trade}, status=status.HTTP_200_OK)
         except Exception as e:
 
             return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
@@ -502,11 +460,11 @@ class TradeView(APIView):
 
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
-                 return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                 return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request,pk,*args,**kwargs):
 
@@ -522,7 +480,7 @@ class TradeView(APIView):
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
-            return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -554,9 +512,9 @@ class TradeView(APIView):
 
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
-            return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -592,13 +550,13 @@ class TradeLabelView(APIView):
 
                     serializer = TradeLabelSerializer(label_instance)
 
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
                 all_trade_label = TradeLabel.objects.all()
 
                 serializer = TradeLabelSerializer(all_trade_label,many=True)
 
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
 
             return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
@@ -615,11 +573,11 @@ class TradeLabelView(APIView):
 
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(serializer.data, status=status.HTTP_200_OK)
+                    return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
-                 return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                 return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
     def delete(self, request,pk,*args,**kwargs):
@@ -636,7 +594,7 @@ class TradeLabelView(APIView):
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
-            return Response({"Message":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -653,7 +611,7 @@ class TradeLabelView(APIView):
 
                 return  Response({"Message":"TradeLabel Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
-            return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({"Message":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
