@@ -208,6 +208,7 @@ button:not(:disabled) {
   padding: 1%;
   width: 6rem;
   color: #0d0a3f !important;
+  margin-right: 20px;
 }
 .login {
   color: white !important;
