@@ -3,6 +3,9 @@
   display: flex;
   padding-left: 5%;
   width: 100%;
+  @media screen and (max-width: 481px) {
+    flex-direction:column-reverse ;
+  }
 }
 
 .homeBanner-text-container {
@@ -14,16 +17,24 @@
   text-align: justify;
   width: 45%;
   margin-right: 5%;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+    align-items: center;
+  }
 }
 
 .homeBanner-logo {
   width: 40%;
+  
 }
 
 .homeBannerPara {
   font-weight: 600;
   color: #7a7777;
   font-size: 25px;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+  }
 }
 
 .homeBanner-button {
@@ -53,6 +64,9 @@ span {
   display: flex;
   justify-content: flex-end;
   width: 50%;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+  }
 }
 
 .homeBanner-image {
@@ -74,20 +88,32 @@ span {
 .about-sub {
   width: 100%;
   display: flex;
+  @media screen and (max-width: 481px) {
+flex-direction: column;
+  }
 }
 .about-left {
   width: 50%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+  }
 }
 .about-right {
   width: 50%;
   text-align: left;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+  }
 }
 .about-image {
   width: 80%;
   height: 300px;
+  @media screen and (max-width: 481px) {
+    width: 100%;
+  }
 }
 .about-heading {
   font-weight: bold;
@@ -110,8 +136,8 @@ span {
   align-items: center;
   display: flex;
   justify-content: center;
-  min-width: 20rem;
-  padding: 10px;
+width: 100%; 
+ padding: 10px;
 }
 
 .home-button {
@@ -129,6 +155,12 @@ span {
   gap: 2rem;
   padding-top: 2%;
   width: 80%;
+  @media screen and (max-width: 481px) {
+    /* width:calc(90% - 40px); */
+    width: 90%;
+    justify-content: center;
+    margin: 0 20px;
+  }
 }
 
 /* premium-features */
@@ -166,6 +198,9 @@ span {
   padding: 15px 20px 40px 20px;
   width: 40%;
   margin: 20px 0;
+  @media screen and (max-width: 481px) {
+    width: 90%;
+  }
 }
 
 .premium-feature-icon {
