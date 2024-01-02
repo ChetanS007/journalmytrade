@@ -3,10 +3,14 @@
   color: #fff !important;
   display: flex;
   padding: 2.5% 7.5%;
+
 }
 .section-1 {
   width: 40%;
   color: #fff !important;
+  @media (max-width:48em) {
+    width: 100%;
+  }
 }
 .section {
   display: flex;
@@ -53,6 +57,9 @@
 }
 .section-2 {
   width: 15%;
+  @media (max-width:48em) {
+    width: 100%;
+  }
 }
 .footer-section-heading {
   color: #fff;
@@ -86,10 +93,16 @@
 }
 .section-3 {
   width: 20%;
+  @media (max-width:48em) {
+    width: 100%;
+  }
 }
 
 .section-4 {
   width: 35%;
+  @media (max-width:48em) {
+    width: 100%;
+  }
 }
 
 .copyright,
@@ -112,4 +125,10 @@
 }
 a {
   text-decoration: none !important;
+}
+.footer-container-data{
+  display: flex;
+  @media (max-width:48em) {
+    flex-direction: column;
+  }
 }

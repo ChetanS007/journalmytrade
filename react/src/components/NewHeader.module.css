@@ -1,0 +1,32 @@
+
+.header {
+    height: rem(60px);
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    border-bottom:1px solid  var(--mantine-color-dark-4);
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    text-decoration: none;
+    color:#0000008c;
+    font-weight:700;
+    font-size: var(--mantine-font-size-md);
+  
+    @media (max-width: 48em) {
+      height: rem(42px);
+      width: 100%;
+    }
+  }
+  .link:active::after{
+    color:#0d0a3f
+  }
+  
+.siginbutton{
+  border-color: #0d0a3f;
+  color:#0d0a3f;
+}

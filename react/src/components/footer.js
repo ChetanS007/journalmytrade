@@ -24,7 +24,7 @@ function Footer() {
               alt="Journal my trade"
               className="section section-1 footer-logo"
             />
-            <div style={{ display: "flex" }}>
+            <div className="footer-container-data">
               <div className="section section-1">
                 <p className="footer-paragraph">
                   <h4>Journal My Trade</h4>

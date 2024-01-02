@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Header from "./components/header";
+import {NewHeader} from "./components/NewHeader";
 import Home from "./pages/home";
 import Privacy from "./pages/privacy";
 import Terms from "./pages/terms";
@@ -40,7 +40,7 @@ export default function Navigation() {
         </div>
       ) : (
         <>
-          <Header></Header>
+          <NewHeader></NewHeader>
           <Routes>
             <Route path="/" element={<Home></Home>}></Route>
             <Route path="/Blog" element={<Blog></Blog>}></Route>
