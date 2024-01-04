@@ -17,8 +17,8 @@ ALLOWED_HOSTS = ["api.journalmytrade.com","www.api.journalmytrade.com","103.191.
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
         # "ENGINE": "django.db.backends.postgresql",
+         "ENGINE": "django.db.backends.mysql",
         "NAME": config('DB_NAME'),
         "USER": config('DB_USER_NAME'),
         "PASSWORD": config('DB_PWD'),        
