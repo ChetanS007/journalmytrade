@@ -25,33 +25,6 @@ import datetime
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Determine the environment
-ENVIRONMENT = os.environ.get('production', 'development')
-
-
-# Use different .env file based on the environment
-if ENVIRONMENT == 'development':
-    ENV_FILE = '.env.dev'
-elif ENVIRONMENT == 'production':
-    ENV_FILE = '.env.prod'
-else:
-    raise ValueError('Invalid DJANGO_ENV value. Use "development" or "production".')
-
-# Load environment variables from the chosen .env file
-from dotenv import load_dotenv
-load_dotenv(ENV_FILE)
-# Rest of your settings...
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-
-
-
-
 # Application definition
 
 INSTALLED_APPS = [

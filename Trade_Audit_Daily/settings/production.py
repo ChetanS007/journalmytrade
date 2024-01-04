@@ -1,14 +1,24 @@
 from .base import *
 
+from dotenv import load_dotenv
+load_dotenv(".env.prod")
+# Rest of your settings...
 
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost",]
+ALLOWED_HOSTS = ["api.journalmytrade.com","www.api.journalmytrade.com","103.191.208.227"]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+        # "ENGINE": "django.db.backends.postgresql",
         "NAME": config('DB_NAME'),
         "USER": config('DB_USER_NAME'),
         "PASSWORD": config('DB_PWD'),        
