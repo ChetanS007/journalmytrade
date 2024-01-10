@@ -25,7 +25,7 @@ export default function Accounts() {
   const updateAccountNAme = async (account, newName) => {
     await updateAccountHandler(account, newName);
     let temp = [];
-    editaccountnameArray.forEach((item) => {
+    editaccountnameArray?.forEach((item) => {
       item.isActive = false;
       temp.push(item);
     });
@@ -33,7 +33,8 @@ export default function Accounts() {
   };
   React.useEffect(() => {
     let array_temp = [];
-    AccountsDetail.forEach((element) => {
+    console.log(AccountsDetail)
+    AccountsDetail?.forEach((element) => {
       let temp = {};
       temp.id = element.id;
       temp.isActive = false;
@@ -98,7 +99,7 @@ export default function Accounts() {
                   </button>
                 </IconContext.Provider>
               </div>
-              <div className="account-cards">
+            {AccountsDetail.length>0&&  <div className="account-cards">
                 {AccountsDetail.map((account, index) => (
                   <div className="account-card">
                     <div className="account-name">
@@ -211,7 +212,7 @@ export default function Accounts() {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
           </TradeDetailCard>
         </div>

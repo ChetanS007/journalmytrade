@@ -10,7 +10,7 @@ import { AddTrade } from "../../apis/apicalls";
 const AddTradeModal = ({ isopen, oncancel }) => {
   const [isBulkUpload, setisBulkUpload] = useState(false);
   const { AccountsDetail, accessToken } = React.useContext(AuthContext);
-  const accounts = AccountsDetail.map((obj) => obj.id);
+  const accounts = AccountsDetail?.map((obj) => obj.id);
   const [TradeData, setTradeData] = useState({
     account: 1,
     symbol: null,
