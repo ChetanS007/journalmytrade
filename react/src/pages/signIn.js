@@ -1,19 +1,44 @@
 import React, { useContext, useState } from "react";
 import "./signIn.css";
 import SignInlogo from "./imagesPage/footerLogo.png";
-import SignInWithGoogle from "./imagesPage/Sign in with Google.png";
 import { loginApiCall } from "../apis/apicalls";
-import { validateEmail } from "../utils";
 import { AuthContext } from "../context/AuthContext";
-function SignIn({ onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
+import { useDisclosure } from "@mantine/hooks";
+import {
+  Modal,
+  Button,
+  TextInput,
+  PasswordInput,
+  Text,
+  Paper,
+  Group,
+  PaperProps,
+  Divider,
+  Checkbox,
+  Anchor,
+  Stack,
+  Image,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { GoogleButton } from "../components/GoogleButton";
 
+function SignIn({ isOpen, onClose }) {
+  const { login } = useContext(AuthContext);
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    validate: {
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
+    },
+  });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateEmail(email)) {
-      const res = await loginApiCall(email, password);
+    console.log("first");
+    if (form.validate(form.values.email)) {
+      const res = await loginApiCall(form.values.email, form.values.password);
       console.log(res);
       if (res.Message === "Login Successfully") {
         onClose();
@@ -25,50 +50,60 @@ function SignIn({ onClose }) {
   };
 
   return (
-    <div>
-      <div className="modal">
-        <div className="modal-content">
-          <div className="close-icon" onClick={onClose}>
-            <span className="material-icons">✖</span>
-          </div>
-          <div class="logo-div">
-            <img src={SignInlogo} alt="Logo" className="logo-design" />
-          </div>
-          <h3 className="SiginItext">Sign In</h3>
-          <div class="googleLogo">
-            <img src={SignInWithGoogle} alt="Logo" class="signGoogle" />
-          </div>
-          <h4 className="or">-----OR-----</h4>
-          <form onSubmit={handleSubmit}>
-            <input
-              class="inputStyle"
-              placeholder="Email Address"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+    <Modal opened={isOpen} onClose={onClose} centered>
+      <Paper radius="md" p="xl">
+        <Stack mb="md" mt="md" justify="center" align="center">
+          <Image radius="md" h={80} w={100} fit="contain" src={SignInlogo} />
+          <Text size="xl" fw={500}>
+            Sign In
+          </Text>
+        </Stack>
+        <Group grow mb="md" mt="md">
+          <GoogleButton radius="xl">Google</GoogleButton>
+        </Group>
+
+        <Divider
+          label="Or continue with email"
+          labelPosition="center"
+          my="lg"
+        />
+
+        <form onSubmit={handleSubmit}>
+          <Stack>
+            <TextInput
               required
+              label="Email"
+              placeholder="hello@mantine.dev"
+              value={form.values.email}
+              onChange={(event) =>
+                form.setFieldValue("email", event.currentTarget.value)
+              }
+              error={form.errors.email && "Invalid email"}
+              radius="md"
             />
 
-            <input
-              class="inputStyle"
-              placeholder="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+            <PasswordInput
               required
+              label="Password"
+              placeholder="Your password"
+              value={form.values.password}
+              onChange={(event) =>
+                form.setFieldValue("password", event.currentTarget.value)
+              }
+              radius="md"
             />
-            <div className="remember-me">
-              <input type="checkbox" id="rememberMe" />
-              <label htmlFor="rememberMe">Remember me</label>
-            </div>
-            <button type="submit" class="submit-btn" onClick={handleSubmit}>
-              Submit
-            </button>
-            <div className="noaccount">Don't have an account signup?</div>
-          </form>
-        </div>
-      </div>
-    </div>
+            <Button
+              variant="primary"
+              radius="md"
+              mt={"md"}
+              onClick={handleSubmit}
+            >
+              Sign in
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </Modal>
   );
 }
 

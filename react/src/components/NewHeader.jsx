@@ -60,7 +60,7 @@ import SignIn from '../pages/signIn';
         <header className={classes.header} >
           <Group justify="space-between" h="100%">
             <Image src={navlogo} w={120} />
-            <Group h="100%" gap={0} visibleFrom="sm">
+            <Group h="100%" gap={0} visibleFrom="md">
               <a href="/" className={classes.link}>
                 Home
               </a>
@@ -78,12 +78,12 @@ import SignIn from '../pages/signIn';
               </a>
             </Group>
   
-            <Group visibleFrom="sm">
+            <Group visibleFrom="md">
             <Button  onClick={openSignInModal} className={classes.siginbutton} size='md' variant={'secondary'}>Sign In</Button>
               <Button  onClick={openSignUpModal} variant='primary'  color="#0d0a3f" size='md'>Sign Up</Button>
             </Group>
   
-            <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+            <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="md" />
           </Group>
         </header>
   
@@ -117,8 +117,8 @@ import SignIn from '../pages/signIn';
             </Group>
           </ScrollArea>
         </Drawer>
-        {isSignUpModalOpen && <SignUp onClose={closeSignUpModal} />}
-      {isSignInModalOpen && <SignIn onClose={closeSignInModal} />}
+        {isSignUpModalOpen && <SignUp  onClose={closeSignUpModal} />}
+      <SignIn isOpen={isSignInModalOpen}onClose={closeSignInModal} />
       </Box>
     );
   }
