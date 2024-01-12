@@ -33,7 +33,7 @@ export default function Journal({ onburgerclick }) {
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
           <div>
-            <RiListSettingsLine onclick={onburgerclick} />
+            <RiListSettingsLine onClick={onburgerclick} />
             <button className="add-tradebutton" onClick={addtrade}>
               Add Trade
               <IconContext.Provider value={{ color: "#fff", size: 20 }}>

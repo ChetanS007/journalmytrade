@@ -26,7 +26,10 @@ export default function Notes({ onburgerclick }) {
     return (
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
-          <div></div>
+          <div>
+            {" "}
+            <RiListSettingsLine onClick={onburgerclick} />
+          </div>
           <div onClick={() => setshowlogutmodal(!showlogutmodal)}>
             <IoPersonCircleOutline />
             {showlogutmodal && (
