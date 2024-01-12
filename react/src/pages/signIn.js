@@ -3,7 +3,6 @@ import "./signIn.css";
 import SignInlogo from "./imagesPage/footerLogo.png";
 import { loginApiCall } from "../apis/apicalls";
 import { AuthContext } from "../context/AuthContext";
-import { useDisclosure } from "@mantine/hooks";
 import {
   Modal,
   Button,
@@ -12,10 +11,7 @@ import {
   Text,
   Paper,
   Group,
-  PaperProps,
   Divider,
-  Checkbox,
-  Anchor,
   Stack,
   Image,
 } from "@mantine/core";
