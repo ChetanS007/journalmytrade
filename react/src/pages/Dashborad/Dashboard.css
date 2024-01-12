@@ -71,6 +71,7 @@ display:none;}
 .trade-summary {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap
 }
 
 .profit-loss {

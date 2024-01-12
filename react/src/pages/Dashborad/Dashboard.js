@@ -282,7 +282,7 @@ function Dashboard({ onburgerclick }) {
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
               {last7MonthsDates.map((month, index) => (
                 <div style={{ flex: 1 }}>
                   <Heatmap
