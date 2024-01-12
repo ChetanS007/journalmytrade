@@ -113,7 +113,7 @@ function getLast7MonthsStartAndEndDates() {
 
 // Call the function to get the last 7 months' start and end dates
 const last7MonthsDates = getLast7MonthsStartAndEndDates();
-function Dashboard() {
+function Dashboard({ onburgerclick }) {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout, genraltrades, alltrades } = useContext(AuthContext);
   const pieData = [
@@ -134,7 +134,7 @@ function Dashboard() {
     return (
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
-          <RiListSettingsLine />
+          <RiListSettingsLine onClick={onburgerclick} />
           <div onClick={() => setshowlogutmodal(!showlogutmodal)}>
             <IoPersonCircleOutline />
             {showlogutmodal && (

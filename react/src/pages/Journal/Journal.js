@@ -16,7 +16,7 @@ import TradeDetailCard from "../../components/TradeDetailCard";
 import AddTradeModal from "../../components/AddTradeModal/AddTradeModal";
 import { Link } from "react-router-dom";
 import TradeDetail from "../TradeDetail/TradeDetail";
-export default function Journal() {
+export default function Journal({ onburgerclick }) {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout, alltrades, genraltrades } = React.useContext(AuthContext);
   const [tradeModal, settradeModal] = React.useState(false);
@@ -33,7 +33,7 @@ export default function Journal() {
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
           <div>
-            <RiListSettingsLine />
+            <RiListSettingsLine onclick={onburgerclick} />
             <button className="add-tradebutton" onClick={addtrade}>
               Add Trade
               <IconContext.Provider value={{ color: "#fff", size: 20 }}>

@@ -18,7 +18,7 @@ const TraderNotes = [
   { Label: "label 3", isActive: true },
   { Label: "label 4", isActive: false },
 ];
-export default function Notes() {
+export default function Notes({ onburgerclick }) {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const { logout } = React.useContext(AuthContext);
 

@@ -15,7 +15,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Home() {
   return (
-    <div class="home-page">
+    <div class="home-page container">
       {/* home */}
       <div class="homeBanner">
         <div class="homeBanner-text-container">

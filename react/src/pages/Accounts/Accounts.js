@@ -14,7 +14,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
 import { UpdateeAccountApi } from "../../apis/apicalls";
 import { Link } from "react-router-dom";
-export default function Accounts() {
+export default function Accounts({ onburgerclick }) {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const [editaccountnameArray, seteditaccountnameArray] = useState([]);
   const { logout, AccountsDetail, deletAccounthandler, updateAccountHandler } =
@@ -33,7 +33,7 @@ export default function Accounts() {
   };
   React.useEffect(() => {
     let array_temp = [];
-    console.log(AccountsDetail)
+    console.log(AccountsDetail);
     AccountsDetail?.forEach((element) => {
       let temp = {};
       temp.id = element.id;
@@ -47,7 +47,7 @@ export default function Accounts() {
     return (
       <div className="dashboard-header">
         <IconContext.Provider value={{ color: "#0d0a3f", size: 30 }}>
-          <RiListSettingsLine />
+          <RiListSettingsLine onClick={onburgerclick} />
           <div onClick={() => setshowlogutmodal(!showlogutmodal)}>
             <IoPersonCircleOutline />
             {showlogutmodal && (
@@ -99,120 +99,122 @@ export default function Accounts() {
                   </button>
                 </IconContext.Provider>
               </div>
-            {AccountsDetail.length>0&&  <div className="account-cards">
-                {AccountsDetail.map((account, index) => (
-                  <div className="account-card">
-                    <div className="account-name">
-                      {!editaccountnameArray[index]?.isActive ? (
-                        <>
-                          {account.account_name}
+              {AccountsDetail.length > 0 && (
+                <div className="account-cards">
+                  {AccountsDetail.map((account, index) => (
+                    <div className="account-card">
+                      <div className="account-name">
+                        {!editaccountnameArray[index]?.isActive ? (
+                          <>
+                            {account.account_name}
 
-                          <IconContext.Provider
-                            value={{ color: "#0d0a3f", size: 15 }}
-                          >
-                            <a id={`clickable${account.id}`}>
-                              <BsInfoCircle />
-                            </a>
-                          </IconContext.Provider>
-                        </>
-                      ) : (
-                        <EditName
-                          defaultvalue={account.account_name}
-                          onClickHanler={(newName) =>
-                            updateAccountNAme(account, newName)
-                          }
-                        />
-                      )}
-                      <Tooltip
-                        anchorSelect={`#clickable${account.id}`}
-                        className="tooltip-main"
-                        style={{
-                          backgroundColor: "#fff",
-                          color: "black",
-                          width: "250px",
-                        }}
-                        clickable
-                      >
-                        <div>
-                          <div
-                            className="popup-item"
-                            onClick={() => {
-                              let temp = [];
-                              editaccountnameArray.forEach((item) => {
-                                if (item.id === account.id) {
-                                  item.isActive = true;
-                                } else {
-                                  item.isActive = false;
-                                }
-                                temp.push(item);
-                              });
-                              seteditaccountnameArray(temp);
-                            }}
-                          >
-                            <span className="popup-itemname">
-                              Edit Account Name
-                            </span>
                             <IconContext.Provider
                               value={{ color: "#0d0a3f", size: 15 }}
                             >
-                              <AiTwotoneEdit />
+                              <a id={`clickable${account.id}`}>
+                                <BsInfoCircle />
+                              </a>
                             </IconContext.Provider>
-                          </div>
-                          <div
-                            className="popup-item"
-                            onClick={() => {
-                              deletAccounthandler(account.id);
-                            }}
-                          >
-                            <span className="popup-itemname">
-                              Delete Account
-                            </span>
-                            <IconContext.Provider
-                              value={{ color: "red", size: 15 }}
+                          </>
+                        ) : (
+                          <EditName
+                            defaultvalue={account.account_name}
+                            onClickHanler={(newName) =>
+                              updateAccountNAme(account, newName)
+                            }
+                          />
+                        )}
+                        <Tooltip
+                          anchorSelect={`#clickable${account.id}`}
+                          className="tooltip-main"
+                          style={{
+                            backgroundColor: "#fff",
+                            color: "black",
+                            width: "250px",
+                          }}
+                          clickable
+                        >
+                          <div>
+                            <div
+                              className="popup-item"
+                              onClick={() => {
+                                let temp = [];
+                                editaccountnameArray.forEach((item) => {
+                                  if (item.id === account.id) {
+                                    item.isActive = true;
+                                  } else {
+                                    item.isActive = false;
+                                  }
+                                  temp.push(item);
+                                });
+                                seteditaccountnameArray(temp);
+                              }}
                             >
-                              <RiDeleteBinLine />
-                            </IconContext.Provider>
+                              <span className="popup-itemname">
+                                Edit Account Name
+                              </span>
+                              <IconContext.Provider
+                                value={{ color: "#0d0a3f", size: 15 }}
+                              >
+                                <AiTwotoneEdit />
+                              </IconContext.Provider>
+                            </div>
+                            <div
+                              className="popup-item"
+                              onClick={() => {
+                                deletAccounthandler(account.id);
+                              }}
+                            >
+                              <span className="popup-itemname">
+                                Delete Account
+                              </span>
+                              <IconContext.Provider
+                                value={{ color: "red", size: 15 }}
+                              >
+                                <RiDeleteBinLine />
+                              </IconContext.Provider>
+                            </div>
                           </div>
+                        </Tooltip>
+                      </div>
+                      <div className="account-diver"></div>
+                      <div className="account-details ">
+                        <div className="account-detail-type">Balance:</div>
+                        <div className="account-detail-value">
+                          {account.balance}
                         </div>
-                      </Tooltip>
-                    </div>
-                    <div className="account-diver"></div>
-                    <div className="account-details ">
-                      <div className="account-detail-type">Balance:</div>
-                      <div className="account-detail-value">
-                        {account.balance}
                       </div>
-                    </div>
 
-                    <div className="account-details">
-                      <div className="account-detail-type">
-                        Total of Trades:
+                      <div className="account-details">
+                        <div className="account-detail-type">
+                          Total of Trades:
+                        </div>
+                        <div className="account-detail-value">
+                          {account.total_trade}
+                        </div>
                       </div>
-                      <div className="account-detail-value">
-                        {account.total_trade}
+                      <div className="account-details">
+                        <div className="account-detail-type">Wins:</div>
+                        <div
+                          className="account-detail-value"
+                          style={{ color: "green" }}
+                        >
+                          {account.win}
+                        </div>
+                      </div>
+                      <div className="account-details">
+                        <div className="account-detail-type">Losses:</div>
+                        <div
+                          className="account-detail-value"
+                          style={{ color: "red" }}
+                        >
+                          {account.loss}
+                        </div>
                       </div>
                     </div>
-                    <div className="account-details">
-                      <div className="account-detail-type">Wins:</div>
-                      <div
-                        className="account-detail-value"
-                        style={{ color: "green" }}
-                      >
-                        {account.win}
-                      </div>
-                    </div>
-                    <div className="account-details">
-                      <div className="account-detail-type">Losses:</div>
-                      <div
-                        className="account-detail-value"
-                        style={{ color: "red" }}
-                      >
-                        {account.loss}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>}
+                  ))}
+                </div>
+              )}
             </div>
           </TradeDetailCard>
         </div>

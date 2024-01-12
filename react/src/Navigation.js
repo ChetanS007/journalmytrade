@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
-import {NewHeader} from "./components/NewHeader";
+import { NewHeader } from "./components/NewHeader";
 import Home from "./pages/home";
 import Privacy from "./pages/privacy";
 import Terms from "./pages/terms";
@@ -22,18 +22,33 @@ import Profile from "./pages/Profile/Profile";
 
 export default function Navigation() {
   const { isLoggedIn } = useContext(AuthContext);
-
+  const [issidebaropen, setissidebaropen] = useState(true);
+  const onburgerclick = () => {
+    setissidebaropen(!issidebaropen);
+  };
   return (
     <div>
       {isLoggedIn ? (
         <div className="dashboard-container">
-          <Sidebar />
+          <Sidebar isOpen={issidebaropen} />
           <Routes>
-            <Route path="/Dashboard" element={<Dashboard />}></Route>
-            <Route path="/Journal" element={<Journal />}></Route>
+            <Route
+              path="/Dashboard"
+              element={<Dashboard onburgerclick={onburgerclick} />}
+            ></Route>
+            <Route
+              path="/Journal"
+              element={<Journal onburgerclick={onburgerclick} />}
+            ></Route>
             <Route path="/Chart" element={<Chart />}></Route>
-            <Route path="/Notes" element={<Notes />}></Route>
-            <Route path="/Accounts" element={<Accounts />}></Route>
+            <Route
+              path="/Notes"
+              element={<Notes onburgerclick={onburgerclick} />}
+            ></Route>
+            <Route
+              path="/Accounts"
+              element={<Accounts onburgerclick={onburgerclick} />}
+            ></Route>
             <Route path="/Profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/Dashboard" replace />} />
           </Routes>

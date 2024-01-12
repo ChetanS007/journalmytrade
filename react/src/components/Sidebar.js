@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import homeImg1 from "./../pages/imagesPage/homeImg1.png";
+import { Drawer } from "@mantine/core";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen }) {
   function MenuItem({ label, to }) {
     return (
       <NavLink
@@ -17,7 +18,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="sidebar">
+    <div className={isOpen ? "sidebar" : "sidebarHidden"}>
       <div className="dash-logo">
         <img src={homeImg1} alt="Journal My Trade" class="dashBanner-logo" />
       </div>
