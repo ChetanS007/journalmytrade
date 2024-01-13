@@ -13,7 +13,7 @@ function Pricing() {
         </p>
         <div class="pricing-box">
           <div class="row pricing-columns">
-            <div class="col-md-5">
+            <div class="col-md-5 pricingCont">
               <div class="card  shadow">
                 <div class=" ">
                   <h2 class="pricing-header">Free</h2>
@@ -34,7 +34,7 @@ function Pricing() {
                 </a>
               </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 pricingCont">
               <div class="card  shadow">
                 <div class=" ">
                   <h2 class="pricing-header">Premium</h2>
