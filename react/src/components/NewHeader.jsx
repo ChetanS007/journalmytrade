@@ -110,7 +110,7 @@ export function NewHeader() {
         size="100%"
         padding="md"
         title=""
-        hiddenFrom="sm"
+        hiddenFrom="md"
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
