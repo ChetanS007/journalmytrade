@@ -25,6 +25,9 @@
 
 .homeBanner-logo {
   width: 40%;
+  @media screen and (max-width:768px) {
+    display:none
+  }
   
 }
 
@@ -163,7 +166,10 @@ width: 100%;
 
 /* premium-features */
 .premiumcontainer {
-  width: 80% !important;
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
 }
 .premium-features {
   align-items: center;
