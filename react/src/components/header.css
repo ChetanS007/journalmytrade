@@ -331,3 +331,18 @@ textarea {
   flex: 0.2;
   justify-content: space-between;
 }
+.newContainer{
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-right: auto;
+  margin-left: auto;
+}
+/* Media query for larger displays */
+@media screen and (min-width: 1700px) {
+  .newContainer {
+    max-width: 1200px;
+  }
+}

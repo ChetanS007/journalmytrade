@@ -20,6 +20,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import navlogo from "./images/homeImg1.png";
+import "./header.css";
 
 import classes from "./NewHeader.module.css";
 import { useContext, useState } from "react";
@@ -54,7 +55,7 @@ export function NewHeader() {
   };
 
   return (
-    <Box className="container">
+    <Box className="newContainer">
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <Image src={navlogo} w={120} />

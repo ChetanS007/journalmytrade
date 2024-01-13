@@ -15,11 +15,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Home() {
   return (
-    <div class="home-page container">
+    <div class="home-page newContainer">
       {/* home */}
       <div class="homeBanner">
         <div class="homeBanner-text-container">
-          <div class="container">
+          <div class="newContainer">
             <img
               src={homeImg1}
               alt="Journal My Trade"
@@ -44,7 +44,7 @@ function Home() {
       </div>
       {/* about */}
       <div className="about">
-        <div class="container">
+        <div class="newContainer">
           <div class="about-sub">
             <div class="about-left">
               <img
@@ -80,7 +80,7 @@ function Home() {
       </div>
       {/* premium-feature */}
       <div class="premium-features">
-        <div class="container premiumcontainer">
+        <div class="newContainer premiumcontainer">
           <h2 class="premium-features-heading">
             Journal my trade Core Premium features
             <br /> that can be game-changers for your <br />
@@ -154,7 +154,7 @@ function Home() {
         </div>
         {/* descriptive-paragraph */}
         <div class="descriptive-paragraph">
-          <div class="container">
+          <div class="newContainer">
             <div class="row">
               <div class="col-md-9">
                 <p class="description-para">
@@ -222,7 +222,7 @@ function Home() {
       </div>
       {/* benefits-section */}
       <div class="benefitsSection">
-        <div class="benefits-section container">
+        <div class="benefits-section newContainer">
           <h2 class="benefits-heading">Benefits of Journal my trade</h2>
           <div>
             <div class="row">
@@ -394,7 +394,7 @@ function Home() {
       </div>
       {/* revamp-section */}
       <div class="revamp-section">
-        <div class="container">
+        <div class="newContainer">
           <h2 class="revamp-heading">
             Revamp your trading strategy with Journal my trade’s unparalleled
             trading analysis and insights.
@@ -417,7 +417,7 @@ function Home() {
       {/* improvement-tips */}
 
       <div className="improvement-tips">
-        <div class="container">
+        <div class="newContainer">
           <div class="row">
             <div class="col-md-6">
               <div className="improvement-tips-text-container">
