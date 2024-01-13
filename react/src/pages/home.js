@@ -12,6 +12,7 @@ import homelogo3 from "./imagesPage/homelogo3.png";
 import homelogo4 from "./imagesPage/homelogo4.png";
 import homelogo5 from "./imagesPage/homelogo5.png";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "@mantine/core";
 
 function Home() {
   return (
@@ -19,13 +20,7 @@ function Home() {
       {/* home */}
       <div class="homeBanner">
         <div class="homeBanner-text-container">
-          <div class="newContainer">
-            <img
-              src={homeImg1}
-              alt="Journal My Trade"
-              class="homeBanner-logo"
-            />
-          </div>
+          <img src={homeImg1} alt="Journal My Trade" class="homeBanner-logo" />
           <p class="homeBannerPara">
             An online trading journal to get the pulse of your trade for its
             healthy growth.
@@ -70,9 +65,9 @@ function Home() {
                 traders.
               </p>
               <div className="sign-up-container">
-                <button className="home-button home-sign-up-button">
+                <Button variant="primary" size="lg" pb={10} pt={10}>
                   Yes, I want to Sign up for free
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -148,9 +143,9 @@ function Home() {
             </p>
           </div>
 
-          <button class="home-button premium-features-sign-up">
+          <Button variant="primary" size="lg" pb={10} pt={10}>
             Yes, I want to Sign up for Premium App
-          </button>
+          </Button>
         </div>
         {/* descriptive-paragraph */}
         <div class="descriptive-paragraph">
@@ -224,166 +219,162 @@ function Home() {
       <div class="benefitsSection">
         <div class="benefits-section newContainer">
           <h2 class="benefits-heading">Benefits of Journal my trade</h2>
-          <div>
-            <div class="row">
-              <div class="col-md-5 benefitsImg">
-                <div class="benefits-img-container">
-                  <img
-                    src={homeImg5}
-                    alt="Journal my trade benefits"
-                    class="benefits-tablet"
-                  />
-                </div>
+          <div class="newContainer benefintsCont">
+            <div class="col-md-5 benefitsImg">
+              <div class="benefits-img-container">
+                <img
+                  src={homeImg5}
+                  alt="Journal my trade benefits"
+                  class="benefits-tablet"
+                />
               </div>
-              <div class="col-md-7">
-                <div class="benefits-text-container">
-                  <div class="benefits-list">
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          Rich and consistent data added to the journal provides
-                          rich insights.
-                        </p>
-                      </div>
+            </div>
+            <div class="col-md-7 beenfistList">
+              <div class="benefits-text-container">
+                <div class="benefits-list">
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          Easy to identify market patterns that help you avoid
-                          mistakes.
-                        </p>
-                      </div>
+                    <div>
+                      <p class="benefit">
+                        Rich and consistent data added to the journal provides
+                        rich insights.
+                      </p>
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          Deep analysis of your trading leads to better
-                          decision-making.
-                        </p>
-                      </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          Track your progress to observe your mistakes when
-                          opening or closing a position.
-                        </p>
-                      </div>
+                    <div>
+                      <p class="benefit">
+                        Easy to identify market patterns that help you avoid
+                        mistakes.
+                      </p>
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          It helps develop a successful trading strategy.
-                        </p>
-                      </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          Opportunity to try different trading strategies that
-                          help you find the right trading style.
-                        </p>
-                      </div>
+                    <div>
+                      <p class="benefit">
+                        Deep analysis of your trading leads to better
+                        decision-making.
+                      </p>
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          It enables you to recognize your key strengths and
-                          weaknesses.
-                        </p>
-                      </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          It helps you become more disciplined as a trader.
-                        </p>
-                      </div>
+                    <div>
+                      <p class="benefit">
+                        Track your progress to observe your mistakes when
+                        opening or closing a position.
+                      </p>
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          It helps you with risk management.
-                        </p>
-                      </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
                     </div>
-                    <div class="d-flex">
-                      <div>
-                        <img
-                          src={homelogo5}
-                          alt="Benefit"
-                          class="benefit-list-image"
-                        />
-                      </div>
-                      <div>
-                        <p class="benefit">
-                          It allows you to get some insights into your trading
-                          psychology.
-                        </p>
-                      </div>
+                    <div>
+                      <p class="benefit">
+                        It helps develop a successful trading strategy.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
+                    </div>
+                    <div>
+                      <p class="benefit">
+                        Opportunity to try different trading strategies that
+                        help you find the right trading style.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
+                    </div>
+                    <div>
+                      <p class="benefit">
+                        It enables you to recognize your key strengths and
+                        weaknesses.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
+                    </div>
+                    <div>
+                      <p class="benefit">
+                        It helps you become more disciplined as a trader.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
+                    </div>
+                    <div>
+                      <p class="benefit">It helps you with risk management.</p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <img
+                        src={homelogo5}
+                        alt="Benefit"
+                        class="benefit-list-image"
+                      />
+                    </div>
+                    <div>
+                      <p class="benefit">
+                        It allows you to get some insights into your trading
+                        psychology.
+                      </p>
                     </div>
                   </div>
                 </div>
