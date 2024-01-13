@@ -17,9 +17,11 @@ import {
   Radio,
   Stack,
   Image,
+  Flex,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { GoogleButton } from "../components/GoogleButton";
+import { useMediaQuery } from "@mantine/hooks";
 
 function SignUp({ isOpen = true, onClose }) {
   const [finacial_year, setfinacial_year] = useState("0");
@@ -74,29 +76,29 @@ function SignUp({ isOpen = true, onClose }) {
       alert("Please agree terms and condition");
     }
   };
+  const isMobileDevice = useMediaQuery(`(max-width:576px)`); // Adjust the media query as needed
+  console.log(isMobileDevice);
 
+  const InputfieldContainer = ({ children }) => {
+    if (isMobileDevice) {
+      return <Flex direction={"column"}>{children}</Flex>;
+    } else {
+      return <Group grow>{children}</Group>;
+    }
+  };
   return (
-    <Modal opened={isOpen} onClose={onClose} centered>
-      <Paper radius="md" p="xl">
-        <Stack mb="md" mt="md" justify="center" align="center">
-          <Image radius="md" h={80} w={100} fit="contain" src={SignInlogo} />
+    <Modal opened={isOpen} onClose={onClose} centered size="xl">
+      <Paper radius="md" p="lg">
+        <Stack mb="sm" justify="center" align="center">
+          <Image radius="md" h={50} w={50} fit="contain" src={SignInlogo} />
           <Text size="xl" fw={500}>
             Sign Up
           </Text>
         </Stack>
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl">Google</GoogleButton>
-        </Group>
-
-        <Divider
-          label="Or continue with email"
-          labelPosition="center"
-          my="lg"
-        />
 
         <form onSubmit={handleSubmit}>
           <Stack>
-            <Group grow>
+            <InputfieldContainer>
               <TextInput
                 required
                 label="First Name"
@@ -119,68 +121,77 @@ function SignUp({ isOpen = true, onClose }) {
                 radius="md"
                 error={form.errors.lastname && "Enter name"}
               />
-            </Group>
-            <TextInput
-              required
-              label="Mobile No"
-              placeholder="Mobile No"
-              value={form.values.mobileNo}
-              onChange={(event) =>
-                form.setFieldValue("mobileNo", event.currentTarget.value)
-              }
-              error={form.errors.mobileNo && "Invalid Mobile No"}
-              radius="md"
-              type="number"
-            />
-            <TextInput
-              required
-              label="Email"
-              placeholder="hello@mantine.dev"
-              value={form.values.email}
-              onChange={(event) =>
-                form.setFieldValue("email", event.currentTarget.value)
-              }
-              error={form.errors.email && "Invalid email"}
-              radius="md"
-            />
-            <PasswordInput
-              required
-              label="Password"
-              placeholder="Your password"
-              value={form.values.password}
-              onChange={(event) =>
-                form.setFieldValue("password", event.currentTarget.value)
-              }
-              radius="md"
-              error={
-                form.errors.password &&
-                "Password should include at least 6 characters"
-              }
-            />
-            <PasswordInput
-              required
-              label="Confirm Password"
-              placeholder="Confirm password"
-              value={form.values.confirmpassword}
-              onChange={(event) =>
-                form.setFieldValue("confirmpassword", event.currentTarget.value)
-              }
-              error={form.errors.confirmpassword && "Password Does Not Match"}
-              radius="md"
-            />
-            <Radio.Group
-              label="Select finacial year type:"
-              withAsterisk
-              value={form.values.finacial_year}
-              onChange={(event) => {
-                form.setFieldValue("finacial_year", event);
-              }}
-            >
-              <Group mt="xs">
-                <Radio value="0" label="Jan - Dec" />
-                <Radio value="1" label="Apr - March" />
-              </Group>
-            </Radio.Group>
+            </InputfieldContainer>
+            <InputfieldContainer>
+              <TextInput
+                required
+                label="Mobile No"
+                placeholder="Mobile No"
+                value={form.values.mobileNo}
+                onChange={(event) =>
+                  form.setFieldValue("mobileNo", event.currentTarget.value)
+                }
+                error={form.errors.mobileNo && "Invalid Mobile No"}
+                radius="md"
+                type="number"
+              />
+              <TextInput
+                required
+                label="Email"
+                placeholder="hello@mantine.dev"
+                value={form.values.email}
+                onChange={(event) =>
+                  form.setFieldValue("email", event.currentTarget.value)
+                }
+                error={form.errors.email && "Invalid email"}
+                radius="md"
+              />
+            </InputfieldContainer>
+            <InputfieldContainer>
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                value={form.values.password}
+                onChange={(event) =>
+                  form.setFieldValue("password", event.currentTarget.value)
+                }
+                radius="md"
+                error={
+                  form.errors.password &&
+                  "Password should include at least 6 characters"
+                }
+              />
+              <PasswordInput
+                required
+                label="Confirm Password"
+                placeholder="Confirm password"
+                value={form.values.confirmpassword}
+                onChange={(event) =>
+                  form.setFieldValue(
+                    "confirmpassword",
+                    event.currentTarget.value
+                  )
+                }
+                error={form.errors.confirmpassword && "Password Does Not Match"}
+                radius="md"
+              />
+            </InputfieldContainer>
+            <InputfieldContainer>
+              <Radio.Group
+                label="Select finacial year type:"
+                withAsterisk
+                value={form.values.finacial_year}
+                onChange={(event) => {
+                  form.setFieldValue("finacial_year", event);
+                }}
+              >
+                <Group mt="xs">
+                  <Radio value="0" label="Jan - Dec" />
+                  <Radio value="1" label="Apr - March" />
+                </Group>
+              </Radio.Group>
+            </InputfieldContainer>
             <Checkbox
               label="I accept terms and conditions"
               checked={form.values.terms}
@@ -189,15 +200,17 @@ function SignUp({ isOpen = true, onClose }) {
               }}
               error={form.errors.terms && "Please accept terms and conditions"}
             />
+          </Stack>
+          <Flex justify={"center"}>
             <Button
               variant="primary"
               radius="md"
-              mt={"md"}
               onClick={handleSubmit}
+              size="lg"
             >
               Sign up
             </Button>
-          </Stack>
+          </Flex>
         </form>
       </Paper>
     </Modal>

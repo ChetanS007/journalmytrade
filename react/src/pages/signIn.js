@@ -48,21 +48,12 @@ function SignIn({ isOpen, onClose }) {
   return (
     <Modal opened={isOpen} onClose={onClose} centered>
       <Paper radius="md" p="xl">
-        <Stack mb="md" mt="md" justify="center" align="center">
-          <Image radius="md" h={80} w={100} fit="contain" src={SignInlogo} />
+        <Stack mb="md" justify="center" align="center">
+          <Image radius="md" h={50} w={50} fit="contain" src={SignInlogo} />
           <Text size="xl" fw={500}>
             Sign In
           </Text>
         </Stack>
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl">Google</GoogleButton>
-        </Group>
-
-        <Divider
-          label="Or continue with email"
-          labelPosition="center"
-          my="lg"
-        />
 
         <form onSubmit={handleSubmit}>
           <Stack>
