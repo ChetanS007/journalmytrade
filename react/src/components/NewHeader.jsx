@@ -27,6 +27,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import SignUp from "../pages/signup";
 import SignIn from "../pages/signIn";
+import { Link } from "react-router-dom";
 
 export function NewHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -60,12 +61,12 @@ export function NewHeader() {
         <Group justify="space-between" h="100%">
           <Image src={navlogo} w={120} />
           <Group h="100%" gap={0} visibleFrom="md">
-            <a href="/" className={classes.link}>
+            <Link to="/" className={classes.link}>
               Home
-            </a>
-            <a href="/Pricing" className={classes.link}>
+            </Link>
+            <Link to="/Pricing" className={classes.link}>
               Pricing
-            </a>
+            </Link>
             <a href="/faq" className={classes.link}>
               F.A.Q
             </a>
