@@ -504,7 +504,7 @@ class TradeView(APIView):
                                              'qty':serializer.data['qty']}
 
                 calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
-
+                print("calculated_trade",calculated_trade)
                 trade_id = int(serializer.data['id'])
                 AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
                                                                      net_profit_loss=calculated_trade['net_profit_and_loss'],
