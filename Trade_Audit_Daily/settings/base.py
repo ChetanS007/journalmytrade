@@ -158,6 +158,3 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_USER_ID_CLAIM': 'user_id',
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Replace with your React app's URL
-]
