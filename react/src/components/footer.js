@@ -50,25 +50,35 @@ function Footer() {
               </div>
               <div className="section section-2">
                 <h4 className="footer-section-heading">Pages</h4>
-                <span
-                  exact="true"
-                  className="footer-page-link  active"
-                  href="/"
-                >
-                  Home
-                </span>
-                <span exact="true" className="footer-page-link" href="/blog">
-                  Blog
-                </span>
-                <span exact="true" className="footer-page-link" href="/faq">
-                  FAQ
-                </span>
-                <span exact="true" className="footer-page-link" href="/pricing">
-                  Pricing
-                </span>
-                <span exact="true" className="footer-page-link" href="/contact">
-                  Contact
-                </span>
+                <Link to="/">
+                  <span
+                    className="footer-page-link  active"
+                    onClick={scrollToTop}
+                  >
+                    Home
+                  </span>
+                </Link>
+                <Link to="/blog">
+                  <span onClick={scrollToTop} className="footer-page-link">
+                    Blog
+                  </span>
+                </Link>
+                <Link to="/faq">
+                  <span onClick={scrollToTop} className="footer-page-link">
+                    FAQ
+                  </span>
+                </Link>
+                <Link to="/Pricing">
+                  <span onClick={scrollToTop} className="footer-page-link">
+                    Pricing
+                  </span>
+                </Link>
+                <Link to="/contact">
+                  <span onClick={scrollToTop} className="footer-page-link">
+                    Contact
+                  </span>
+                </Link>
+
                 <div className="footer-social-media-links">
                   <img
                     src={facebook}
