@@ -67,13 +67,13 @@ export function NewHeader() {
             <Link to="/Pricing" className={classes.link}>
               Pricing
             </Link>
-            <Link href="/faq" className={classes.link}>
+            <Link to="/faq" className={classes.link}>
               F.A.Q
             </Link>
-            <Link href="/blog" className={classes.link}>
+            <Link to="/blog" className={classes.link}>
               Blog
             </Link>
-            <Link href="/contact" className={classes.link}>
+            <Link to="/contact" className={classes.link}>
               Contact
             </Link>
           </Group>
@@ -117,19 +117,19 @@ export function NewHeader() {
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
 
-          <Link href="/" className={classes.link}>
+          <Link to="/" className={classes.link}>
               Home
             </Link>
-            <Link href="/Pricing" className={classes.link}>
+            <Link to="/Pricing" className={classes.link}>
               Pricing
             </Link>
-            <Link href="/faq" className={classes.link}>
+            <Link to="/faq" className={classes.link}>
               F.A.Q
             </Link>
-            <Link href="/blog" className={classes.link}>
+            <Link to="/blog" className={classes.link}>
               Blog
             </Link>
-            <Link href="/contact" className={classes.link}>
+            <Link to="/contact" className={classes.link}>
               Contact
             </Link>
 
