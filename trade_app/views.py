@@ -20,8 +20,10 @@ from datetime import datetime, time,timezone
 from django.views import View
 from Trade_Audit_Daily.utils import *
 from rest_framework_simplejwt.tokens import RefreshToken
+import logging
 # Create your views here.
 
+logger = logging.getLogger(__name__)
 
 class RegisterUser(APIView):
 
@@ -427,6 +429,7 @@ class TradeView(APIView):
                     trade_instance = self.get_object(pk)
                     
                     if trade_instance is None:
+                        logger.warning(f"Trade with ID {pk} not found.")
                         return Response({"detail": "Resource not found."},
                                         status=status.HTTP_404_NOT_FOUND)
 
@@ -444,7 +447,7 @@ class TradeView(APIView):
                 
                 return Response({"Message":response_trade}, status=status.HTTP_200_OK)
         except Exception as e:
-
+            logger.exception("An error occurred in the 'get' method.")
             return Response("Bad Request", status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -453,6 +456,7 @@ class TradeView(APIView):
             try:
                 trade_instance = self.get_object(pk)
                 if trade_instance is None:
+                            logger.warning(f"Trade with ID {pk} not found.")
                             return Response({"detail": "Resource not found."},
                                             status=status.HTTP_404_NOT_FOUND)
 
@@ -461,9 +465,11 @@ class TradeView(APIView):
                 if serializer.is_valid():
                     serializer.save()
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
-            
+
+                logger.warning(f"Invalid data for updating trade with ID {pk}.")
                 return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
+                 logger.exception("An error occurred in the 'put' method.")
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request,pk,*args,**kwargs):
@@ -472,6 +478,7 @@ class TradeView(APIView):
             trade_instance = self.get_object(pk)
 
             if trade_instance is None:
+                        logger.warning(f"Trade with ID {pk} not found.")
                         return Response({"detail": "Resource not found."},
                                         status=status.HTTP_404_NOT_FOUND)
 
@@ -480,6 +487,7 @@ class TradeView(APIView):
                         status=status.HTTP_204_NO_CONTENT)
 
         except Exception as e:
+            logger.exception("An error occurred in the 'delete' method.")
             return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -504,7 +512,7 @@ class TradeView(APIView):
                                              'qty':serializer.data['qty']}
 
                 calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
-                print("calculated_trade",calculated_trade)
+                logger.info(f"Calculated trade: {calculated_trade}")
                 trade_id = int(serializer.data['id'])
                 AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
                                                                      net_profit_loss=calculated_trade['net_profit_and_loss'],
@@ -512,8 +520,10 @@ class TradeView(APIView):
 
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
+            logger.warning(f"Invalid data for creating a new trade: {serializer.errors}")
             return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            logger.exception("An error occurred in the 'post' method.")
             return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
 

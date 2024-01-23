@@ -158,3 +158,23 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_USER_ID_CLAIM': 'user_id',
 }
 
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/akash/TradeLearn/Trade_Audit_Daily/trade.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
