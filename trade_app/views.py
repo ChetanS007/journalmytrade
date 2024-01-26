@@ -413,7 +413,7 @@ class TradeView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    logger.info(f"token invalid")
+    
     def get_object(self, pk):
 
             try:
@@ -515,9 +515,20 @@ class TradeView(APIView):
                 calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
                 logger.info(f"Calculated trade: {calculated_trade}")
                 trade_id = int(serializer.data['id'])
+                
+                
+
                 AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
                                                                      net_profit_loss=calculated_trade['net_profit_and_loss'],
                                                                      return_percentage=calculated_trade['return_percentage'])
+
+                
+                updated_trade = AddTrade.objects.get(id=trade_id)
+
+               
+
+                serializer = TradeSerializer(updated_trade)
+
                 logger.info(f"Message:Trade Add Successfully,data:{serializer.data}")
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
