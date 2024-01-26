@@ -160,21 +160,40 @@ SIMPLE_JWT = {
 
 
 
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
+        'console': {
+            'level': 'DEBUG',  # Adjust level as needed
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',  # Adjust level as needed
             'class': 'logging.FileHandler',
-            'filename': '/home/akash/TradeLearn/Trade_Audit_Daily/trade.log',
+            'filename': 'myapi.log',  # Change filename as desired
+            'formatter': 'verbose',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
+        'myapi': {  # Name your logger appropriately
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',  # Adjust level as needed
+            'propagate': True,  # True to send logs to parent loggers
         },
     },
 }
+

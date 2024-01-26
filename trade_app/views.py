@@ -23,7 +23,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import logging
 # Create your views here.
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('myapi')
 
 class RegisterUser(APIView):
 
@@ -413,6 +413,7 @@ class TradeView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    logger.info(f"token invalid")
     def get_object(self, pk):
 
             try:
@@ -517,10 +518,10 @@ class TradeView(APIView):
                 AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
                                                                      net_profit_loss=calculated_trade['net_profit_and_loss'],
                                                                      return_percentage=calculated_trade['return_percentage'])
-
+                logger.info(f"Message:Trade Add Successfully,data:{serializer.data}")
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
-            logger.warning(f"Invalid data for creating a new trade: {serializer.errors}")
+            logger.error(f"Invalid data for creating a new trade: {serializer.errors}")
             return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.exception("An error occurred in the 'post' method.")
