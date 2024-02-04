@@ -25,7 +25,11 @@ import logging
 
 logger = logging.getLogger('myapi')
 
-class RegisterUser(APIView):
+
+class UserList(APIView):
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     serializer_class = RegisterSerializer 
 
@@ -100,6 +104,15 @@ class RegisterUser(APIView):
 
         except Exception as e:
             return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+class RegisterUser(APIView):
+
+    serializer_class = RegisterSerializer 
+
+    
 
     
     def post(self,request,*args,**kwargs,):

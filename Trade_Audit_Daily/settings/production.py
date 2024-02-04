@@ -29,7 +29,8 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     'https://journalmytrade.com',
-    'https://api.journalmytrade.com/',  # Replace with your React app's URL
+    'https://api.journalmytrade.com/',
+    'http://localhost:3000/'  # Replace with your React app's URL
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
