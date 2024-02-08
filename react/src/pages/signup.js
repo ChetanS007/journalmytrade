@@ -22,6 +22,13 @@ import {
 import { useForm } from "@mantine/form";
 import { GoogleButton } from "../components/GoogleButton";
 import { useMediaQuery } from "@mantine/hooks";
+const InputfieldContainer = React.memo(({ children, isMobileDevice }) => {
+  return isMobileDevice ? (
+    <Flex direction={"column"}>{children}</Flex>
+  ) : (
+    <Group grow>{children}</Group>
+  );
+});
 
 function SignUp({ isOpen = true, onClose }) {
   const [finacial_year, setfinacial_year] = useState("0");
@@ -78,13 +85,13 @@ function SignUp({ isOpen = true, onClose }) {
   };
   const isMobileDevice = useMediaQuery(`(max-width:576px)`); // Adjust the media query as needed
 
-  const InputfieldContainer = ({ children }) => {
-    if (isMobileDevice) {
-      return <Flex direction={"column"}>{children}</Flex>;
-    } else {
-      return <Group grow>{children}</Group>;
-    }
-  };
+  // const InputfieldContainer = ({ children }) => {
+  //   if (isMobileDevice) {
+  //     return <Flex direction={"column"}>{children}</Flex>;
+  //   } else {
+  //     return <Group grow>{children}</Group>;
+  //   }
+  // };
   return (
     <Modal opened={isOpen} onClose={onClose} centered size="xl">
       <Paper radius="md" p="lg">
@@ -97,7 +104,7 @@ function SignUp({ isOpen = true, onClose }) {
 
         <form onSubmit={handleSubmit}>
           <Stack>
-            <InputfieldContainer>
+            <InputfieldContainer isMobileDevice={isMobileDevice}>
               <TextInput
                 required
                 label="First Name"
@@ -121,7 +128,7 @@ function SignUp({ isOpen = true, onClose }) {
                 error={form.errors.lastname && "Enter name"}
               />
             </InputfieldContainer>
-            <InputfieldContainer>
+            <InputfieldContainer isMobileDevice={isMobileDevice}>
               <TextInput
                 required
                 label="Mobile No"
@@ -146,7 +153,7 @@ function SignUp({ isOpen = true, onClose }) {
                 radius="md"
               />
             </InputfieldContainer>
-            <InputfieldContainer>
+            <InputfieldContainer isMobileDevice={isMobileDevice}>
               <PasswordInput
                 required
                 label="Password"
@@ -176,7 +183,7 @@ function SignUp({ isOpen = true, onClose }) {
                 radius="md"
               />
             </InputfieldContainer>
-            <InputfieldContainer>
+            <InputfieldContainer isMobileDevice={isMobileDevice}>
               <Radio.Group
                 label="Select finacial year type:"
                 withAsterisk
