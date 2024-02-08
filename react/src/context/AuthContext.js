@@ -92,8 +92,8 @@ const AuthProvider = ({ children }) => {
     setRefreshToken(refreshToken);
     setAccessToken(accessToken);
     // Store tokens in cookies with a 1-day expiration
-    Cookies.set("refreshToken", refreshToken, { expires: 1 }); // 1 day expiration
-    Cookies.set("accessToken", accessToken, { expires: 1 }); // 1 day expiration
+    Cookies.set("refreshToken", refreshToken, { expires: 1 / 24 }); // 1 day expiration
+    Cookies.set("accessToken", accessToken, { expires: 1 / 24 }); // 1 day expiration
     getDetails();
   };
 
