@@ -77,7 +77,6 @@ function SignUp({ isOpen = true, onClose }) {
     }
   };
   const isMobileDevice = useMediaQuery(`(max-width:576px)`); // Adjust the media query as needed
-  console.log(isMobileDevice);
 
   const InputfieldContainer = ({ children }) => {
     if (isMobileDevice) {

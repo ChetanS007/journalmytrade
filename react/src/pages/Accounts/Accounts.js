@@ -127,7 +127,10 @@ export default function Accounts({ onburgerclick }) {
     const addAccountHandler = async (e) => {
       e.preventDefault();
       console.log(form.values);
-      await AddAccountHandler(form.values);
+      const res = await AddAccountHandler(form.values);
+      if (res) {
+        setisaccountMOdalopen(false);
+      }
     };
     return (
       <div className="trade-summary" style={{ height: "100%" }}>
@@ -318,6 +321,17 @@ export default function Accounts({ onburgerclick }) {
                   value={form.values.win}
                   onChange={(event) =>
                     form.setFieldValue("win", event.currentTarget.value)
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="loss"
+                  placeholder="loss"
+                  value={form.values.loss}
+                  onChange={(event) =>
+                    form.setFieldValue("loss", event.currentTarget.value)
                   }
                   radius="md"
                   type="number"

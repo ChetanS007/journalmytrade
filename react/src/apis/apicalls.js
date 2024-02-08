@@ -24,7 +24,7 @@ export const loginApiCall = async (email, password) => {
   } catch (error) {
     console.log(error);
 
-    return { Message: "Unsuccessfull login" };
+    return { Message: error.response.data[0] };
   }
 };
 
@@ -54,7 +54,7 @@ export const registerApi = async (details) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    return { Message: "Unable to register" };
+    return { Message: error.response.data[0] };
   }
 };
 
@@ -92,6 +92,7 @@ export const getTrade = async (accesstoken) => {
       },
     };
     const response = await axios.request(config);
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
@@ -101,7 +102,7 @@ export const addAccount = async (accesstoken, accountDeatils) => {
   try {
     let data = JSON.stringify({
       ...accountDeatils,
-      user: 22,
+      user: 2,
       account_creation_date: new Date(),
     });
 
