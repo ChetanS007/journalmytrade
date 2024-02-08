@@ -303,7 +303,7 @@ function Dashboard({ onburgerclick }) {
       <div className="trade-summary">
         <div className="card-container">
           <TradeDetailCard>
-            <CustomTable rows={alltrades.slice(0, 2)} showColumnName={false} />
+            <CustomTable rows={alltrades?.slice(0, 2)} showColumnName={false} />
           </TradeDetailCard>
         </div>
       </div>

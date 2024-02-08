@@ -97,7 +97,31 @@ export const getTrade = async (accesstoken) => {
     console.log(error);
   }
 };
+export const addAccount = async (accesstoken, accountDeatils) => {
+  try {
+    let data = JSON.stringify({
+      ...accountDeatils,
+      user: 22,
+      account_creation_date: new Date(),
+    });
 
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/account/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
 export const getAccounts = async (accesstoken) => {
   try {
     let config = {

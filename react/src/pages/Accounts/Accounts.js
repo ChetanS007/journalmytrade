@@ -12,13 +12,34 @@ import { AuthContext } from "../../context/AuthContext";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import { BsInfoCircle } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
-import { UpdateeAccountApi } from "../../apis/apicalls";
+import { UpdateeAccountApi, addAccount } from "../../apis/apicalls";
 import { Link } from "react-router-dom";
+import {
+  Modal,
+  Button,
+  TextInput,
+  PasswordInput,
+  Text,
+  Paper,
+  Group,
+  Divider,
+  Stack,
+  Image,
+} from "@mantine/core";
+
+import { useForm } from "@mantine/form";
+
 export default function Accounts({ onburgerclick }) {
+  const [isaccountMOdalopen, setisaccountMOdalopen] = useState(false);
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
   const [editaccountnameArray, seteditaccountnameArray] = useState([]);
-  const { logout, AccountsDetail, deletAccounthandler, updateAccountHandler } =
-    React.useContext(AuthContext);
+  const {
+    logout,
+    AccountsDetail,
+    deletAccounthandler,
+    updateAccountHandler,
+    AddAccountHandler,
+  } = React.useContext(AuthContext);
   const LogoutHandler = () => {
     logout();
   };
@@ -85,6 +106,29 @@ export default function Accounts({ onburgerclick }) {
     );
   }
   const AccountCard = () => {
+    const form = useForm({
+      initialValues: {
+        account_name: "",
+        balance: null,
+        total_trade: null,
+        win: null,
+        loss: null,
+        profit_and_loss_amount: null,
+        profit_and_loss_percentage: null,
+        broker_tax: null,
+      },
+
+      validate: {
+        account_name: (val) =>
+          val !== "" ? null : "Account Name is compulsory field",
+      },
+    });
+
+    const addAccountHandler = async (e) => {
+      e.preventDefault();
+      console.log(form.values);
+      await AddAccountHandler(form.values);
+    };
     return (
       <div className="trade-summary" style={{ height: "100%" }}>
         <div className="card-container">
@@ -93,7 +137,12 @@ export default function Accounts({ onburgerclick }) {
               <div className="account-header">
                 <IconContext.Provider value={{ color: "#fffff", size: 20 }}>
                   <h2 className="account-header-text">Accounts</h2>
-                  <button className="create-button">
+                  <button
+                    className="create-button"
+                    onClick={() => {
+                      setisaccountMOdalopen(true);
+                    }}
+                  >
                     <div className="create-button-text"> Create Account </div>
                     <AiOutlinePlusCircle />
                   </button>
@@ -217,6 +266,107 @@ export default function Accounts({ onburgerclick }) {
               )}
             </div>
           </TradeDetailCard>
+          <Modal
+            opened={isaccountMOdalopen}
+            onClose={() => {
+              setisaccountMOdalopen(false);
+            }}
+            centered
+          >
+            <form onSubmit={addAccountHandler}>
+              <Stack>
+                <TextInput
+                  required
+                  label="Account Name"
+                  placeholder="Account Name"
+                  value={form.values.email}
+                  onChange={(event) =>
+                    form.setFieldValue(
+                      "account_name",
+                      event.currentTarget.value
+                    )
+                  }
+                  radius="md"
+                  error={form.errors.account_name}
+                />
+                <TextInput
+                  required
+                  label="Balance"
+                  placeholder="Balance"
+                  value={form.values.balance}
+                  onChange={(event) =>
+                    form.setFieldValue("balance", event.currentTarget.value)
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="Total Trades"
+                  placeholder="Total Trades"
+                  value={form.values.total_trade}
+                  onChange={(event) =>
+                    form.setFieldValue("total_trade", event.currentTarget.value)
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="win"
+                  placeholder="win"
+                  value={form.values.win}
+                  onChange={(event) =>
+                    form.setFieldValue("win", event.currentTarget.value)
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="Profit and loss amount"
+                  placeholder="Profit and loss amount"
+                  value={form.values.profit_and_loss_amount}
+                  onChange={(event) =>
+                    form.setFieldValue(
+                      "profit_and_loss_amount",
+                      event.currentTarget.value
+                    )
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="Profit and loss percentage"
+                  placeholder="Profit and loss percentage"
+                  value={form.values.profit_and_loss_percentage}
+                  onChange={(event) =>
+                    form.setFieldValue(
+                      "profit_and_loss_percentage",
+                      event.currentTarget.value
+                    )
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <TextInput
+                  required
+                  label="Broker Tax"
+                  placeholder="Broker tax"
+                  value={form.values.broker_tax}
+                  onChange={(event) =>
+                    form.setFieldValue("broker_tax", event.currentTarget.value)
+                  }
+                  radius="md"
+                  type="number"
+                />
+                <Button variant="primary" radius="md" mt={"md"} type="submit">
+                  Add Account
+                </Button>
+              </Stack>
+            </form>
+          </Modal>
         </div>
       </div>
     );

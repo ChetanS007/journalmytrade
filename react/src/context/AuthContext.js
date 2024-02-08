@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import {
   DeleteAccount,
   UpdateeAccountApi,
+  addAccount,
   getAccounts,
   getTrade,
   logoutapi,
@@ -10,7 +11,7 @@ import Cookies from "js-cookie"; // Import the js-cookie library
 
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [refreshToken, setRefreshToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [alltrades, setalltrades] = useState([]);
@@ -33,6 +34,18 @@ const AuthProvider = ({ children }) => {
     const responnse = await DeleteAccount(Cookies.get("accessToken"), id);
     console.log(responnse);
     if (responnse.status === 204) {
+      const accounts = await getAccounts(Cookies.get("accessToken"));
+      if (accounts?.status == 200) {
+        setAccounts(accounts.data.Message);
+      } else {
+        window.location.reload();
+      }
+    }
+  };
+
+  const AddAccountHandler = async (data) => {
+    const res = await addAccount(Cookies.get("accessToken"), data);
+    if (res.status === 204) {
       const accounts = await getAccounts(Cookies.get("accessToken"));
       if (accounts?.status == 200) {
         setAccounts(accounts.data.Message);
@@ -105,6 +118,7 @@ const AuthProvider = ({ children }) => {
     logout,
     deletAccounthandler,
     updateAccountHandler,
+    AddAccountHandler,
   };
 
   return (

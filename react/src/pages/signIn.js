@@ -32,7 +32,6 @@ function SignIn({ isOpen, onClose }) {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("first");
     if (form.validate(form.values.email)) {
       const res = await loginApiCall(form.values.email, form.values.password);
       console.log(res);
