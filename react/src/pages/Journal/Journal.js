@@ -18,7 +18,8 @@ import { Link } from "react-router-dom";
 import TradeDetail from "../TradeDetail/TradeDetail";
 export default function Journal({ onburgerclick }) {
   const [showlogutmodal, setshowlogutmodal] = React.useState(false);
-  const { logout, alltrades, genraltrades } = React.useContext(AuthContext);
+  const { logout, alltrades, genraltrades, DeleteTradeHandler } =
+    React.useContext(AuthContext);
   const [tradeModal, settradeModal] = React.useState(false);
   const [TradeDetails, setTradeDetails] = useState(null);
   const LogoutHandler = () => {
@@ -40,9 +41,6 @@ export default function Journal({ onburgerclick }) {
                 <FiPlus />
               </IconContext.Provider>
             </button>
-            <IconContext.Provider value={{ color: "red", size: 30 }}>
-              <IoTrashOutline />
-            </IconContext.Provider>
           </div>
 
           <div onClick={() => setshowlogutmodal(!showlogutmodal)}>
@@ -91,6 +89,9 @@ export default function Journal({ onburgerclick }) {
               showColumnName={true}
               tradeDetailClick={(item) => {
                 setTradeDetails(item);
+              }}
+              onCheckboxHandler={(trade) => {
+                DeleteTradeHandler(trade.id);
               }}
             />
           </TradeDetailCard>

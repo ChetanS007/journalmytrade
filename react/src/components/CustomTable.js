@@ -15,11 +15,13 @@ import MuiTableHead from "@material-ui/core/TableHead";
 import { BsGraphUpArrow, BsGraphDownArrow, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import moment from "moment/moment";
+import { IoTrashOutline } from "react-icons/io5";
 
 export default function CustomTable({
   rows,
   showColumnName,
   tradeDetailClick,
+  onCheckboxHandler,
 }) {
   const columns = [
     "",
@@ -59,12 +61,16 @@ export default function CustomTable({
               profit = profit < 0;
               return (
                 <TableRow>
-                  <Checkbox
-                    sx={{ color: "#0d0a3f" }}
-                    onChange={(items) => {
-                      console.log(item);
-                    }}
-                  />
+                  {onCheckboxHandler && (
+                    <TableCell
+                      sx={{ color: "#0d0a3f", fontSize: "13px" }}
+                      onClick={() => onCheckboxHandler(item)}
+                    >
+                      <IconContext.Provider value={{ color: "red", size: 20 }}>
+                        <IoTrashOutline />
+                      </IconContext.Provider>
+                    </TableCell>
+                  )}
                   <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
                     {moment(item.date).format("DD-MMM-YYYY")}
                   </TableCell>

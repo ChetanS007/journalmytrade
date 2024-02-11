@@ -215,3 +215,26 @@ export const AddTrade = async (accesstoken, tradedata) => {
     console.log(error);
   }
 };
+
+// Define an async function
+export const deleteTrade = async (accestoken, tradeId) => {
+  // Create a config object
+  let config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: `${apiUrl}api/trade/${tradeId}/`,
+    headers: {
+      Authorization: `Bearer ${accestoken}`,
+    },
+  };
+
+  try {
+    let response = await axios.request(config);
+    // Handle the response
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    // Handle the error
+    console.error(error);
+  }
+};

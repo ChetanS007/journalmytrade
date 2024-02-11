@@ -351,11 +351,8 @@ const AddTradeModal = ({ isopen, oncancel }) => {
               </div>
             </div>
 
-            <div
-              className="form-row"
-              style={{ justifyContent: "space-between" }}
-            >
-              <div
+            <div className="form-row" style={{ justifyContent: "flex-end" }}>
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -369,7 +366,7 @@ const AddTradeModal = ({ isopen, oncancel }) => {
                     setisBulkUpload(event.target.checked);
                   }}
                 />
-              </div>
+              </div> */}
               <div>
                 <button
                   className="saveButtonOption"

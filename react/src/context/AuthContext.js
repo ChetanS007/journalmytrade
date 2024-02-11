@@ -6,6 +6,7 @@ import {
   getAccounts,
   getTrade,
   logoutapi,
+  deleteTrade,
 } from "../apis/apicalls";
 import Cookies from "js-cookie"; // Import the js-cookie library
 
@@ -69,6 +70,20 @@ const AuthProvider = ({ children }) => {
       }
     }
   };
+
+  const DeleteTradeHandler = async (tradeId) => {
+    const responnse = await deleteTrade(Cookies.get("accessToken"), tradeId);
+    console.log(responnse);
+    if (responnse.status === 204) {
+      const tradeinfo = await getTrade(Cookies.get("accessToken"));
+      if (tradeinfo?.status == 200) {
+        setalltrades(tradeinfo.data.Message[0]);
+        setgenraltrades(tradeinfo.data.Message[1]);
+      } else {
+        window.location.reload();
+      }
+    }
+  };
   useEffect(() => {
     // Check cookies for tokens
     const storedRefreshToken = Cookies.get("refreshToken");
@@ -122,6 +137,7 @@ const AuthProvider = ({ children }) => {
     deletAccounthandler,
     updateAccountHandler,
     AddAccountHandler,
+    DeleteTradeHandler,
   };
 
   return (
