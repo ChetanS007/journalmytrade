@@ -9,7 +9,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email','password','confirm_password','first_name','last_name','phone','country','currency','financial_year','profile_photo']
+        fields = ['id','email','password','confirm_password','first_name','last_name','phone','country','currency','financial_year','profile_photo']
 
     def validate_profile_photo(self, value):
 
