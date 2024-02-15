@@ -143,6 +143,7 @@ export default function Journal({ onburgerclick }) {
           onBackPress={() => {
             setTradeDetails(null);
           }}
+          tradeInfo={TradeDetails}
         />
       ) : (
         <>

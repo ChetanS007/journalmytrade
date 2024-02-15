@@ -12,6 +12,9 @@
 .tradeDetail-header-Field {
   margin-right: 20px;
 }
+.tradeDetail-header-Field:hover {
+  cursor: pointer 
+}
 
 .tradeDetail-tag-name {
   color: #0d0a3f80;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./TradeDetail.css";
 import TradeDetailCard from "../../components/TradeDetailCard";
 import { IconContext } from "react-icons";
@@ -6,26 +6,29 @@ import { RiDeleteBinLine, RiEditLine, RiCloseLine } from "react-icons/ri";
 import { MdOutlineLabel } from "react-icons/md";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import StockChart from "../../components/StockChart";
-import Chart from "../Chart/Chart";
-const TradeDetail = ({ onBackPress }) => {
+import moment from "moment";
+import { AuthContext } from "../../context/AuthContext";
+const TradeDetail = ({ onBackPress, tradeInfo }) => {
+  const { getAccountNamebyId, DeleteTradeHandler } = useContext(AuthContext);
+  console.log(tradeInfo);
   const trade = {
-    id: "Trade 123",
+    id: tradeInfo.id,
     labels: ["Label1", "Label2", "Label3"],
-    account: "Sharekhan",
-    symbolName: "NIFTY 50 FUT AUGUST",
-    tradeSide: "Buy",
-    entryDate: "22 August 2022",
-    entryPrice: "3000/-",
-    quantity: "100",
-    amountInvested: "30,000/-",
-    exitDate: "22 September 2022",
-    exitPrice: "4000/-",
-    stopLoss: "2750/-",
-    takeProfit: "4250/-",
-    brokerageTax: "100/-",
+    account: getAccountNamebyId(tradeInfo.account),
+    symbolName: tradeInfo.symbol,
+    tradeSide: tradeInfo.teadeside === 1 ? "Buy" : "Sell",
+    entryDate: moment(tradeInfo.entry_date).format("DD MMMM YYYY"),
+    entryPrice: tradeInfo.entry_price,
+    quantity: tradeInfo.qty,
+    amountInvested: `${tradeInfo.entry_price * tradeInfo.qty}/-`,
+    exitDate: moment(tradeInfo.exit_date).format("DD MMMM YYYY"),
+    exitPrice: tradeInfo.exit_price,
+    stopLoss: `${tradeInfo.stop_loss}/-`,
+    takeProfit: `${tradeInfo.take_profit}/-`,
+    brokerageTax: `${tradeInfo.brokrage_tax}/-`,
     tradeResult: "Winner",
-    profitLossValue: " 10,000/-",
-    profitLosspercent: "10",
+    profitLossValue: `${tradeInfo.profit_n_loss}/-`,
+    profitLosspercent: `${tradeInfo.return_percentage}`,
 
     chartImageUrl: "path_to_your_chart_image.png", // Replace with actual path or URL
     tradeNotes: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare metus non elit ornare, at sagittis ligula placerat. Mauris non sapien at urna auctor vehicula. Nulla facilisi.`,
@@ -50,7 +53,13 @@ const TradeDetail = ({ onBackPress }) => {
                     <RiEditLine />
                   </IconContext.Provider>
                 </div>
-                <div className="tradeDetail-header-Field">
+                <div
+                  className="tradeDetail-header-Field"
+                  onClick={() => {
+                    DeleteTradeHandler(trade.id);
+                    onBackPress();
+                  }}
+                >
                   Delete{" "}
                   <IconContext.Provider value={{ color: "red", size: 15 }}>
                     <RiDeleteBinLine />
@@ -174,7 +183,7 @@ const TradeDetail = ({ onBackPress }) => {
               <div className="right-details">
                 <div style={{ height: "500px" }}>
                   <h3 className="tradeDetail-tag-name">Stock Chart</h3>
-                  <StockChart />
+                  <StockChart symbolName={trade.symbolName} />
                 </div>
                 <div className="trade-notes">
                   <h3 className="tradeDetail-tag-name">Trade Notes</h3>

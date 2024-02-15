@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import React from "react";
+import React, { useContext } from "react";
 import "./CustomTable.css";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import MuiTableHead from "@material-ui/core/TableHead";
@@ -16,6 +16,7 @@ import { BsGraphUpArrow, BsGraphDownArrow, BsInfoCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import moment from "moment/moment";
 import { IoTrashOutline } from "react-icons/io5";
+import { AuthContext } from "../context/AuthContext";
 
 export default function CustomTable({
   rows,
@@ -23,6 +24,8 @@ export default function CustomTable({
   tradeDetailClick,
   onCheckboxHandler,
 }) {
+  const { getAccountNamebyId } = useContext(AuthContext);
+
   const columns = [
     "",
     "Date",
@@ -63,7 +66,11 @@ export default function CustomTable({
                 <TableRow>
                   {onCheckboxHandler && (
                     <TableCell
-                      sx={{ color: "#0d0a3f", fontSize: "13px" }}
+                      sx={{
+                        color: "#0d0a3f",
+                        fontSize: "13px",
+                        cursor: "pointer",
+                      }}
                       onClick={() => onCheckboxHandler(item)}
                     >
                       <IconContext.Provider value={{ color: "red", size: 20 }}>
@@ -127,9 +134,17 @@ export default function CustomTable({
                     {item.return_percentage}%
                   </TableCell>
                   <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
-                    {item.account}
+                    {getAccountNamebyId(item.account)
+                      ? getAccountNamebyId(item.account)
+                      : item.account}
                   </TableCell>
-                  <TableCell sx={{ color: "#0d0a3f", fontSize: "13px" }}>
+                  <TableCell
+                    sx={{
+                      color: "#0d0a3f",
+                      fontSize: "13px",
+                      cursor: "pointer",
+                    }}
+                  >
                     <IconContext.Provider
                       value={{ color: "#0d0a3f", size: 15 }}
                     >

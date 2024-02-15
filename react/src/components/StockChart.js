@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 let tvScriptLoadingPromise;
 
-export default function StockChart() {
+export default function StockChart({ symbolName }) {
   const onLoadScriptRef = useRef();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function StockChart() {
       ) {
         new window.TradingView.widget({
           autosize: true,
-          symbol: "NASDAQ:AAPL",
+          symbol: symbolName ? `BSE:${symbolName}` : "BSE:SENSEX",
           interval: "D",
           timezone: "Etc/UTC",
           theme: "light",

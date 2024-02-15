@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../config";
-import fs from "fs";
+import fs, { access } from "fs";
 const FormData = require("form-data");
 
 export const loginApiCall = async (email, password) => {
@@ -100,9 +100,9 @@ export const getTrade = async (accesstoken) => {
 };
 export const addAccount = async (accesstoken, accountDeatils) => {
   try {
+    console.log(accountDeatils);
     let data = JSON.stringify({
       ...accountDeatils,
-      user: 2,
       account_creation_date: new Date(),
     });
 
@@ -236,5 +236,106 @@ export const deleteTrade = async (accestoken, tradeId) => {
   } catch (error) {
     // Handle the error
     console.error(error);
+  }
+};
+
+export const getUserDetails = async (accesstoken, userEmail) => {
+  try {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/user/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+        Cookie:
+          "csrftoken=8ef7GFDjsyCTPPzIrF7PXZRYPJB4RVSR; sessionid=mj232qddbx9lwen1mylzcl1jo2ubfrw5",
+      },
+    };
+
+    const response = await axios.request(config);
+
+    const filteredMessages = response.data.Message.filter(
+      (item) => item.email === userEmail
+    );
+    return filteredMessages[0];
+  } catch (error) {
+    return false;
+  }
+};
+
+export const addTransaction = async (accesstoken, transactionDetails) => {
+  try {
+    let data = JSON.stringify({
+      ...transactionDetails,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/transaction/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+export const getTranscations = async (accesstoken) => {
+  try {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/transaction/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const DeleteTransactions = async (accesstoken, id) => {
+  try {
+    let config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/transaction/${id}/`,
+      headers: {
+        Authorization: `Bearer ${accesstoken}`,
+      },
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const UpdateeTranscations = async (details, accesstoken) => {
+  try {
+    const data = JSON.stringify(details);
+    let config = {
+      method: "put",
+      maxBodyLength: Infinity,
+      url: `${apiUrl}api/account/${details.id}/`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accesstoken}`,
+      },
+      data: data,
+    };
+    const response = await axios.request(config);
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 };

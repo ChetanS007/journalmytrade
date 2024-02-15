@@ -11,6 +11,8 @@ export default function CustomDropDown({
   placeholder = "Select",
   style,
   isError = false,
+  value,
+  dropdownstyles,
 }) {
   return (
     <div className="customField">
@@ -27,8 +29,9 @@ export default function CustomDropDown({
             selectedValue(item.value);
           }}
           placeholder={placeholder}
-          controlClassName="dropdownInputfiled"
-          value={data[0]}
+          controlClassName={`dropdownInputfiled ${dropdownstyles}`}
+          value={value}
+          style={style}
         />
       )}
       {(type === "normal" || type === "date" || type === "number") && (

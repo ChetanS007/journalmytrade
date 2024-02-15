@@ -35,9 +35,10 @@ function SignIn({ isOpen, onClose }) {
     if (form.validate(form.values.email)) {
       const res = await loginApiCall(form.values.email, form.values.password);
       console.log(res);
+      let email = form.values.email;
       if (res.Message === "Login Successfully") {
         onClose();
-        login(res.refresh_token, res.access_token);
+        login(res.refresh_token, res.access_token, email);
       } else {
         alert(res.Message);
       }

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./Accounts.css";
 import { RiListSettingsLine } from "react-icons/ri";
-import { IoPersonCircleOutline, IoBookOutline } from "react-icons/io5";
+import {
+  IoPersonCircleOutline,
+  IoBookOutline,
+  IoInformationCircle,
+} from "react-icons/io5";
 import { FiLogOut, FiSettings } from "react-icons/fi";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -28,6 +32,7 @@ import {
 } from "@mantine/core";
 
 import { useForm } from "@mantine/form";
+import TransactionCard from "../../components/TransactionCard/TransactionCard";
 
 export default function Accounts({ onburgerclick }) {
   const [isaccountMOdalopen, setisaccountMOdalopen] = useState(false);
@@ -39,7 +44,9 @@ export default function Accounts({ onburgerclick }) {
     deletAccounthandler,
     updateAccountHandler,
     AddAccountHandler,
+    userDetails,
   } = React.useContext(AuthContext);
+  const [AccountDetails, setAccountDetails] = useState(null);
   const LogoutHandler = () => {
     logout();
   };
@@ -108,6 +115,7 @@ export default function Accounts({ onburgerclick }) {
   const AccountCard = () => {
     const form = useForm({
       initialValues: {
+        user: userDetails.id,
         account_name: "",
         balance: null,
         total_trade: null,
@@ -226,11 +234,26 @@ export default function Accounts({ onburgerclick }) {
                                 <RiDeleteBinLine />
                               </IconContext.Provider>
                             </div>
+                            <div
+                              className="popup-item"
+                              onClick={() => {
+                                setAccountDetails(account);
+                              }}
+                            >
+                              <span className="popup-itemname">
+                                Account Information{" "}
+                              </span>
+                              <IconContext.Provider
+                                value={{ color: "#0d0a3f", size: 15 }}
+                              >
+                                <IoInformationCircle />
+                              </IconContext.Provider>
+                            </div>
                           </div>
                         </Tooltip>
                       </div>
                       <div className="account-diver"></div>
-                      <div className="account-details ">
+                      <div className="account-details">
                         <div className="account-detail-type">Balance:</div>
                         <div className="account-detail-value">
                           {account.balance}
@@ -388,8 +411,14 @@ export default function Accounts({ onburgerclick }) {
 
   return (
     <div className="main-content">
-      <MainHeader />
-      <AccountCard />
+      {AccountDetails ? (
+        <TransactionCard accountdetails={AccountDetails} />
+      ) : (
+        <>
+          <MainHeader />
+          <AccountCard />
+        </>
+      )}
     </div>
   );
 }

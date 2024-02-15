@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Profile.css";
 import { RxPerson } from "react-icons/rx";
 import { IconContext } from "react-icons";
 import Dropdown from "react-dropdown";
+import { AuthContext } from "../../context/AuthContext";
 
 const Profile = () => {
+  const { userDetails } = useContext(AuthContext);
+  console.log(userDetails);
   const [formData, setFormData] = useState({
-    email: "xyz@gmail.com",
-    phone: "9999977788",
-    country: "India",
-    currency: "Indian Rupees",
-    financialYear: "April to March",
+    email: userDetails.email,
+    phone: userDetails.phone,
+    country: userDetails.county,
+    currency: userDetails.currency,
+    financialYear:
+      userDetails.financial_year === 0 ? "Jan to Dec" : "April to March",
     dateFormat: "dd/mm/yyyy",
   });
 
@@ -84,10 +88,10 @@ const Profile = () => {
                 />
               </div>
             </div>
-            <div className="account-details profile-detail">
+            {/* <div className="account-details profile-detail">
               <div className="account-detail-type">Date Format</div>
               <div className="account-detail-value">{formData.dateFormat}</div>
-            </div>
+            </div> */}
           </div>
           <div className="profile-button">
             <button className="saveButtonOption" onClick={() => {}}>
@@ -96,7 +100,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="account-diver"></div>
-        <div className="prfile-info-container">
+        {/* <div className="prfile-info-container">
           <h4
             className="profile-heading"
             style={{ margin: 0, marginBottom: "10px" }}
@@ -118,7 +122,7 @@ const Profile = () => {
               Delete Account
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
