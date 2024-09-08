@@ -149,8 +149,8 @@ export function NewHeader() {
           </Group>
         </ScrollArea>
       </Drawer>
-      <SignUp onClose={closeSignUpModal} isOpen={isSignUpModalOpen} />
-      <SignIn isOpen={isSignInModalOpen} onClose={closeSignInModal} />
+      <SignUp onClose={closeSignUpModal} isOpen={isSignUpModalOpen} openSignInModal={openSignInModal}/>
+      <SignIn isOpen={isSignInModalOpen} onClose={closeSignInModal} openSignUpModal={openSignUpModal}/>
     </Box>
   );
 }

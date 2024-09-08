@@ -10,15 +10,12 @@ import {
   PasswordInput,
   Text,
   Paper,
-  Group,
-  Divider,
   Stack,
   Image,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { GoogleButton } from "../components/GoogleButton";
 
-function SignIn({ isOpen, onClose }) {
+function SignIn({ isOpen, onClose, openSignUpModal }) {
   const { login } = useContext(AuthContext);
   const form = useForm({
     initialValues: {
@@ -88,6 +85,18 @@ function SignIn({ isOpen, onClose }) {
               Sign in
             </Button>
           </Stack>
+          <Text align="center" mt="md">
+            Don't have an account?{" "}
+            <span
+              onClick={() => {
+                onClose();
+                openSignUpModal();
+              }}
+              style={{ color: "#007bff", cursor: "pointer" }}
+            >
+              Sign Up
+            </span>
+          </Text>
         </form>
       </Paper>
     </Modal>
