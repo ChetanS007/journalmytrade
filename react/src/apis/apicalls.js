@@ -24,7 +24,7 @@ export const loginApiCall = async (email, password) => {
   } catch (error) {
     console.log(error);
 
-    return { Message: error.response.data[0] };
+    return { Message: "please try again later." };
   }
 };
 

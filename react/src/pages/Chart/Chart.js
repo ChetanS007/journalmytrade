@@ -5,7 +5,7 @@ import "./Charts.css";
 
 export default function Chart() {
   return (
-    <div className="trade-summary charts-main">
+    <div className="main-content">
       <StockChart />
     </div>
   );
