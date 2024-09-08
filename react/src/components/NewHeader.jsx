@@ -81,20 +81,20 @@ export function NewHeader() {
 
           <Group visibleFrom="md">
             <Button
-              onClick={openSignInModal}
+              onClick={openSignUpModal}
               className={classes.siginbutton}
               size="md"
               variant={"secondary"}
             >
-              Sign In
+              Sign Up
             </Button>
             <Button
-              onClick={openSignUpModal}
+              onClick={openSignInModal}
               variant="primary"
               color="#0d0a3f"
               size="md"
             >
-              Sign Up
+              Sign In
             </Button>
           </Group>
 
@@ -139,14 +139,14 @@ export function NewHeader() {
           <Group justify="center" grow pb="xl" px="md">
             <Button
               variant="secondary"
-              onClick={openSignInModal}
+              onClick={openSignUpModal}
               className={classes.siginbutton}
             >
-              Sign In
+           Sign Up
             </Button>
-            <Button variant="primary" onClick={openSignUpModal}>
-              Sign Up
-            </Button>
+            <Button variant="primary" onClick={openSignInModal}>
+            Sign In          
+              </Button>
           </Group>
         </ScrollArea>
       </Drawer>

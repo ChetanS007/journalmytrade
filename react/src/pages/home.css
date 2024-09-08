@@ -27,7 +27,8 @@
 }
 
 .homeBanner-logo {
-  width: 40%;
+  width: 80%;
+  align-self: center;  
   @media screen and (max-width:768px) {
     display:none
   }
