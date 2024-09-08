@@ -43,7 +43,7 @@ function SignIn({ isOpen, onClose, openSignUpModal }) {
   };
 
   return (
-    <Modal opened={isOpen} onClose={onClose} centered>
+    <Modal opened={isOpen} onClose={onClose} centered radius={"lg"}>
       <Paper radius="md" p="xl">
         <Stack mb="md" justify="center" align="center">
           <Image radius="md" h={50} w={50} fit="contain" src={SignInlogo} />

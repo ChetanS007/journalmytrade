@@ -97,7 +97,7 @@ function SignUp({ isOpen = true, onClose, openSignInModal }) {
   //   }
   // };
   return (
-    <Modal opened={isOpen} onClose={onClose} centered size="l">
+    <Modal opened={isOpen} onClose={onClose} centered size="l" radius={"lg"}>
       <Paper radius="md" p="lg">
         <Stack mb="sm" justify="center" align="center">
           <Image radius="md" h={50} w={50} fit="contain" src={SignInlogo} />
