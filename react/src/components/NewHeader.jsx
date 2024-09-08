@@ -27,7 +27,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import SignUp from "../pages/signup";
 import SignIn from "../pages/signIn";
-import { Link } from "react-router-dom";
+import { useLocation,Link } from "react-router-dom";
 
 export function NewHeader() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -54,6 +54,7 @@ export function NewHeader() {
   const closeSignInModal = () => {
     setIsSignInModalOpen(false);
   };
+  const location = useLocation(); // Get the current location
 
   return (
     <Box className="newContainer">
@@ -61,21 +62,21 @@ export function NewHeader() {
         <Group justify="space-between" h="100%">
           <Image src={navlogo} w={120} />
           <Group h="100%" gap={0} visibleFrom="md">
-            <Link to="/" className={classes.link}>
-              Home
-            </Link>
-            <Link to="/Pricing" className={classes.link}>
-              Pricing
-            </Link>
-            <Link to="/faq" className={classes.link}>
-              F.A.Q
-            </Link>
-            <Link to="/blog" className={classes.link}>
-              Blog
-            </Link>
-            <Link to="/contact" className={classes.link}>
-              Contact
-            </Link>
+          <Link to="/" className={`${classes.link} ${location.pathname === '/' ? `${classes.active}` : ''}`}>
+            Home
+          </Link>
+          <Link to="/Pricing" className={`${classes.link} ${location.pathname === '/Pricing' ? `${classes.active}` : ''}`}>
+            Pricing
+          </Link>
+          <Link to="/faq" className={`${classes.link} ${location.pathname === '/faq' ? `${classes.active}` : ''}`}>
+            F.A.Q
+          </Link>
+          <Link to="/blog" className={`${classes.link} ${location.pathname === '/blog' ? `${classes.active}` : ''}`}>
+            Blog
+          </Link>
+          <Link to="/contact" className={`${classes.link} ${location.pathname === '/contact' ? `${classes.active}` : ''}`}>
+            Contact
+          </Link>
           </Group>
 
           <Group visibleFrom="md">

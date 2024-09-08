@@ -30,3 +30,7 @@
   border-color: #0d0a3f;
   color:#0d0a3f;
 }
+.active {
+  color: #0d0a3f;
+  font-weight: 700;
+}
