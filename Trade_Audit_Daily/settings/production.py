@@ -28,9 +28,9 @@ DATABASES = {
 }
 
 CORS_ALLOWED_ORIGINS = [
-    'https://www.journalmytrade.com/',
+    'https://www.journalmytrade.com',
     'https://journalmytrade.com',
-    'https://api.journalmytrade.com/',
+    'https://api.journalmytrade.com',
     'http://localhost:3000'  # Replace with your React app's URL
 ]
 
