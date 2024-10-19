@@ -14,6 +14,7 @@ import {
   Image,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { toast } from "react-toastify";
 
 function SignIn({ isOpen, onClose, openSignUpModal }) {
   const { login } = useContext(AuthContext);
@@ -37,7 +38,7 @@ function SignIn({ isOpen, onClose, openSignUpModal }) {
         onClose();
         login(res.refresh_token, res.access_token, email);
       } else {
-        alert(res.Message);
+        toast.error(res.Message);
       }
     }
   };

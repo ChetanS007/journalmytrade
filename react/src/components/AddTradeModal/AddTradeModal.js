@@ -6,6 +6,7 @@ import CustomDropDown from "../CustomDropDown";
 import Switch from "@mui/material/Switch";
 import { AuthContext } from "../../context/AuthContext";
 import { AddTrade } from "../../apis/apicalls";
+import { toast } from "react-toastify";
 
 const AddTradeModal = ({ isopen, oncancel }) => {
   const [isBulkUpload, setisBulkUpload] = useState(false);
@@ -61,7 +62,7 @@ const AddTradeModal = ({ isopen, oncancel }) => {
       window.location.reload();
     } else {
       console.log(resp);
-      alert("enable to add trade please try again");
+      toast.error(resp.Message);
     }
   };
 

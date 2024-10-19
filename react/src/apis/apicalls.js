@@ -1,6 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../config";
 import fs, { access } from "fs";
+import { toast } from "react-toastify";
 const FormData = require("form-data");
 
 export const loginApiCall = async (email, password) => {
@@ -24,7 +25,9 @@ export const loginApiCall = async (email, password) => {
   } catch (error) {
     console.log(error);
 
-    return { Message: "please try again later." };
+    return {
+      Message: error.response.data.Message ?? "please try again later.",
+    };
   }
 };
 
@@ -54,7 +57,9 @@ export const registerApi = async (details) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    return { Message: error.response.data[0] };
+    return {
+      Message: error.response.data.error ?? "please try again later.",
+    };
   }
 };
 
@@ -120,6 +125,7 @@ export const addAccount = async (accesstoken, accountDeatils) => {
     const response = await axios.request(config);
     return response;
   } catch (error) {
+    toast.error(error.response.data.error ?? "please try again later.");
     console.error(error);
   }
 };
@@ -212,7 +218,9 @@ export const AddTrade = async (accesstoken, tradedata) => {
     const response = await axios.request(config);
     return response;
   } catch (error) {
-    console.log(error);
+    return {
+      Message: error.response.data.error ?? "please try again later.",
+    };
   }
 };
 
@@ -283,6 +291,8 @@ export const addTransaction = async (accesstoken, transactionDetails) => {
     const response = await axios.request(config);
     return response;
   } catch (error) {
+    console.log(error);
+    toast.error(error.response.data.error ?? "please try again later.");
     return error;
   }
 };

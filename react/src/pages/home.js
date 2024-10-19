@@ -18,469 +18,471 @@ function Home() {
   return (
     <div class="home-page newContainer">
       {/* home */}
-      <div class="homeBanner">
-        <div class="homeBanner-text-container">
-          <img src={homeImg1} alt="Journal My Trade" class="homeBanner-logo" />
-          <p class="homeBannerPara">
-            An online trading journal to get the pulse of your trade for its
-            healthy growth.
-          </p>
-          <button class="homeBanner-button get-started-button">
-            Get Started
-          </button>
-        </div>
-        <div class="homeBanner-image-container">
-          <img
-            src={homeImg2}
-            alt="Journal my trade dashboard"
-            class="homeBanner-image"
-          />
-        </div>
-      </div>
-      {/* about */}
-      <div className="about">
-        <div class="newContainer">
-          <div class="about-sub">
-            <div class="about-left">
+      <div class="container-fluid">
+        <div class="row pb-5">
+          <div class="col-12 col-md-12 col-lg-6 pb-5">
+            <div class="text-center">
               <img
-                src={homeImg3}
-                alt="Journal my trade dashboard"
-                className="about-image"
+                class="w-100"
+                src="https://journalmytrade.com/static/media/homeImg1.43c9e504af773ba3d4fd.png"
               />
             </div>
-            <div class="about-right">
-              <h1 className="about-heading">Journal my trade</h1>
-              <p className="about-paragraph">
+
+            <div class="poppins-medium homeBannerPara">
+              An online trading journal to get the pulse of your trade for its
+              healthy growth.
+            </div>
+          </div>
+          <div class="col-12 col-md-12 col-lg-6 pt-5 pb-5">
+            <img
+              class="w-100"
+              src="https://journalmytrade.com/static/media/homeImg2.c4514af57189e99b91b9.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray">
+        <div class="container ">
+          <div class="row py-5">
+            <div class="col-12 col-md-12 col-lg-6 text-center py-5">
+              <img
+                class="w-100 pt-5"
+                src="https://journalmytrade.com/static/media/homeImg3.b99ce75898981d3cb270.png"
+              />
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-6 py-5 ps-5 mob-ps-5">
+              <div class="poppins-bold title">Journal my trade</div>
+
+              <div class="para-text">
                 An online trading journal app for professional stock market
                 traders who want to win at their investment game and know their
-                trading details like the back of their hand.
-                <br />
-                It is in-depth performance analytics to analyze every aspect of
-                your trading and help you make targeted adjustments to improve
-                every area of your trading at a minimal cost. If you want
-                complete control over your trading, give this user-friendly app
-                a shot for free by clicking the link below.
-                <br />
-                It is a comprehensive solution to meet the needs of modern
-                traders.
-              </p>
-              <div className="sign-up-container">
-                <Button variant="primary" size="lg" pb={10} pt={10}>
+                trading details like the back of their hand. It is in-depth
+                performance analytics to analyze every aspect of your trading
+                and help you make targeted adjustments to improve every area of
+                your trading at a minimal cost. If you want complete control
+                over your trading, give this user-friendly app a shot for free
+                by clicking the link below. It is a comprehensive solution to
+                meet the needs of modern traders.
+              </div>
+
+              <div class="pt-5">
+                <button type="button" class="btn button-all ">
                   Yes, I want to Sign up for free
-                </Button>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* premium-feature */}
-      <div class="premium-features">
-        <div class="newContainer premiumcontainer">
-          <h2 class="premium-features-heading">
-            Journal my trade Core Premium features
-            <br /> that can be game-changers for your <br />
-            trade.
-          </h2>
-          <div class="cards-container">
-            <div class="card-minimal">
-              <img
-                class="premium-feature-icon"
-                src={homelogo}
-                alt="Trading History"
-              />
-              <div class="premium-feature-text-container">
-                <h3 class="premium-feature-heading">Trading History</h3>
-                <p class="premium-feature-description">
-                  Log, track, and analyze trades for various assets using
-                  filtering and sorting functions.
-                </p>
-              </div>
-            </div>
-            <div class="card-minimal">
-              <img
-                class="premium-feature-icon"
-                src={homelogo2}
-                alt="Market data"
-              />
-              <div class="premium-feature-text-container">
-                <h3 class="premium-feature-heading">Market data</h3>
-                <p class="premium-feature-description">
-                  Access real-time and historical market data, news, and
-                  insights.
-                </p>
-              </div>
-            </div>
-            <div class="card-minimal">
-              <img
-                class="premium-feature-icon"
-                src={homelogo3}
-                alt="Position Sizing"
-              />
-              <div class="premium-feature-text-container">
-                <h3 class="premium-feature-heading">Position Sizing</h3>
-                <p class="premium-feature-description">
-                  Use our advanced position sizing calculator to optimize your
-                  trading strategy.
-                </p>
-              </div>
-            </div>
-            <div class="card-minimal">
-              <img
-                class="premium-feature-icon"
-                src={homelogo4}
-                alt="Analytics"
-              />
-              <div class="premium-feature-text-container">
-                <h3 class="premium-feature-heading">Analytics</h3>
-                <p class="premium-feature-description">
-                  Use our metrics to track performance and identify patterns.
-                </p>
-              </div>
-            </div>
-            <p class="premium-features-sign-up-instruction">
-              If you want to take advantage of the premium features, sign up
-              here
-            </p>
-          </div>
 
-          <Button variant="primary" size="lg" pb={10} pt={10}>
-            Yes, I want to Sign up for Premium App
-          </Button>
+      <div class="container py-5">
+        <div class="poppins-bold title pt-5 px-5 text-center">
+          Journal my trade Core Premium features that can be game-changers for
+          your trade.
         </div>
-        {/* descriptive-paragraph */}
-        <div class="descriptive-paragraph">
-          <div class="newContainer">
-            <div class="row">
-              <div class="col-md-9">
-                <p class="description-para">
-                  Are you worried about your investments? Do you think that your
-                  gains are small and losses are big? Do you feel that when
-                  other stocks are going up, your stocks either go down or
-                  stagnate? Do you find yourself repeating your mistakes? Do you
-                  fear loss on your investments? If your reply is "yes" to the
-                  above questions, it means you need some information you
-                  currently don't have. Journalmytrade can help you make
-                  informed decisions, reduce stress, and increase your profits
-                  by helping you avoid mistakes. Journalmytrade, as the name
-                  suggests, helps you log your trading details, analyzes your
-                  data, and gives you an insight into your trading patterns that
-                  are causing loss to you.
-                </p>
-              </div>
-              <div class="col-md-3">
-                <img
-                  src={homeImg4}
-                  alt="Journal my trade"
-                  class="descriptive-paragraph-image"
-                />
+        <div class="row container-fluid py-5 ">
+          <div class="col-12 col-md-6 col-lg-6 pt-5">
+            <div class="card-minimal">
+              <div class="d-flex">
+                <div>
+                  <img
+                    class="premium-feature-icon"
+                    src="https://journalmytrade.com/static/media/homelogo.e01b8d2ee98d4db10433.png"
+                    alt="Trading History"
+                  />
+                </div>
+
+                <div>
+                  <div class="premium-feature-heading">Trading History</div>
+                  <div class="para-text">
+                    Log, track, and analyze trades for various assets using
+                    filtering and sorting functions.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* why-section */}
-        <div class="why-section">
-          <h2 class="why-heading">Why Journal my trade?</h2>
-          <div class="cards-container">
-            <div class="card-minimal card-why">
-              <p class="why-card-paragraph">
-                Journal my trade provides in-depth performance analytics, which
-                analyses every aspect of your trading and helps you make
-                targeted adjustments to improve every area of your trading.
-              </p>
-            </div>
 
-            <div class="card-minimal card-why">
-              <p class="why-card-paragraph">
-                Journal my trade provides in-depth performance analytics, which
-                analyses every aspect of your trading and helps you make
-                targeted adjustments to improve every area of your trading.
-              </p>
-            </div>
+          <div class="col-12 col-md-6 col-lg-6 pt-5">
+            <div class="card-minimal">
+              <div class="d-flex">
+                <div>
+                  <img
+                    class="premium-feature-icon"
+                    src="https://journalmytrade.com/static/media/homelogo2.790c190ba1e27e4aa78d.png"
+                    alt="Market data"
+                  />
+                </div>
 
-            <div class="card-minimal card-why">
-              <p class="why-card-paragraph">
-                Journal my trade provides in-depth performance analytics, which
-                analyses every aspect of your trading and helps you make
-                targeted adjustments to improve every area of your trading.
-              </p>
-            </div>
-
-            <div class="card-minimal card-why">
-              <p class="why-card-paragraph">
-                Journal my trade provides in-depth performance analytics, which
-                analyses every aspect of your trading and helps you make
-                targeted adjustments to improve every area of your trading.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* benefits-section */}
-      <div class="benefitsSection">
-        <div class="benefits-section newContainer">
-          <h2 class="benefits-heading">Benefits of Journal my trade</h2>
-          <div class="newContainer benefintsCont">
-            <div class="col-md-5 benefitsImg">
-              <div class="benefits-img-container">
-                <img
-                  src={homeImg5}
-                  alt="Journal my trade benefits"
-                  class="benefits-tablet"
-                />
+                <div>
+                  <div class="premium-feature-heading">Market data</div>
+                  <div class="para-text">
+                    Access real-time and historical market data, news, and
+                    insights.
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-7 beenfistList">
-              <div class="benefits-text-container">
-                <div class="benefits-list">
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        Rich and consistent data added to the journal provides
-                        rich insights.
-                      </p>
-                    </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card-minimal">
+              <div class="d-flex">
+                <div>
+                  <img
+                    class="premium-feature-icon"
+                    src="https://journalmytrade.com/static/media/homelogo.e01b8d2ee98d4db10433.png"
+                    alt="Trading History"
+                  />
+                </div>
+
+                <div>
+                  <div class="premium-feature-heading">Position Sizing</div>
+                  <div class="para-text">
+                    Use our advanced position sizing calculator to optimize your
+                    trading strategy.
                   </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        Easy to identify market patterns that help you avoid
-                        mistakes.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        Deep analysis of your trading leads to better
-                        decision-making.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        Track your progress to observe your mistakes when
-                        opening or closing a position.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        It helps develop a successful trading strategy.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        Opportunity to try different trading strategies that
-                        help you find the right trading style.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        It enables you to recognize your key strengths and
-                        weaknesses.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        It helps you become more disciplined as a trader.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">It helps you with risk management.</p>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <div>
-                      <img
-                        src={homelogo5}
-                        alt="Benefit"
-                        class="benefit-list-image"
-                      />
-                    </div>
-                    <div>
-                      <p class="benefit">
-                        It allows you to get some insights into your trading
-                        psychology.
-                      </p>
-                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card-minimal">
+              <div class="d-flex">
+                <div>
+                  <img
+                    class="premium-feature-icon"
+                    src="https://journalmytrade.com/static/media/homelogo2.790c190ba1e27e4aa78d.png"
+                    alt="Market data"
+                  />
+                </div>
+
+                <div>
+                  <div class="premium-feature-heading">Analytics</div>
+                  <div class="para-text">
+                    Use our metrics to track performance and identify patterns.
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* revamp-section */}
-      <div class="revamp-section">
-        <div class="newContainer">
-          <h2 class="revamp-heading">
-            Revamp your trading strategy with Journal my trade’s unparalleled
-            trading analysis and insights.
-          </h2>
-          <br></br>{" "}
-          <h4 class="revamp-semi-heading">
-            Improve your investment decisions, avoid mistakes, and get insights
-            to enhance your investment returns and increase your profits.
-          </h4>
-          <br></br>{" "}
-          <p class="revamp-paragraph">
-            Studies show that more than 80% of traders fail and quit trading and
-            investing. The reason why traders fail is that they do not adapt to
-            changing market conditions. It is because they lack access to recent
-            updates and changes in the market condition, whereas the core of
-            winning lies in identifying the strategies that win more money.
-          </p>
+
+        <div class="text-center para-text my-0">
+          If you want to take advantage of the premium features, sign up here
+        </div>
+
+        <div class="pt-5 text-center">
+          <button type="button" class="btn button-all ">
+            Yes, I want to Sign up for Premium App
+          </button>
         </div>
       </div>
-      {/* improvement-tips */}
 
-      <div className="improvement-tips">
-        <div class="newContainer">
-          <div class="row">
-            <div class="col-md-6">
-              <div className="improvement-tips-text-container">
-                <div className="improvement-tip">
-                  <h2 className="improvement-tip-heading">
+      <div class="bg-blue">
+        <div class="container">
+          <div class="row py-5">
+            <div class="col-12 col-md-12 col-lg-6 py-5 ps-5 mob-ps-5">
+              <div class="para-text">
+                Are you worried about your investments? Do you think that your
+                gains are small and losses are big? Do you feel that when other
+                stocks are going up, your stocks either go down or stagnate? Do
+                you find yourself repeating your mistakes? Do you fear loss on
+                your investments? If your reply is "yes" to the above questions,
+                it means you need some information you currently don't have.
+                Journalmytrade can help you make informed decisions, reduce
+                stress, and increase your profits by helping you avoid mistakes.
+                Journalmytrade, as the name suggests, helps you log your trading
+                details, analyzes your data, and gives you an insight into your
+                trading patterns that are causing loss to you.
+              </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-6 text-center py-5">
+              <img
+                class="w-100 pt-5"
+                src="https://journalmytrade.com/static/media/homeImg4.b05ffb4701aafcffbbb8.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container py-5">
+        <div class="poppins-bold title pt-5 px-5 text-center">
+          Why Journal my trade?
+        </div>
+        <div class="row container-fluid py-5">
+          <div class="col-12 col-md-6 col-lg-6 pt-5">
+            <div class="card-minimal border-left-style">
+              <div>
+                <div class="para-text">
+                  Journal my trade provides in-depth performance analytics,
+                  which analyses every aspect of your trading and helps you make
+                  targeted adjustments to improve every area of your trading.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6 pt-5">
+            <div class="card-minimal border-left-style">
+              <div>
+                <div class="para-text">
+                  Journal my trade provides in-depth performance analytics,
+                  which analyses every aspect of your trading and helps you make
+                  targeted adjustments to improve every area of your trading.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card-minimal border-left-style">
+              <div>
+                <div class="para-text">
+                  Journal my trade provides in-depth performance analytics,
+                  which analyses every aspect of your trading and helps you make
+                  targeted adjustments to improve every area of your trading.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="card-minimal border-left-style">
+              <div>
+                <div class="para-text">
+                  Journal my trade provides in-depth performance analytics,
+                  which analyses every aspect of your trading and helps you make
+                  targeted adjustments to improve every area of your trading.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray">
+        <div class="container ">
+          <div class="poppins-bold title pt-5 px-5 text-center">
+            Why Journal my trade?
+          </div>
+
+          <div class="row py-5">
+            <div class="col-12 col-md-12 col-lg-6 text-center py-5">
+              <img
+                class="w-100 pt-5 mt-5"
+                src="https://journalmytrade.com/static/media/homeImg5.0f0375f11a1b6615e458.png"
+              />
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-6 py-5 ps-5 mob-ps-5">
+              <ul class="list-view">
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="./list-icon.png" />
+                    </div>
+                    <div>
+                      Rich and consistent data added to the journal provides
+                      rich insights.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="./list-icon.png" />
+                    </div>
+                    <div>
+                      Easy to identify market patterns that help you avoid
+                      mistakes.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      Deep analysis of your trading leads to better
+                      decision-making.
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      Track your progress to observe your mistakes when opening
+                      or closing a position.
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      Track your progress to observe your mistakes when opening
+                      or closing a position.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>It helps develop a successful trading strategy.</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      Opportunity to try different trading strategies that help
+                      you find the right trading style.
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      It enables you to recognize your key strengths and
+                      weaknesses.
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>It helps you become more disciplined as a trader.</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>It helps you with risk management.</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex">
+                    <div>
+                      <img class="list-icon" src="list-icon.png" />
+                    </div>
+                    <div>
+                      It allows you to get some insights into your trading
+                      psychology.
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container py-5">
+        <div class="poppins-bold title pt-5 px-5 text-center">
+          Revamp your trading strategy with Journal my trade’s unparalleled
+          trading analysis and insights.
+        </div>
+
+        <div class="text-center para-text px-5 poppins-semibold">
+          Improve your investment decisions, avoid mistakes, and get insights to
+          enhance your investment returns and increase your profits.
+        </div>
+
+        <div class="para-text text-center">
+          Studies show that more than 80% of traders fail and quit trading and
+          investing. The reason why traders fail is that they do not adapt to
+          changing market conditions. It is because they lack access to recent
+          updates and changes in the market condition, whereas the core of
+          winning lies in identifying the strategies that win more money.
+        </div>
+      </div>
+
+      <div class="bg-gray">
+        <div class="container ">
+          <div class="row py-5">
+            <div class="col-12 col-md-12 col-lg-7  py-5">
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="poppins-bold text-title">
                     How to master long-term profitability?
-                  </h2>
-                  <p className="improvement-tip-paragraph">
+                  </div>
+
+                  <div class="para-text">
                     If you want to master long-term profitability, you need two
                     kinds of skills. The first skill set is about identifying
                     strategies that make you more money than you lose and making
                     these strategies a part of your trading plan. The second
                     skill set is that your strategies should perform well, no
                     matter if the market is bullish or bearish.
-                  </p>
+                  </div>
                 </div>
-                <br />
-                <div className="improvement-tip">
-                  <h2 className="improvement-tip-heading">
+
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="poppins-bold text-title">
                     That is where Journal my trade comes into the picture.
-                  </h2>
-                  <p className="improvement-tip-paragraph">
+                  </div>
+
+                  <div class="para-text">
                     Journal my trade helps you get all the latest updates about
                     market developments and enables you to develop strategies
-                    that make you a straight and sure-shot winner.
-                    <br />
-                    So do you want to break away from the rest and join the
-                    professional minority with a system that enables you to have
-                    long-term prosperity?
-                    <br />
-                    The second skill set is that your strategies should perform
-                    well, no matter if the market is bullish or bearish.
-                    <br />
-                    <br />
-                    <p className="improvementbottomText">
-                      Are you ready to be a winner at your investment game?
-                    </p>
-                    <br />
-                    Start with our free Journalmytrade online app
-                  </p>
-                  <div className="sign-up-container improvement-tips-sign-up">
-                    <button className="home-button home-sign-up-button">
-                      Yes, I want to Sign up for free
-                    </button>
+                    that make you a straight and sure-shot winner. So do you
+                    want to break away from the rest and join the professional
+                    minority with a system that enables you to have long-term
+                    prosperity? The second skill set is that your strategies
+                    should perform well, no matter if the market is bullish or
+                    bearish.
                   </div>
+                </div>
+
+                <div class="col-12 col-md-12 col-lg-12 text-center">
+                  <div class="poppins-medium text-title">
+                    Are you ready to be a winner at your investment game?
+                  </div>
+
+                  <div class="para-text text-center">
+                    Start with our free Journalmytrade online app
+                  </div>
+
+                  <button type="button" class="btn button-all ">
+                    Yes, I want to Sign up for free
+                  </button>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-12 col-md-12 col-lg-5 py-5 ps-5 mob-ps-5">
               <img
-                src={homeImg6}
-                alt="Improvement Tip"
-                className="improvement-tips-image"
+                class="w-100 pt-5 "
+                src="https://journalmytrade.com/static/media/homeImg6.da442518d4dc1732ffbd.png"
               />
             </div>
           </div>
-        </div>
-      </div>
-      {/* pre-footer   */}
-      <div className="pre-footer">
-        <h2 className="pre-footer-heading">
-          A chance to elevate your investment game
-        </h2>
-        <p className="pre-footer-paragraph">
-          We sincerely hope that you will sign up for the free Journalmytrade
-          online app today so that we can help you elevate your investment right
-          away.
-        </p>
-        <div className="sign-up-container pre-footer-sign-up">
-          <button className="home-button home-sign-up-button pre-footer-sign-up-button">
-            Sign Yes, I want to Sign up for free
-          </button>
         </div>
       </div>
     </div>

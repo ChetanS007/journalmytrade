@@ -23,6 +23,7 @@ import { useForm } from "@mantine/form";
 import { GoogleButton } from "../components/GoogleButton";
 import { useMediaQuery } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const InputfieldContainer = React.memo(({ children, isMobileDevice }) => {
   return isMobileDevice ? (
@@ -81,10 +82,10 @@ function SignUp({ isOpen = true, onClose, openSignInModal }) {
       if (res.Message === "User Register Successfully") {
         onClose();
       } else {
-        alert(res.Message);
+        toast.error(res.Message);
       }
     } else {
-      alert("Please agree terms and condition");
+      toast.error("Please agree terms and condition");
     }
   };
   const isMobileDevice = useMediaQuery(`(max-width:576px)`); // Adjust the media query as needed
