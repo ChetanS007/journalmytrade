@@ -80,7 +80,7 @@ class UserList(APIView):
                     serializer.save()
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -131,7 +131,7 @@ class RegisterUser(APIView):
                 
                 return Response({"Message":"User Register Successfully" ,"user":serializer_obj.data,},status=status.HTTP_200_OK)
 
-            return Response( {'error':''.join([f"{''.join(errors)}" for field, errors in serializer_obj.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
+            return Response( {'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer_obj.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
         
 
         except Exception as e:
@@ -201,7 +201,7 @@ class UserLoginView(APIView):
                         return Response( {"Message":"Login Successfully", 'access_token': access_token,
                                           'refresh_token': refresh_token,},status=status.HTTP_200_OK)
 
-                return Response( {'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
+                return Response( {'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
 
             except Exception as e:
                  print(e)
@@ -256,7 +256,7 @@ class AccountsView(APIView):
             return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
 
-            return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
 
     
     def put(self, request,pk,*args,**kwargs):
@@ -273,7 +273,7 @@ class AccountsView(APIView):
             serializer.save()
             return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
     
-        return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request,pk,*args,**kwargs):
 
@@ -301,10 +301,10 @@ class AccountsView(APIView):
 
                 return Response({"Message":"Account Created Successfull"},status=status.HTTP_201_CREATED)
 
-            return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
 
-            Response ({'error':''.join([f"{''.join(errors)}" for  errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            Response ({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
    
 
@@ -366,7 +366,7 @@ class TransactionView(APIView):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
         
-            return Response({'error':''.join([f"{field}:{''.join(errors)}" for field, errors in serializer.errors.items()]) }, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
 
 
     def delete(self, request,pk,*args,**kwargs):
@@ -414,9 +414,9 @@ class TransactionView(APIView):
 
                 return  Response({"Message":"Transaction Done Successfully","data":serializer.data},status=status.HTTP_200_OK)
             
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
     
     
 
@@ -481,7 +481,7 @@ class TradeView(APIView):
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
                 logger.warning(f"Invalid data for updating trade with ID {pk}.")
-                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  logger.exception("An error occurred in the 'put' method.")
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -548,10 +548,10 @@ class TradeView(APIView):
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
             logger.error(f"Invalid data for creating a new trade: {serializer.errors}")
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.exception("An error occurred in the 'post' method.")
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field}{''.join(map(str,errors) )}" for field,  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -612,7 +612,7 @@ class TradeLabelView(APIView):
                     serializer.save()
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -648,7 +648,7 @@ class TradeLabelView(APIView):
 
                 return  Response({"Message":"TradeLabel Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{field} {''.join(map(str,errors))}" for field, errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
