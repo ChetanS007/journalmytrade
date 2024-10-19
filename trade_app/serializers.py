@@ -49,8 +49,9 @@ class TradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AddTrade
+        # fields = ['account','symbol','segment','qty','trade_type','teadeside','brokrage_tax','profit_n_loss',
+        #           'trade_notes','gross_profit_loss','net_profit_loss','return_percentage','date']
         fields = '__all__'
-
 
 
 class TradeLabelSerializer(serializers.ModelSerializer):

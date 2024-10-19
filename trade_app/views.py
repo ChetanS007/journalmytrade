@@ -80,7 +80,7 @@ class UserList(APIView):
                     serializer.save()
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -93,7 +93,7 @@ class UserList(APIView):
                         return Response({"detail": "Resource not found."},
                                         status=status.HTTP_404_NOT_FOUND)
 
-            print("user_instance",user_instance.email)
+            
             send_email_to_user(request,user_instance.email)
             user_instance.is_active = False
             user_instance.deletion_date = datetime.now()
@@ -131,7 +131,7 @@ class RegisterUser(APIView):
                 
                 return Response({"Message":"User Register Successfully" ,"user":serializer_obj.data,},status=status.HTTP_200_OK)
 
-            return Response( {"Error":serializer_obj.errors} ,status=status.HTTP_400_BAD_REQUEST)
+            return Response( {'error':''.join([f"{''.join(errors)}" for field, errors in serializer_obj.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
         
 
         except Exception as e:
@@ -189,7 +189,7 @@ class UserLoginView(APIView):
                     # user_for_token= User.objects.filter(email=user)
                    
                     if user is None:
-                        return Response( {"Message: Invalid Username And Password"} ,status=status.HTTP_401_UNAUTHORIZED)
+                        return Response( {"Message": "Invalid Username And Password"} ,status=status.HTTP_401_UNAUTHORIZED)
                     
                     else:
                         
@@ -201,7 +201,7 @@ class UserLoginView(APIView):
                         return Response( {"Message":"Login Successfully", 'access_token': access_token,
                                           'refresh_token': refresh_token,},status=status.HTTP_200_OK)
 
-                return Response( {"Message": serializer.errors } ,status=status.HTTP_400_BAD_REQUEST)
+                return Response( {'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])} ,status=status.HTTP_400_BAD_REQUEST)
 
             except Exception as e:
                  print(e)
@@ -248,15 +248,15 @@ class AccountsView(APIView):
                 serializer = AccountSerializer(account_instance)
 
                 return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
-
-            all_account = BrokerageAccount.objects.all()
+            
+            all_account = BrokerageAccount.objects.filter(user=request.user)
 
             serializer = AccountSerializer(all_account,many=True)
 
             return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
 
-            return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
 
     
     def put(self, request,pk,*args,**kwargs):
@@ -273,7 +273,7 @@ class AccountsView(APIView):
             serializer.save()
             return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
     
-        return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request,pk,*args,**kwargs):
 
@@ -301,10 +301,10 @@ class AccountsView(APIView):
 
                 return Response({"Message":"Account Created Successfull"},status=status.HTTP_201_CREATED)
 
-            return Response({"Message":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
 
-            Response ({"Error":serializer_obj.errors},status=status.HTTP_400_BAD_REQUEST)
+            Response ({'error':''.join([f"{''.join(errors)}" for  errors in serializer_obj.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
    
 
@@ -366,7 +366,7 @@ class TransactionView(APIView):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
         
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':''.join([f"{field}:{''.join(errors)}" for field, errors in serializer.errors.items()]) }, status=status.HTTP_400_BAD_REQUEST)
 
 
     def delete(self, request,pk,*args,**kwargs):
@@ -414,9 +414,9 @@ class TransactionView(APIView):
 
                 return  Response({"Message":"Transaction Done Successfully","data":serializer.data},status=status.HTTP_200_OK)
             
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
     
     
 
@@ -451,7 +451,7 @@ class TradeView(APIView):
 
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
-                all_trade = AddTrade.objects.all()
+                all_trade = AddTrade.objects.select_related('account').filter(account__user=request.user)
 
                 serializer = TradeSerializer(all_trade,many=True)
 
@@ -481,7 +481,7 @@ class TradeView(APIView):
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
                 logger.warning(f"Invalid data for updating trade with ID {pk}.")
-                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  logger.exception("An error occurred in the 'put' method.")
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -524,16 +524,18 @@ class TradeView(APIView):
                                              'brokrage_tax':serializer.data['brokrage_tax'],
                                              'tradeside':serializer.data['teadeside'],
                                              'qty':serializer.data['qty']}
-
-                calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
-                logger.info(f"Calculated trade: {calculated_trade}")
+                
                 trade_id = int(serializer.data['id'])
-                
+                if all((gross_net_percentage_data['entry_price'] != 0,gross_net_percentage_data['exit_price'] != 0)):
+                    calculated_trade =calculate_single_trade(request,gross_net_percentage_data)
+                    logger.info(f"Calculated trade: {calculated_trade}")
+                    
+                    
                 
 
-                AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
-                                                                     net_profit_loss=calculated_trade['net_profit_and_loss'],
-                                                                     return_percentage=calculated_trade['return_percentage'])
+                    AddTrade.objects.filter(id=trade_id).update(gross_profit_loss=calculated_trade['gross_profit_n_loss'],
+                                                                        net_profit_loss=calculated_trade['net_profit_and_loss'],
+                                                                        return_percentage=calculated_trade['return_percentage'])
 
                 
                 updated_trade = AddTrade.objects.get(id=trade_id)
@@ -546,10 +548,10 @@ class TradeView(APIView):
                 return  Response({"Message":"Trade Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
             logger.error(f"Invalid data for creating a new trade: {serializer.errors}")
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             logger.exception("An error occurred in the 'post' method.")
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -587,7 +589,7 @@ class TradeLabelView(APIView):
 
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
 
-                all_trade_label = TradeLabel.objects.all()
+                all_trade_label = TradeLabel.objects.select_related('trade')  
 
                 serializer = TradeLabelSerializer(all_trade_label,many=True)
 
@@ -610,7 +612,7 @@ class TradeLabelView(APIView):
                     serializer.save()
                     return Response({"Message":serializer.data}, status=status.HTTP_200_OK)
             
-                return Response({"Error":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                  return Response({"Error":"Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -646,7 +648,7 @@ class TradeLabelView(APIView):
 
                 return  Response({"Message":"TradeLabel Add Successfully","data":serializer.data},status=status.HTTP_201_CREATED)
             
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return  Response({"Error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+            return  Response({'error':''.join([f"{''.join(errors)}" for  errors in serializer.errors.items()])},status=status.HTTP_400_BAD_REQUEST)
 
