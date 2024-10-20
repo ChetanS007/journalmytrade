@@ -13,6 +13,7 @@ import homelogo4 from "./imagesPage/homelogo4.png";
 import homelogo5 from "./imagesPage/homelogo5.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "@mantine/core";
+import listIcon from "./list-icon.png"; // Update the path accordingly
 
 function Home() {
   return (
@@ -285,7 +286,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="./list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Rich and consistent data added to the journal provides
@@ -296,7 +297,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="./list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Easy to identify market patterns that help you avoid
@@ -307,7 +308,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Deep analysis of your trading leads to better
@@ -319,7 +320,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Track your progress to observe your mistakes when opening
@@ -331,7 +332,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Track your progress to observe your mistakes when opening
@@ -342,7 +343,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>It helps develop a successful trading strategy.</div>
                   </div>
@@ -350,7 +351,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       Opportunity to try different trading strategies that help
@@ -362,7 +363,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       It enables you to recognize your key strengths and
@@ -373,7 +374,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>It helps you become more disciplined as a trader.</div>
                   </div>
@@ -381,7 +382,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>It helps you with risk management.</div>
                   </div>
@@ -389,7 +390,7 @@ function Home() {
                 <li>
                   <div class="d-flex">
                     <div>
-                      <img class="list-icon" src="list-icon.png" />
+                      <img class="list-icon" src={listIcon} />
                     </div>
                     <div>
                       It allows you to get some insights into your trading
