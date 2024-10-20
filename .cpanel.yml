@@ -1,4 +1,0 @@
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/gcfqldgy/public_html/
-    - /bin/cp * $DEPLOYPATH
