@@ -133,7 +133,7 @@ class AddTrade(models.Model):
     entry_date = models.DateTimeField(null=True,blank=True)
     exit_price = models.IntegerField(null=True,blank=True,default=0)
     exit_date =  models.DateTimeField(null=True,blank=True)
-    stop_loss = models.IntegerField(blank=True, null=True)
+    stop_loss = models.IntegerField(blank=True, null=True,default=0)
     take_profit = models.IntegerField(blank=True, null=True)
     brokrage_tax = models.IntegerField(null=True,blank=True,default=0)
     profit_n_loss = models.IntegerField(null=True,blank=True,default=0)
