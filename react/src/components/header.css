@@ -341,8 +341,8 @@ textarea {
   margin-left: auto;
 }
 /* Media query for larger displays */
-@media screen and (min-width: 1700px) {
+/* @media screen and (min-width: 1700px) {
   .newContainer {
     max-width: 1200px;
   }
-}
+} */
